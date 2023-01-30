@@ -6,3 +6,5 @@
 !*.*
 # 목적 파일 무시
 *.o
+# Makefile 무시하지 않음
+!Makefile
