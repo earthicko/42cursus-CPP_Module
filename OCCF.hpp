@@ -5,9 +5,9 @@ class OCCF
 {
 	public:
 		OCCF(void);
-		OCCF(const OCCF &occf);
+		OCCF(const OCCF &orig);
 		~OCCF(void);
-		OCCF &operator=(const OCCF &occf);
+		OCCF &operator=(const OCCF &orig);
 };
 
 #endif
