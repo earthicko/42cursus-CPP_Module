@@ -9,9 +9,9 @@
 class PhoneBook
 {
 	public:
-		PhoneBook	(void);
-		~PhoneBook	(void);
-		PhoneBook	(const PhoneBook &phonebook);
+					PhoneBook(void);
+					~PhoneBook(void);
+					PhoneBook(const PhoneBook &phonebook);
 		PhoneBook	&operator=(const PhoneBook &phonebook);
 
 		void		add_contact(Contact &contact);

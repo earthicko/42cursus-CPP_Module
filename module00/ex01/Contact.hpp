@@ -6,9 +6,9 @@
 class Contact
 {
 	public:
-		Contact		(void);
-		~Contact	(void);
-		Contact		(const Contact &contact);
+					Contact(void);
+					~Contact(void);
+					Contact(const Contact &contact);
 		Contact		&operator=(const Contact &contact);
 
 		Contact		(
