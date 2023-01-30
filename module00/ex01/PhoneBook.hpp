@@ -9,19 +9,21 @@
 class PhoneBook
 {
 	public:
-		PhoneBook(void);
-		~PhoneBook(void);
-		PhoneBook(const PhoneBook &phonebook);
-		PhoneBook &operator= (const PhoneBook &phonebook);
+		PhoneBook	(void);
+		~PhoneBook	(void);
+		PhoneBook	(const PhoneBook &phonebook);
+		PhoneBook	&operator=(const PhoneBook &phonebook);
 
-		void	add_contact(Contact &contact);
-		void	print_all_contacts(void);
-		void	print_contact(int index);
+		void		add_contact(Contact &contact);
+		void		print_all_contacts(void) const;
+		void		print_contact(int index) const;
+
 	private:
-		void	print_column(std::string column);
-		int		head;
-		int		tail;
-		Contact	contacts[QUEUE_SIZE];
+		void		print_column(std::string column) const;
+
+		int			head;
+		int			tail;
+		Contact		contacts[QUEUE_SIZE];
 };
 
 #endif

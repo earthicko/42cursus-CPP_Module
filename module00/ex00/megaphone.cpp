@@ -4,6 +4,8 @@
 
 int	main(int argc, char **argv)
 {
+	std::string	word;
+
 	if (argc <= 1)
 	{
 		std::cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *" << std::endl;
@@ -12,7 +14,7 @@ int	main(int argc, char **argv)
 	argv++;
 	while (*argv)
 	{
-		std::string word = *argv;
+		word = *argv;
 		for (std::string::iterator it = word.begin(); it != word.end(); it++)
 			*it = toupper(*it);
 		std::cout << word;

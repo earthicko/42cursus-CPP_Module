@@ -40,7 +40,7 @@ void	PhoneBook::add_contact(Contact &contact)
 	head = (head + 1) % QUEUE_SIZE;
 }
 
-void	PhoneBook::print_column(std::string column)
+void	PhoneBook::print_column(std::string column) const
 {
 	if (column.length() > COLUMN_WIDTH)
 	column = column.substr(0, COLUMN_WIDTH - 1) + ".";
@@ -50,7 +50,7 @@ void	PhoneBook::print_column(std::string column)
 	std::cout << std::resetiosflags(std::ios::adjustfield);
 }
 
-void	PhoneBook::print_all_contacts(void)
+void	PhoneBook::print_all_contacts(void) const
 {
 	for (int i = tail; i != head; i = (i + 1) % QUEUE_SIZE)
 	{
@@ -66,7 +66,7 @@ void	PhoneBook::print_all_contacts(void)
 	}
 }
 
-void	PhoneBook::print_contact(int index)
+void	PhoneBook::print_contact(int index) const
 {
 	int	i_queue;
 	int	i_array;
