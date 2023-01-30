@@ -6,17 +6,15 @@
 class Contact
 {
 	public:
-					Contact(void);
+					Contact(
+						std::string _firstname = "",
+						std::string _lastname = "",
+						std::string _nickname = "",
+						std::string _phonenumber = "",
+						std::string _darkestsecret = "");
 					~Contact(void);
 					Contact(const Contact &contact);
 		Contact		&operator=(const Contact &contact);
-
-		Contact		(
-					std::string _firstname,
-					std::string _lastname,
-					std::string _nickname,
-					std::string _phonenumber,
-					std::string _darkestsecret);
 
 		void		print(void) const;
 

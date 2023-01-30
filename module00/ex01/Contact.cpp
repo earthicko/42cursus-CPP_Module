@@ -2,9 +2,18 @@
 #include <string>
 #include "Contact.hpp"
 
-Contact::Contact(void)
+Contact::Contact(
+			std::string _firstname,
+			std::string _lastname,
+			std::string _nickname,
+			std::string _phonenumber,
+			std::string _darkestsecret)
 {
-	return ;
+	firstname = _firstname;
+	lastname = _lastname;
+	nickname = _nickname;
+	phonenumber = _phonenumber;
+	darkestsecret = _darkestsecret;
 }
 
 Contact::~Contact(void)
@@ -29,20 +38,6 @@ Contact	&Contact::operator= (const Contact &contact)
 	phonenumber = contact.phonenumber;
 	darkestsecret = contact.darkestsecret;
 	return (*this);
-}
-
-Contact::Contact(
-			std::string _firstname,
-			std::string _lastname,
-			std::string _nickname,
-			std::string _phonenumber,
-			std::string _darkestsecret)
-{
-	firstname = _firstname;
-	lastname = _lastname;
-	nickname = _nickname;
-	phonenumber = _phonenumber;
-	darkestsecret = _darkestsecret;
 }
 
 void	Contact::print(void) const

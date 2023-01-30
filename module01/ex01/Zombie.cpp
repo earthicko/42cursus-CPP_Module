@@ -1,11 +1,6 @@
 #include <iostream>
 #include "Zombie.hpp"
 
-Zombie::Zombie(void)
-{
-	name = "";
-}
-
 Zombie::Zombie(const Zombie &zombie)
 {
 	name = zombie.name;

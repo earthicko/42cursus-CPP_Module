@@ -3,7 +3,7 @@
 
 # include "Contact.hpp"
 
-# define QUEUE_SIZE 5
+# define QUEUE_SIZE 9
 # define COLUMN_WIDTH 10
 
 class PhoneBook

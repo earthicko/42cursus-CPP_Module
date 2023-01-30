@@ -11,7 +11,6 @@ void	command_add(PhoneBook &phonebook)
 	std::string	nickname;
 	std::string	phonenumber;
 	std::string	darkestsecret;
-	Contact		newcontact;
 
 	std::cout << "First Name    : ";
 	std::cin >> firstname;
@@ -24,7 +23,7 @@ void	command_add(PhoneBook &phonebook)
 	std::cout << "Darkest Secret: ";
 	std::cin >> darkestsecret;
 
-	newcontact = Contact(
+	Contact	newcontact(
 		firstname,
 		lastname,
 		nickname,
