@@ -1,3 +1,4 @@
+#include <cstdlib>
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -9,6 +10,11 @@ std::string	openFileToString(char *path)
 	std::stringstream	buffer;
 
 	infile.open(path, std::ios::in);
+	if (!infile.good())
+	{
+		std::cout << "Error while opening " << path << std::endl;
+		exit(1);
+	}
 	buffer << infile.rdbuf();
 	infile.close();
 	return buffer.str();
@@ -22,6 +28,11 @@ std::string	replaceOccurence(const std::string &content, char *s1, char *s2)
 	size_t		pos;
 	size_t		start;
 
+	if (strlen(s1) == 0)
+	{
+		std::cout << "Length of s1 cannot be 0" << std::endl;
+		exit(1);
+	}
 	orig = s1;
 	replace = s2;
 	start = 0;
@@ -42,6 +53,11 @@ std::string	replaceOccurence(const std::string &content, char *s1, char *s2)
 void	writeStringToFile(const std::string &path, const std::string &content)
 {
 	std::ofstream out(path, std::ios::out);
+	if (!out.good())
+	{
+		std::cout << "Error while opening " << path << std::endl;
+		exit(1);
+	}
 	out << content;
 	out.close();
 }
