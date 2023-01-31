@@ -1,5 +1,5 @@
 #include <string>
-#include <stdlib.h>
+#include <cstdlib>
 #include "Zombie.hpp"
 #include "ZombieUtils.hpp"
 

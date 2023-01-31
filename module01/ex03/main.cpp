@@ -1,4 +1,4 @@
-#include <stdlib.h>
+#include <cstdlib>
 #include "Weapon.hpp"
 #include "HumanA.hpp"
 #include "HumanB.hpp"
