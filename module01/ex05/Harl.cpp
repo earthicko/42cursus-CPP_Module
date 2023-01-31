@@ -2,7 +2,7 @@
 #include <string>
 #include "Harl.hpp"
 
-void	(Harl::*(Harl::loggers)[4])(void) =
+void	(Harl::*(Harl::loggers)[Harl::nLoggers])(void) =
 {
 	&Harl::debug,
 	&Harl::info,
@@ -10,7 +10,7 @@ void	(Harl::*(Harl::loggers)[4])(void) =
 	&Harl::error
 };
 
-std::string	(Harl::loggernames)[4] =
+std::string	(Harl::loggernames)[Harl::nLoggers] =
 {
 	"DEBUG",
 	"INFO",
@@ -39,15 +39,26 @@ Harl	&Harl::operator=(const Harl &orig)
 
 void	Harl::complain(std::string level)
 {
+	int	idx;
+
+	idx = getLevelIndex(level);
+	if (idx >= 0)
+	{
+		std::cout << "[ " << loggernames[idx] << " ]" << std::endl;
+		(this->*loggers[idx])();
+	}
+	else
+		std::cout << "Unimplemented log level." << std::endl;
+}
+
+int	Harl::getLevelIndex(const std::string &level) const
+{
 	for (int i = 0; i < nLoggers; i++)
 	{
 		if (loggernames[i] == level)
-		{
-			(this->*loggers[i])();
-			return ;
-		}
+			return (i);
 	}
-	std::cout << "Unimplemented log level." << std::endl;
+	return (-1);
 }
 
 void	Harl::debug(void)

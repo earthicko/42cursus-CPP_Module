@@ -18,10 +18,11 @@ class Harl
 		void				info(void);
 		void				warning(void);
 		void				error(void);
+		int					getLevelIndex(const std::string &level) const;
 
 		const static int	nLoggers = 4;
-		static void			(Harl::*loggers[4])(void);
-		static std::string	loggernames[4];
+		static void			(Harl::*loggers[nLoggers])(void);
+		static std::string	loggernames[nLoggers];
 };
 
 #endif
