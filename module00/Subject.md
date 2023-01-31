@@ -1,5 +1,7 @@
 # 모듈 00
 
+Namespaces, classes, member functions, stdio streams, initialization lists, static, const, and some other basic stuff
+
 ## 예제 00
 
 |제출 디렉토리|제출 파일|금지된 함수|
