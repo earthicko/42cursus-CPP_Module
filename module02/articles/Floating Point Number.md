@@ -2,7 +2,7 @@
 
 Numbers are surely the most prevalent kind of data in computer programs. They are so fundamental that people don't spend much time talking about them—surely everybody knows how to use numbers in their programs. Well, one of the wonderful things about programming is that nearly everywhere you look, you find more than meets the eye.
 
-Most programmers have heard or observed one strange thing or another about floating point numbers. For example, we often discover that floating point numbers that look the same do not necessarily satisfy C's "==" test. New programmers are usually taught never to use == for floating point numbers for this reason. Occasionally we run into other exceptional cases, for instance mathematically sound formulae which, when implemented using floating point, produce seemingly random or disappointingly inaccurate results.
+Most programmers have heard or observed one strange thing or another about floating point numbers. For example, we often discover that floating point numbers that look the same do not necessarily satisfy C's "`==`" test. New programmers are usually taught never to use `==` for floating point numbers for this reason. Occasionally we run into other exceptional cases, for instance mathematically sound formulae which, when implemented using floating point, produce seemingly random or disappointingly inaccurate results.
 
 What is going on? In truth there is much that is counterintuitive about floating point numbers, and it helps to know a thing or two if you want to use them productively in your programs.
 
@@ -23,16 +23,19 @@ Floating point representations vary from machine to machine, as I've implied. Fo
 
 An IEEE-754 float (4 bytes) or double (8 bytes) has three components (there is also an analogous 96-bit extended-precision format under IEEE-854): a sign bit telling whether the number is positive or negative, an exponent giving its order of magnitude, and a mantissa specifying the actual digits of the number. Using single-precision floats as an example, here is the bit layout:
 
+```
  seeeeeeeemmmmmmmmmmmmmmmmmmmmmmm    meaning
 31                              0    bit #
 
 s = sign bit, e = exponent, m = mantissa
+```
+
 The value of the number is the mantissa times 2^x, where x is the exponent. Notice that we are dealing with binary fractions, so that 0.1 (the leftmost mantissa bit) means 1/2 (the place values to the right of the decimal point are 2^-1, 2^-2, etc., just as we have 10^-1, 10^-2, etc. in decimal).
 Notice further that there's a potential problem with storing both a mantissa and an exponent: 2x10^-1 = 0.2x10^0 = 0.02x10^1 and so on. This would correspond to lots of different bit patterns representing the same quantity, which would be a huge waste (it would probably also make it harder and slower to implement math operations in hardware). This problem is circumvented by interpreting the whole mantissa as being to the right of the decimal point, with an implied "1" always present to the left of the decimal. I'll refer to this as a "1.m" representation. "But wait!" you cry. "What if I don't want a 1 there?" Think of it is as follows: imagine writing a real number in binary. Unless it's zero, it's gotta have a 1 somewhere. Shift your decimal point to just after the first 1, then don't bother to store that 1 since we know it's always implied to be there. Now all you have to do is set the exponent correctly to reproduce the original quantity.
 
 But what if the number is zero? The good people at the IEEE standards committee solve this by making zero a special case: if every bit is zero (the sign bit being irrelevant), then the number is considered zero.
 
-Oh dear. Take a moment to think about that last sentence. Now it would seem we have no way to represent humble 1.0, which would have to be 1.0x2^0 (an exponent of zero, times the implied one)! The way out of this is that the interpretation of the exponent bits is not straightforward either. The exponent of a single-precision float is "shift-127" encoded, meaning that the actual exponent is eeeeeeee minus 127. So thankfully, we can get an exponent of zero by storing 127 (0x7f). Of course simply shifting the range of the exponent is not a panacea; something still has to give somewhere. We yield instead at the low extreme of the spectrum of representable magnitudes, which should be 2^-127. Due to shift-127, the lowest possible exponent is actually -126 (1 - 127). It seems wise, to me, to give up the smallest exponent instead of giving up the ability to represent 1 or zero!
+Oh dear. Take a moment to think about that last sentence. Now it would seem we have no way to represent humble 1.0, which would have to be 1.0x2^0 (an exponent of zero, times the implied one)! The way out of this is that the interpretation of the exponent bits is not straightforward either. The exponent of a single-precision float is "shift-127" encoded, meaning that the actual exponent is eeeeeeee minus 127. So thankfully, we can get an exponent of zero by storing 127 (`0x7f`). Of course simply shifting the range of the exponent is not a panacea; something still has to give somewhere. We yield instead at the low extreme of the spectrum of representable magnitudes, which should be 2^-127. Due to shift-127, the lowest possible exponent is actually -126 (1 - 127). It seems wise, to me, to give up the smallest exponent instead of giving up the ability to represent 1 or zero!
 
 Zero is not the only "special case" float. There are also representations for positive and negative infinity, and for a not-a-number (NaN) value, for results that do not make sense (for example, non-real numbers, or the result of an operation like infinity times zero). How do these work? A number is infinite if every bit of the exponent is set (yep, we lose another one), and is NaN if every bit of the exponent is set plus any mantissa bits are set. The sign bit still distinguishes +/-inf and +/-NaN.
 
