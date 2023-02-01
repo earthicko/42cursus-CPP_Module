@@ -43,7 +43,7 @@ void	PhoneBook::add_contact(Contact &contact)
 void	PhoneBook::print_column(std::string column) const
 {
 	if (column.length() > COLUMN_WIDTH)
-	column = column.substr(0, COLUMN_WIDTH - 1) + ".";
+		column = column.substr(0, COLUMN_WIDTH - 1) + ".";
 	std::cout << std::setw(COLUMN_WIDTH) << std::right;
 	std::cout << column;
 	std::cout << std::resetiosflags(std::ios::right);
