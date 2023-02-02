@@ -1,9 +1,18 @@
-// #include <limits> 사용법 공부하기
+#include <cstdlib>
+#include <cstdio>
 #include <limits.h>
 #include <iostream>
 #include <iomanip>
 #include <string>
 #include "bitUtils.hpp"
+
+std::string	int_to_string(int num)
+{
+	char buffer[32];
+
+	snprintf(buffer, 32, "%d", num);
+	return buffer;
+}
 
 // little -> true
 // big -> false
@@ -54,33 +63,33 @@ static void	_printBits(unsigned char val)
 
 	if (nBits == 0)
 		nBits = getNbits();
-	divider = UCHAR_MAX;
+	divider = (1 << (nBits - 1));
 	for (int i = 0; i < nBits; i++)
 	{
 		std::cout << COLUMN_DIVIDER;
-		printColumn(std::to_string(val / divider));
+		printColumn(int_to_string(val / divider));
 		val = val % divider;
 		divider /= 2;
 	}
 }
 
-static void	printBits(unsigned char val)
+void	printBits(unsigned char val)
 {
 	_printBits(val);
 	std::cout << COLUMN_DIVIDER << std::endl;
 }
 
-static void	printBits(int val)
+void	printBits(int val)
 {
 	if (isLittleEndian())
 	{
 		for (int i = (int)sizeof(int) - 1; i >= 0; i--)
-			printBits(getNthByteFrom(&val, i));
+			_printBits(getNthByteFrom(&val, i));
 	}
 	else
 	{
 		for (int i = 0; i < (int)sizeof(int); i++)
-			printBits(getNthByteFrom(&val, i));
+			_printBits(getNthByteFrom(&val, i));
 	}
 	std::cout << COLUMN_DIVIDER << std::endl;
 }
@@ -90,7 +99,7 @@ static void	printRange(int s, int e)
 	for (int i = s; i < e; i++)
 	{
 		std::cout << COLUMN_DIVIDER;
-		printColumn(std::to_string(i));
+		printColumn(int_to_string(i));
 	}
 	std::cout << COLUMN_DIVIDER << std::endl;
 }
