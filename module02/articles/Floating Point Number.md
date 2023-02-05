@@ -47,8 +47,10 @@ To review, here are some sample floating point representations:
 0.5    0x3f000000
 3      0x40400000
 +inf   0x7f800000
+        0111 1111 1000 0000 ...
 -inf   0xff800000
 +NaN   0x7fc00000 or 0x7ff00000
+        0111 1111 1100 0000 ...
 
 in general: number = (sign ? -1:1) * 2^(exponent) * 1.(mantissa bits)
 ```
@@ -65,6 +67,7 @@ As a programmer, it is important to know certain characteristics of your FP repr
 |Epsilon(**)	|1.1929093e-7	|2.220446049250313e-16|
 
 Note that all numbers in the text of this article assume single-precision floats; doubles are included above for comparison and reference purposes.
+
 (*)
 Just to make life interesting, here we have yet another special case. It turns out that if you set the exponent bits to zero, you can represent numbers other than zero by setting mantissa bits. As long as we have an implied leading 1, the smallest number we can get is clearly 2^-126, so to get these lower values we make an exception. The "1.m" interpretation disappears, and the number's magnitude is determined only by bit positions; if you shift the mantissa to the right, the apparent exponent will change (try it!). It may help clarify matters to point out that 1.401298464e-45 = 2^(-126-23), in other words the smallest exponent minus the number of mantissa bits.
 
