@@ -19,11 +19,17 @@ class Fixed
 		float				toFloat(void) const;
 		int					toInt(void) const;
 
-		std::ostream		&operator<<(const Fixed &orig);
+		std::ostream		&operator<<(const Fixed &orig) const;
 
 	private:
 		int					_bits;
 		const static int	_nfracts;
+		const static int	_subnormalOffset;
+		const static int	_nBitsPerByte;
+
+		int					toFloatGetExp(int val) const;
+		int					toFloatSetExp(int idxFirstBit, int *bitrepr) const;
+		void				toFloatSetSubnormalMantissa(int val, int *bitrepr) const;
 };
 
 #endif

@@ -5,6 +5,7 @@
 #include <iomanip>
 #include <string>
 #include "bitUtils.hpp"
+#include "sizedef.h"
 
 std::string	int_to_string(int num)
 {
@@ -14,36 +15,20 @@ std::string	int_to_string(int num)
 	return buffer;
 }
 
-// little -> true
-// big -> false
-static bool	isLittleEndian(void)
-{
-	int	dummy;
-
-	dummy = 1;
-	if (((unsigned char *)(&dummy))[0])
-		return (true);
-	return (false);
-}
-
 static unsigned char	getNthByteFrom(void *ptr, int n)
 {
 	return (((unsigned char *)ptr)[n]);
 }
 
-static int	getNbits(void)
+static int	getNthBitFrom(void *ptr, int n)
 {
-	int				nBits;
-	unsigned char	byte;
-
-	byte = UCHAR_MAX;
-	nBits = 0;
-	while (byte > 0)
-	{
-		byte /= 2;
-		nBits += 1;
-	}
-	return (nBits);
+	int	val;
+	
+	val = *((int *)ptr);
+	if (val & (1 << n))
+		return (1);
+	else
+		return (0);
 }
 
 static void	printColumn(std::string column)
@@ -58,13 +43,10 @@ static void	printColumn(std::string column)
 
 static void	_printBits(unsigned char val)
 {
-	static int		nBits;
 	unsigned char	divider;
 
-	if (nBits == 0)
-		nBits = getNbits();
-	divider = (1 << (nBits - 1));
-	for (int i = 0; i < nBits; i++)
+	divider = (1 << (NBITSPERBYTE - 1));
+	for (int i = 0; i < NBITSPERBYTE; i++)
 	{
 		std::cout << COLUMN_DIVIDER;
 		printColumn(int_to_string(val / divider));
@@ -81,7 +63,7 @@ void	printBits(unsigned char val)
 
 void	printBits(int val)
 {
-	if (isLittleEndian())
+	if (LITTLEENDIAN)
 	{
 		for (int i = (int)sizeof(int) - 1; i >= 0; i--)
 			_printBits(getNthByteFrom(&val, i));
@@ -89,6 +71,21 @@ void	printBits(int val)
 	else
 	{
 		for (int i = 0; i < (int)sizeof(int); i++)
+			_printBits(getNthByteFrom(&val, i));
+	}
+	std::cout << COLUMN_DIVIDER << std::endl;
+}
+
+void	printBits(float val)
+{
+	if (LITTLEENDIAN)
+	{
+		for (int i = (int)sizeof(float) - 1; i >= 0; i--)
+			_printBits(getNthByteFrom(&val, i));
+	}
+	else
+	{
+		for (int i = 0; i < (int)sizeof(float); i++)
 			_printBits(getNthByteFrom(&val, i));
 	}
 	std::cout << COLUMN_DIVIDER << std::endl;
@@ -106,11 +103,35 @@ static void	printRange(int s, int e)
 
 void	prettyPrintBits(int val)
 {
-	static int	nBits;
-
-	if (nBits == 0)
-		nBits = getNbits() * sizeof(int);
 	std::cout << "int " << val << ":" << std::endl;
-	printRange(0, nBits);
+	printRange(0, NBITSPERBYTE * sizeof(int));
 	printBits(val);
+}
+
+void	prettyPrintBits(float val)
+{
+	int			exponent;
+
+	std::cout << "float " << val << ": ";
+	std::cout << "sign " << getNthBitFrom(&val, FLOAT_BITPOS_SIGN);
+	exponent = (*((int *)(&val)) << 1);
+	std::cout << ", exponent 2^" << (int)(getNthByteFrom(&exponent, 3)) - FLOAT_EXP_SHIFT;
+	std::cout << " * 1.";
+	for (int i = FLOAT_BITPOS_EXP - 1; i >= 0; i--)
+		std::cout << getNthBitFrom(&val, i);
+	std::cout << "\n| s |128  64  32  16   8   4   2   1|                                                                                           |\n";
+	printBits(val);
+}
+
+float	composeFloat(int *bits)
+{
+	int		val;
+
+	val = 0;
+	for (int i = 0; i < FLOAT_NBITS; i++)
+	{
+		if (bits[i])
+			val |= (1 << (FLOAT_NBITS - i - 1));
+	}
+	return (*((float *)&val));
 }

@@ -1,0 +1,17 @@
+#ifndef SIZEDEF_H
+# define SIZEDEF_H
+
+# define LITTLEENDIAN 1
+
+# define NBITSPERBYTE 8
+
+# define FLOAT_NBITS 32
+# define FLOAT_BITPOS_SIGN 31
+# define FLOAT_BITPOS_EXP 23
+# define FLOAT_EXP_MAX 0xFF
+# define FLOAT_EXP_SHIFT 0x7F
+# define FLOAT_MANTISSA_MASK 0x7FFFFF
+
+# define INT_NBITS 32
+
+#endif
