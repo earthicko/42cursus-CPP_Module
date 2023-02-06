@@ -1,4 +1,3 @@
-#include <cstdlib>
 #include <iostream>
 #include <sstream>
 #include "Contact.hpp"
@@ -69,6 +68,5 @@ int	main(void)
 		else
 			std::cout << "Command not found." << std::endl;
 	}
-	system("leaks anycall");
 	return (0);
 }
