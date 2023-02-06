@@ -63,15 +63,15 @@ void	PhoneBook::printAllContacts(void) const
 {
 	for (int i = tail; i != head; i = (i + 1) % QUEUE_SIZE)
 	{
-		std::cout << "|";
-		print_column(intToString((i - tail + QUEUE_SIZE) % QUEUE_SIZE));
-		std::cout << "|";
-		print_column(contacts[i].firstname);
-		std::cout << "|";
-		print_column(contacts[i].lastname);
-		std::cout << "|";
-		print_column(contacts[i].nickname);
-		std::cout << "|" << std::endl;
+		std::cout << COLUMN_DIVIDER;
+		printColumn(intToString((i - tail + QUEUE_SIZE) % QUEUE_SIZE));
+		std::cout << COLUMN_DIVIDER;
+		printColumn(contacts[i].firstname);
+		std::cout << COLUMN_DIVIDER;
+		printColumn(contacts[i].lastname);
+		std::cout << COLUMN_DIVIDER;
+		printColumn(contacts[i].nickname);
+		std::cout << COLUMN_DIVIDER << std::endl;
 	}
 }
 

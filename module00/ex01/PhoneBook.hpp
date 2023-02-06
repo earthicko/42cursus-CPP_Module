@@ -5,6 +5,7 @@
 
 # define QUEUE_SIZE 9
 # define COLUMN_WIDTH 10
+# define COLUMN_DIVIDER "|"
 
 class PhoneBook
 {
