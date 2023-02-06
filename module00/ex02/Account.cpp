@@ -140,6 +140,6 @@ void	Account::_displayTimestamp(void)
 
 	now = time(NULL);
 	tstruct = localtime(&now);
-	strftime(buf, sizeof(buf), "[%Y%m%d_%H%m%s] ", tstruct);
+	strftime(buf, sizeof(buf), "[%Y%m%d_%H%M%S] ", tstruct);
 	std::cout << buf;
 }
