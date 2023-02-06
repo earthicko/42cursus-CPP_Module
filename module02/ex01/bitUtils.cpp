@@ -2,17 +2,18 @@
 #include <cstdio>
 #include <limits.h>
 #include <iostream>
+#include <sstream>
 #include <iomanip>
 #include <string>
 #include "bitUtils.hpp"
 #include "sizedef.h"
 
-std::string	int_to_string(int num)
+static std::string	intToString(int val)
 {
-	char buffer[32];
+	std::ostringstream	strm;
 
-	snprintf(buffer, 32, "%d", num);
-	return buffer;
+	strm << val;
+	return strm.str();
 }
 
 static unsigned char	getNthByteFrom(void *ptr, int n)
@@ -49,7 +50,7 @@ static void	_printBits(unsigned char val)
 	for (int i = 0; i < NBITSPERBYTE; i++)
 	{
 		std::cout << COLUMN_DIVIDER;
-		printColumn(int_to_string(val / divider));
+		printColumn(intToString(val / divider));
 		val = val % divider;
 		divider /= 2;
 	}
@@ -96,7 +97,7 @@ static void	printRange(int s, int e)
 	for (int i = s; i < e; i++)
 	{
 		std::cout << COLUMN_DIVIDER;
-		printColumn(int_to_string(i));
+		printColumn(intToString(i));
 	}
 	std::cout << COLUMN_DIVIDER << std::endl;
 }

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 #include <iomanip>
 #include <string>
 #include "Contact.hpp"
@@ -50,12 +51,20 @@ void	PhoneBook::print_column(std::string column) const
 	std::cout << std::resetiosflags(std::ios::adjustfield);
 }
 
+static std::string	intToString(int val)
+{
+	std::ostringstream	strm;
+
+	strm << val;
+	return strm.str();
+}
+
 void	PhoneBook::print_all_contacts(void) const
 {
 	for (int i = tail; i != head; i = (i + 1) % QUEUE_SIZE)
 	{
 		std::cout << "|";
-		print_column(std::to_string((i - tail + QUEUE_SIZE) % QUEUE_SIZE));
+		print_column(intToString((i - tail + QUEUE_SIZE) % QUEUE_SIZE));
 		std::cout << "|";
 		print_column(contacts[i].firstname);
 		std::cout << "|";

@@ -1,4 +1,5 @@
 #include <cstdlib>
+#include <cstring>
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -52,7 +53,7 @@ std::string	replaceOccurence(const std::string &content, char *s1, char *s2)
 
 void	writeStringToFile(const std::string &path, const std::string &content)
 {
-	std::ofstream out(path, std::ios::out);
+	std::ofstream out(path.c_str(), std::ios::out);
 	if (!out.good())
 	{
 		std::cout << "Error while opening " << path << std::endl;
