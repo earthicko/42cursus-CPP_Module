@@ -1,4 +1,3 @@
-#include <cstdlib>
 #include "Weapon.hpp"
 #include "HumanA.hpp"
 #include "HumanB.hpp"
@@ -21,6 +20,5 @@ int main(void)
 		club.setType("some other type of club");
 		jim.attack();
 	}
-	system("leaks ex03");
 	return (0);
 }

@@ -1,13 +1,13 @@
 #include "Weapon.hpp"
 
-Weapon::Weapon(void)
+Weapon::Weapon(void):
+	type("")
 {
-	type = "";
 }
 
-Weapon::Weapon(const Weapon &weapon)
+Weapon::Weapon(const Weapon &weapon):
+	type(weapon.type)
 {
-	type = weapon.type;
 }
 
 Weapon::~Weapon(void)
@@ -21,9 +21,9 @@ Weapon	&Weapon::operator=(const Weapon &weapon)
 	return (*this);
 }
 
-Weapon::Weapon(std::string newType)
+Weapon::Weapon(std::string newType):
+	type(newType)
 {
-	type = newType;
 }
 
 const std::string	&Weapon::getType(void)

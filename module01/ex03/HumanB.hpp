@@ -3,6 +3,7 @@
 
 # include <string>
 # include "Weapon.hpp"
+
 class HumanB
 {
 	public:
