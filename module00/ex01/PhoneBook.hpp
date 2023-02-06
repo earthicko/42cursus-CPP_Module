@@ -3,7 +3,7 @@
 
 # include "Contact.hpp"
 
-# define QUEUE_SIZE 4
+# define QUEUE_SIZE 8
 # define COLUMN_WIDTH 10
 # define COLUMN_DIVIDER "|"
 
