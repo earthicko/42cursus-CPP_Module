@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include "Zombie.hpp"
 
 Zombie::Zombie(const Zombie &zombie)

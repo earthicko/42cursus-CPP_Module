@@ -6,12 +6,12 @@
 class Zombie
 {
 	public:
-					Zombie(std::string newName = "");
-					Zombie(const Zombie &zombie);
-					~Zombie(void);
-		Zombie		&operator=(const Zombie &zombie);
+				Zombie(std::string newName = "");
+				Zombie(const Zombie &zombie);
+				~Zombie(void);
+		Zombie	&operator=(const Zombie &zombie);
 
-		void		announce(void);
+		void	announce(void);
 
 	private:
 		std::string	name;
