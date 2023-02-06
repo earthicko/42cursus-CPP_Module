@@ -3,7 +3,7 @@
 
 # include "Contact.hpp"
 
-# define QUEUE_SIZE 9
+# define QUEUE_SIZE 4
 # define COLUMN_WIDTH 10
 # define COLUMN_DIVIDER "|"
 
@@ -23,7 +23,7 @@ class PhoneBook
 		void		printColumn(std::string column) const;
 
 		int			head;
-		int			tail;
+		int			nContacts;
 		Contact		contacts[QUEUE_SIZE];
 };
 

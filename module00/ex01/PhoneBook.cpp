@@ -8,7 +8,9 @@
 PhoneBook::PhoneBook(void)
 {
 	head = 0;
-	tail = 0;
+	nContacts = 0;
+	for (int i = 0; i < QUEUE_SIZE; i++)
+		contacts[i] = Contact();
 }
 
 PhoneBook::~PhoneBook(void)
@@ -19,7 +21,7 @@ PhoneBook::~PhoneBook(void)
 PhoneBook::PhoneBook(const PhoneBook &phonebook)
 {
 	head = phonebook.head;
-	tail = phonebook.tail;
+	nContacts = phonebook.nContacts;
 	for (int i = 0; i < QUEUE_SIZE; i++)
 		contacts[i] = phonebook.contacts[i];
 }
@@ -27,7 +29,7 @@ PhoneBook::PhoneBook(const PhoneBook &phonebook)
 PhoneBook	&PhoneBook::operator= (const PhoneBook &phonebook)
 {
 	head = phonebook.head;
-	tail = phonebook.tail;
+	nContacts = phonebook.nContacts;
 	for (int i = 0; i < QUEUE_SIZE; i++)
 		contacts[i] = phonebook.contacts[i];
 	return (*this);
@@ -35,10 +37,11 @@ PhoneBook	&PhoneBook::operator= (const PhoneBook &phonebook)
 
 void	PhoneBook::addContact(Contact &contact)
 {
-	if ((head + 1) % QUEUE_SIZE == tail)
-		tail = (tail + 1) % QUEUE_SIZE;
-	contacts[head] = contact;
-	head = (head + 1) % QUEUE_SIZE;
+	contacts[(head + nContacts) % QUEUE_SIZE] = contact;
+	if (nContacts < QUEUE_SIZE)
+		nContacts++;
+	else
+		head = (head + 1) % QUEUE_SIZE;
 }
 
 void	PhoneBook::printColumn(std::string column) const
@@ -61,36 +64,24 @@ static std::string	intToString(int val)
 
 void	PhoneBook::printAllContacts(void) const
 {
-	for (int i = tail; i != head; i = (i + 1) % QUEUE_SIZE)
+	for (int i = 0; i < nContacts; i++)
 	{
 		std::cout << COLUMN_DIVIDER;
-		printColumn(intToString((i - tail + QUEUE_SIZE) % QUEUE_SIZE));
+		printColumn(intToString(i));
 		std::cout << COLUMN_DIVIDER;
-		printColumn(contacts[i].firstname);
+		printColumn(contacts[(head + i) % QUEUE_SIZE].firstname);
 		std::cout << COLUMN_DIVIDER;
-		printColumn(contacts[i].lastname);
+		printColumn(contacts[(head + i) % QUEUE_SIZE].lastname);
 		std::cout << COLUMN_DIVIDER;
-		printColumn(contacts[i].nickname);
+		printColumn(contacts[(head + i) % QUEUE_SIZE].nickname);
 		std::cout << COLUMN_DIVIDER << std::endl;
 	}
 }
 
 void	PhoneBook::printContact(int index) const
 {
-	int	i_queue;
-	int	i_array;
-
-	i_queue = tail;
-	i_array = 0;
-	while (i_queue != head)
-	{
-		if (i_array == index)
-		{
-			contacts[i_queue].print();
-			return ;
-		}
-		i_queue = (i_queue + 1) % QUEUE_SIZE;
-		i_array++;
-	}
-	std::cout << "Index out of bound." << std::endl;
+	if (0 <= index && index < nContacts)
+		contacts[(head + index) % QUEUE_SIZE].print();
+	else
+		std::cout << "Index out of bound." << std::endl;
 }
