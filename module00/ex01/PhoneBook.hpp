@@ -14,12 +14,12 @@ class PhoneBook
 					PhoneBook(const PhoneBook &phonebook);
 		PhoneBook	&operator=(const PhoneBook &phonebook);
 
-		void		add_contact(Contact &contact);
-		void		print_all_contacts(void) const;
-		void		print_contact(int index) const;
+		void		addContact(Contact &contact);
+		void		printAllContacts(void) const;
+		void		printContact(int index) const;
 
 	private:
-		void		print_column(std::string column) const;
+		void		printColumn(std::string column) const;
 
 		int			head;
 		int			tail;

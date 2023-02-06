@@ -33,7 +33,7 @@ PhoneBook	&PhoneBook::operator= (const PhoneBook &phonebook)
 	return (*this);
 }
 
-void	PhoneBook::add_contact(Contact &contact)
+void	PhoneBook::addContact(Contact &contact)
 {
 	if ((head + 1) % QUEUE_SIZE == tail)
 		tail = (tail + 1) % QUEUE_SIZE;
@@ -41,7 +41,7 @@ void	PhoneBook::add_contact(Contact &contact)
 	head = (head + 1) % QUEUE_SIZE;
 }
 
-void	PhoneBook::print_column(std::string column) const
+void	PhoneBook::printColumn(std::string column) const
 {
 	if (column.length() > COLUMN_WIDTH)
 		column = column.substr(0, COLUMN_WIDTH - 1) + ".";
@@ -59,7 +59,7 @@ static std::string	intToString(int val)
 	return strm.str();
 }
 
-void	PhoneBook::print_all_contacts(void) const
+void	PhoneBook::printAllContacts(void) const
 {
 	for (int i = tail; i != head; i = (i + 1) % QUEUE_SIZE)
 	{
@@ -75,7 +75,7 @@ void	PhoneBook::print_all_contacts(void) const
 	}
 }
 
-void	PhoneBook::print_contact(int index) const
+void	PhoneBook::printContact(int index) const
 {
 	int	i_queue;
 	int	i_array;

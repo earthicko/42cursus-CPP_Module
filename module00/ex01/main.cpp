@@ -4,7 +4,7 @@
 #include "Contact.hpp"
 #include "PhoneBook.hpp"
 
-void	command_add(PhoneBook &phonebook)
+void	commandAdd(PhoneBook &phonebook)
 {
 	std::string	firstname;
 	std::string	lastname;
@@ -29,16 +29,16 @@ void	command_add(PhoneBook &phonebook)
 		nickname,
 		phonenumber,
 		darkestsecret);
-	phonebook.add_contact(newcontact);
+	phonebook.addContact(newcontact);
 }
 
-void	command_search(PhoneBook &phonebook)
+void	commandSearch(PhoneBook &phonebook)
 {
 	std::string			input;
 	std::stringstream	buf;
 	int					index;
 
-	phonebook.print_all_contacts();
+	phonebook.printAllContacts();
 	std::cout << "Index: ";
 	std::cin >> input;
 	buf.str(input);
@@ -48,7 +48,7 @@ void	command_search(PhoneBook &phonebook)
 		std::cout << "Invalid input: " << input << std::endl;
 		return ;
 	}
-	phonebook.print_contact(index);
+	phonebook.printContact(index);
 }
 
 int	main(void)
@@ -61,9 +61,9 @@ int	main(void)
 		std::cout << "Command: ";
 		std::cin >> input;
 		if (input == "ADD")
-			command_add(phonebook);
+			commandAdd(phonebook);
 		else if (input == "SEARCH")
-			command_search(phonebook);
+			commandSearch(phonebook);
 		else if (input == "EXIT")
 			break ;
 		else
