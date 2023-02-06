@@ -2,9 +2,9 @@
 #include <string>
 #include "Zombie.hpp"
 
-Zombie::Zombie(const Zombie &zombie)
+Zombie::Zombie(const Zombie &zombie):
+	name(zombie.name)
 {
-	name = zombie.name;
 }
 
 Zombie::~Zombie(void)
@@ -18,9 +18,9 @@ Zombie	&Zombie::operator=(const Zombie &zombie)
 	return (*this);
 }
 
-Zombie::Zombie(std::string new_name)
+Zombie::Zombie(std::string new_name):
+	name(new_name)
 {
-	name = new_name;
 }
 
 void	Zombie::announce(void)
