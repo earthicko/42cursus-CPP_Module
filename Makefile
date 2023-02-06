@@ -8,7 +8,9 @@ EXS	= \
 	module01/ex03 \
 	module01/ex04 \
 	module01/ex05 \
-	module01/ex06
+	module01/ex06 \
+	module02/ex00 \
+	module02/ex01
 
 all:
 	for ex in $(EXS); \
