@@ -1,5 +1,3 @@
-#include <string>
-#include <cstdlib>
 #include "Zombie.hpp"
 #include "ZombieUtils.hpp"
 
@@ -14,6 +12,6 @@ int	main(int argc, char **argv)
 	zombies = zombieHorde(n, "donghyle");
 	for (int i = 0; i < n; i++)
 		zombies[i].announce();
-	system("leaks ex01");
+	delete[] zombies;
 	return (0);
 }
