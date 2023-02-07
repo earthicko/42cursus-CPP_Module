@@ -16,10 +16,9 @@ class Fixed
 
 		int					getRawBits(void) const;
 		void				setRawBits(int const raw);
+		static int			getNFracts(void);
 		float				toFloat(void) const;
 		int					toInt(void) const;
-
-		std::ostream		&operator<<(const Fixed &orig) const;
 
 	private:
 		int					_bits;
@@ -27,9 +26,11 @@ class Fixed
 		const static int	_subnormalOffset;
 		const static int	_nBitsPerByte;
 
-		int					toFloatGetExp(int val) const;
 		int					toFloatSetExp(int idxFirstBit, int *bitrepr) const;
+		void				toFloatSetNormalMantissa(int val, int shift, int *bitrepr) const;
 		void				toFloatSetSubnormalMantissa(int val, int *bitrepr) const;
 };
+
+std::ostream	&operator<<(std::ostream &os, const Fixed& fixed);
 
 #endif

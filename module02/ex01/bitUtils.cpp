@@ -6,7 +6,7 @@
 #include <iomanip>
 #include <string>
 #include "bitUtils.hpp"
-#include "sizedef.h"
+#include "sizedef.hpp"
 
 static std::string	intToString(int val)
 {
@@ -94,10 +94,21 @@ void	printBits(float val)
 
 static void	printRange(int s, int e)
 {
-	for (int i = s; i < e; i++)
+	if (s <= e)
 	{
-		std::cout << COLUMN_DIVIDER;
-		printColumn(intToString(i));
+		for (int i = s; i < e; i++)
+		{
+			std::cout << COLUMN_DIVIDER;
+			printColumn(intToString(i));
+		}
+	}
+	else
+	{
+		for (int i = s - 1; i >= e; i--)
+		{
+			std::cout << COLUMN_DIVIDER;
+			printColumn(intToString(i));
+		}
 	}
 	std::cout << COLUMN_DIVIDER << std::endl;
 }
@@ -105,7 +116,7 @@ static void	printRange(int s, int e)
 void	prettyPrintBits(int val)
 {
 	std::cout << "int " << val << ":" << std::endl;
-	printRange(0, NBITSPERBYTE * sizeof(int));
+	printRange(NBITSPERBYTE * sizeof(int), 0);
 	printBits(val);
 }
 
