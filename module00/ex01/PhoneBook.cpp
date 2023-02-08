@@ -69,11 +69,11 @@ void	PhoneBook::printAllContacts(void) const
 		std::cout << COLUMN_DIVIDER;
 		printColumn(intToString(i));
 		std::cout << COLUMN_DIVIDER;
-		printColumn(contacts[(head + i) % QUEUE_SIZE].firstname);
+		printColumn(contacts[(head + i) % QUEUE_SIZE].getFirstname());
 		std::cout << COLUMN_DIVIDER;
-		printColumn(contacts[(head + i) % QUEUE_SIZE].lastname);
+		printColumn(contacts[(head + i) % QUEUE_SIZE].getLastname());
 		std::cout << COLUMN_DIVIDER;
-		printColumn(contacts[(head + i) % QUEUE_SIZE].nickname);
+		printColumn(contacts[(head + i) % QUEUE_SIZE].getNickname());
 		std::cout << COLUMN_DIVIDER << std::endl;
 	}
 }

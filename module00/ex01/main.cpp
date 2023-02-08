@@ -21,7 +21,6 @@ void	commandAdd(PhoneBook &phonebook)
 	std::cin >> phonenumber;
 	std::cout << "Darkest Secret: ";
 	std::cin >> darkestsecret;
-
 	Contact	newcontact(
 		firstname,
 		lastname,
@@ -59,6 +58,8 @@ int	main(void)
 	{
 		std::cout << "Command: ";
 		std::cin >> input;
+		if (std::cin.eof())
+			break ;
 		if (input == "ADD")
 			commandAdd(phonebook);
 		else if (input == "SEARCH")

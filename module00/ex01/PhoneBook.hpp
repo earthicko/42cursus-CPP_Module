@@ -20,11 +20,11 @@ class PhoneBook
 		void		printContact(int index) const;
 
 	private:
-		void		printColumn(std::string column) const;
-
 		int			head;
 		int			nContacts;
 		Contact		contacts[QUEUE_SIZE];
+
+		void		printColumn(std::string column) const;
 };
 
 #endif
