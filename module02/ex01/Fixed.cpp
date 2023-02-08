@@ -2,38 +2,32 @@
 #include <limits.h>
 #include "Fixed.hpp"
 #include "bitUtils.hpp"
-#include "sizedef.h"
+#include "sizedef.hpp"
 
 const int	Fixed::_nfracts = 8;
 const int	Fixed::_subnormalOffset = FLOAT_BITPOS_EXP - (Fixed::_nfracts - FLOAT_EXP_SHIFT);
 
 Fixed::Fixed(void): _bits(0)
 {
-	std::cout << "Default constructor called" << std::endl;
 }
 
 Fixed::Fixed(const Fixed &orig): _bits(orig._bits)
 {
-	std::cout << "Copy constructor called" << std::endl;
 }
 
 Fixed::~Fixed(void)
 {
-	std::cout << "Destructor called" << std::endl;
 }
 
 Fixed	&Fixed::operator=(const Fixed &orig)
 {
-	std::cout << "Copy assignment operator called" << std::endl;
 	_bits = orig._bits;
 	return (*this);
 }
 
 Fixed::Fixed(const int val)
 {
-	std::cout << "Integer constructor called" << std::endl;
 	_bits = val << _nfracts;
-	prettyPrintBits(_bits);
 }
 
 static int	getExpByte(const float val)
@@ -72,7 +66,6 @@ Fixed::Fixed(const float val)
 	int	leadingBit;
 	int	mantissa;
 
-	std::cout << "Float constructor called" << std::endl;
 	if (isZero(val))
 	{
 		_bits = 0;
@@ -101,14 +94,17 @@ Fixed::Fixed(const float val)
 
 int	Fixed::getRawBits(void) const
 {
-	std::cout << "getRawBits member function called" << std::endl;
 	return (_bits);
 }
 
 void	Fixed::setRawBits(int const raw)
 {
-	std::cout << "setRawBits member function called" << std::endl;
 	_bits = raw;
+}
+
+int	Fixed::getNFracts(void)
+{
+	return (_nfracts);
 }
 
 static void	toFloatSetSign(int *val, int *bitrepr)
@@ -139,6 +135,14 @@ int	Fixed::toFloatSetExp(int idxFirstBit, int *bitrepr) const
 	return (exp);
 }
 
+void	Fixed::toFloatSetNormalMantissa(int val, int shift, int *bitrepr) const
+{
+	if (shift < 0)
+		(*bitrepr) |= (val >> -shift) & FLOAT_MANTISSA_MASK;
+	else
+		(*bitrepr) |= (val << shift) & FLOAT_MANTISSA_MASK;
+}
+
 void	Fixed::toFloatSetSubnormalMantissa(int val, int *bitrepr) const
 {
 	int	mask;
@@ -165,7 +169,7 @@ float	Fixed::toFloat(void) const
 	i_firstbit = getFirstBitIdx(val);
 	exp = toFloatSetExp(i_firstbit, &bitrepr);
 	if (exp > -FLOAT_EXP_SHIFT)
-		bitrepr |= (val << (FLOAT_BITPOS_EXP - i_firstbit)) & FLOAT_MANTISSA_MASK;
+		toFloatSetNormalMantissa(val, FLOAT_BITPOS_EXP - i_firstbit, &bitrepr);
 	else if (Fixed::_subnormalOffset <= INT_NBITS)
 		toFloatSetSubnormalMantissa(val, &bitrepr);
 	return (*((float *)(&bitrepr)));
@@ -174,4 +178,52 @@ float	Fixed::toFloat(void) const
 int	Fixed::toInt(void) const
 {
 	return (_bits >> Fixed::_nfracts);
+}
+
+static void	printIntUnsigned(std::ostream &os, int nb)
+{
+	int	digit;
+	int	divider;
+
+	divider = 1;
+	while (!(-10 < nb / divider && nb / divider < 10))
+		divider *= 10;
+	while (divider > 0)
+	{
+		digit = nb / divider;
+		nb = nb - (digit * divider);
+		divider /= 10;
+		if (digit < 0)
+			digit = -digit;
+		os << digit;
+	}
+}
+
+std::ostream	&operator<<(std::ostream &os, const Fixed& fixed)
+{
+	int	whole;
+	int	fract;
+	int	nfracts;
+
+	nfracts = fixed.getNFracts();
+	whole = fixed.getRawBits();
+	if (whole < 0)
+	{
+		os << "-";
+		whole = -whole;
+	}
+	fract = whole & ((1 << nfracts) - 1);
+	whole = whole >> nfracts;
+	printIntUnsigned(os, whole);
+	if (fract > 0)
+	{
+		os << ".";
+		while (fract > 0)
+		{
+			fract *= 10;
+			os << (fract >> nfracts);
+			fract -= ((fract >> nfracts) << nfracts);
+		}
+	}
+	return (os);
 }
