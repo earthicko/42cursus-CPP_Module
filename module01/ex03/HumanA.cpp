@@ -7,21 +7,8 @@ HumanA::HumanA(std::string name, Weapon &weapon):
 {
 }
 
-HumanA::HumanA(const HumanA &orig):
-	_weapon(orig._weapon),
-	_name(orig._name)
-{
-}
-
 HumanA::~HumanA(void)
 {
-}
-
-HumanA	&HumanA::operator=(const HumanA &orig)
-{
-	_weapon = orig._weapon;
-	_name = orig._name;
-	return (*this);
 }
 
 void	HumanA::attack(void) const

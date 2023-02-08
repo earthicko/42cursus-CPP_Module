@@ -7,9 +7,7 @@ class Harl
 {
 	public:
 							Harl(void);
-							Harl(const Harl &orig);
 							~Harl(void);
-		Harl				&operator=(const Harl &orig);
 
 		void				complain(std::string level);
 		static int			getLevelIndex(const std::string &level);

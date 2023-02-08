@@ -1,28 +1,11 @@
 #include "Weapon.hpp"
 
-Weapon::Weapon(void):
-	type("")
-{
-}
-
-Weapon::Weapon(const Weapon &weapon):
-	type(weapon.type)
+Weapon::Weapon(std::string newType):
+	type(newType)
 {
 }
 
 Weapon::~Weapon(void)
-{
-	return ;
-}
-
-Weapon	&Weapon::operator=(const Weapon &weapon)
-{
-	type = weapon.type;
-	return (*this);
-}
-
-Weapon::Weapon(std::string newType):
-	type(newType)
 {
 }
 

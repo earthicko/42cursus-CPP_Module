@@ -11,7 +11,7 @@ int	main(void)
 	zombie = newZombie("donghyle");
 	zombie->announce();
 	delete zombie;
-	zombie = newZombie("seonjeon");
+	zombie = newZombie("yeonhkim");
 	zombie->announce();
 	delete zombie;
 	return (0);

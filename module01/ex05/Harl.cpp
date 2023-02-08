@@ -22,19 +22,8 @@ Harl::Harl(void)
 {
 }
 
-Harl::Harl(const Harl &orig)
-{
-	(void)orig;
-}
-
 Harl::~Harl(void)
 {
-}
-
-Harl	&Harl::operator=(const Harl &orig)
-{
-	(void)orig;
-	return (*this);
 }
 
 void	Harl::complain(std::string level)

@@ -8,9 +8,7 @@ class HumanB
 {
 	public:
 					HumanB(std::string name);
-					HumanB(const HumanB &orig);
 					~HumanB(void);
-		HumanB		&operator=(const HumanB &orig);
 
 		void		attack(void) const;
 		void		setWeapon(Weapon &weapon);
