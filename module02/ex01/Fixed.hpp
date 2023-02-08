@@ -24,7 +24,6 @@ class Fixed
 		int					_bits;
 		const static int	_nfracts;
 		const static int	_subnormalOffset;
-		const static int	_nBitsPerByte;
 
 		int					toFloatSetExp(int idxFirstBit, int *bitrepr) const;
 		void				toFloatSetNormalMantissa(int val, int shift, int *bitrepr) const;
