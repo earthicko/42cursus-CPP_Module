@@ -3,51 +3,41 @@
 #include "Fixed.hpp"
 #include "bitUtils.hpp"
 
+void	testVal(int val)
+{
+	Fixed fixed(val);
+	std::cout << "to int  : " << fixed.toFloat() << std::endl;
+	std::cout << "to float: " << fixed.toFloat() << std::endl;
+	std::cout << "ostream : " << fixed << std::endl;
+}
+
+void	testVal(float val)
+{
+	Fixed fixed(val);
+	std::cout << "to int  : " << fixed.toInt() << std::endl;
+	std::cout << "to float: " << fixed.toFloat() << std::endl;
+	std::cout << "ostream : " << fixed << std::endl;
+}
+
 int	main(void)
 {
 	Fixed	a;
 	Fixed	b(a);
 	Fixed	c;
 
-	a = Fixed((float)0.0);
-	b = Fixed((float)0.5);
-	c = Fixed((float)0.25);
-	std::cout << "a to float: " << a.toFloat() << std::endl;
-	std::cout << "a ostream : " << a << std::endl;
-	std::cout << "b to float: " << b.toFloat() << std::endl;
-	std::cout << "b ostream : " << b << std::endl;
-	std::cout << "c to float: " << c.toFloat() << std::endl;
-	std::cout << "c ostream : " << c << std::endl;
-
-	a = Fixed((float)2.0);
-	b = Fixed((float)4.5);
-	c = Fixed((float)8.25);
-	std::cout << "a to float: " << a.toFloat() << std::endl;
-	std::cout << "a ostream : " << a << std::endl;
-	std::cout << "b to float: " << b.toFloat() << std::endl;
-	std::cout << "b ostream : " << b << std::endl;
-	std::cout << "c to float: " << c.toFloat() << std::endl;
-	std::cout << "c ostream : " << c << std::endl;
-
-	a = Fixed((float)-2.0);
-	b = Fixed((float)-4.5);
-	c = Fixed((float)-8.25);
-	std::cout << "a to float: " << a.toFloat() << std::endl;
-	std::cout << "a ostream : " << a << std::endl;
-	std::cout << "b to float: " << b.toFloat() << std::endl;
-	std::cout << "b ostream : " << b << std::endl;
-	std::cout << "c to float: " << c.toFloat() << std::endl;
-	std::cout << "c ostream : " << c << std::endl;
-
-	a = Fixed((int)-21);
-	b = Fixed((int)0);
-	c = Fixed((float)12.58);
-	std::cout << "a to float: " << a.toFloat() << std::endl;
-	std::cout << "a ostream : " << a << std::endl;
-	std::cout << "b to float: " << b.toFloat() << std::endl;
-	std::cout << "b ostream : " << b << std::endl;
-	std::cout << "c to float: " << c.toFloat() << std::endl;
-	std::cout << "c ostream : " << c << std::endl;
-
+	testVal((int)0);
+	testVal((int)8);
+	testVal((int)-21);
+	testVal((float)0.0);
+	testVal((float)0.0);
+	testVal((float)0.5);
+	testVal((float)0.25);
+	testVal((float)2.0);
+	testVal((float)4.5);
+	testVal((float)8.25);
+	testVal((float)-2.0);
+	testVal((float)-4.5);
+	testVal((float)-8.25);
+	testVal((float)12.58);
 	return 0;
 }
