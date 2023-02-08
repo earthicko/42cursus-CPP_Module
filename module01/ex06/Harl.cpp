@@ -18,12 +18,13 @@ std::string	(Harl::loggernames)[Harl::nLoggers] =
 	"ERROR"
 };
 
-Harl::Harl(void): _level(0)
+Harl::Harl(void)
 {
 }
 
-Harl::Harl(const Harl &orig): _level(orig._level)
+Harl::Harl(const Harl &orig)
 {
+	(void)orig;
 }
 
 Harl::~Harl(void)
@@ -32,13 +33,8 @@ Harl::~Harl(void)
 
 Harl	&Harl::operator=(const Harl &orig)
 {
-	_level = orig._level;
+	(void)orig;
 	return (*this);
-}
-
-Harl::Harl(const std::string &level)
-{
-	setComplaintLevel(level);
 }
 
 void	Harl::complain(std::string level)
@@ -46,21 +42,16 @@ void	Harl::complain(std::string level)
 	int	idx;
 
 	idx = getLevelIndex(level);
-	if (idx >= _level)
+	if (idx >= 0)
 	{
 		std::cout << "[ " << loggernames[idx] << " ]" << std::endl;
 		(this->*loggers[idx])();
 	}
-	else if (idx < 0)
+	else
 		std::cout << "Unimplemented log level." << std::endl;
 }
 
-void	Harl::setComplaintLevel(const std::string &level)
-{
-	_level = getLevelIndex(level);
-}
-
-int	Harl::getLevelIndex(const std::string &level) const
+int	Harl::getLevelIndex(const std::string &level)
 {
 	for (int i = 0; i < nLoggers; i++)
 	{

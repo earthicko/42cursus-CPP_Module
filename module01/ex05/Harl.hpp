@@ -12,13 +12,13 @@ class Harl
 		Harl				&operator=(const Harl &orig);
 
 		void				complain(std::string level);
+		static int			getLevelIndex(const std::string &level);
 	
 	private:
 		void				debug(void);
 		void				info(void);
 		void				warning(void);
 		void				error(void);
-		int					getLevelIndex(const std::string &level) const;
 
 		const static int	nLoggers = 4;
 		static void			(Harl::*loggers[nLoggers])(void);

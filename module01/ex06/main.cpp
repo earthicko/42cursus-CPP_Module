@@ -1,5 +1,3 @@
-#include <cstdlib>
-#include <ctime>
 #include <iostream>
 #include <string>
 #include "Harl.hpp"
@@ -19,15 +17,23 @@ int	main(int argc, char **argv)
 
 	if (argc <= 1)
 	{
-		std::cout << "Usage: harlFilter <level>" << std::endl;
-		return (2);
+		std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
+		return (0);
 	}
-	level = argv[1];
-	harl.setComplaintLevel(level);
-	srand(time(NULL));
-	std::cout << "Number of complaints: ";
-	std::cin >> n;
-	for (int i = 0; i < n; i++)
-		harl.complain(levels[rand() % 4]);
+	n = Harl::getLevelIndex(argv[1]);
+	switch (n)
+	{
+		case 0:
+			harl.complain("DEBUG");
+		case 1:
+			harl.complain("INFO");
+		case 2:
+			harl.complain("WARNING");
+		case 3:
+			harl.complain("ERROR");
+			break ;
+		default:
+			std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
+	}
 	return (0);
 }

@@ -51,7 +51,7 @@ void	Harl::complain(std::string level)
 		std::cout << "Unimplemented log level." << std::endl;
 }
 
-int	Harl::getLevelIndex(const std::string &level) const
+int	Harl::getLevelIndex(const std::string &level)
 {
 	for (int i = 0; i < nLoggers; i++)
 	{
