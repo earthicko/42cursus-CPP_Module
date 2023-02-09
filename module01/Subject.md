@@ -6,8 +6,7 @@ Memory allocation, pointers to members, references, switch statement
 
 |제출 디렉토리|제출 파일|금지된 함수|
 |-------------|---------|-----------|
-|`ex00/`|`Makefile`, `main.cpp`, `Zombie.{h, hpp}`, `Zombie.cpp`,
-`newZombie.cpp`, `randomChump.cpp`|없음|
+|`ex00/`|`Makefile`, `main.cpp`, `Zombie.{h, hpp}`, `Zombie.cpp`, `newZombie.cpp`, `randomChump.cpp`|없음|
 
 `Zombie` 클라스를 구현하고 다음의 속성을 추가한다.
 
