@@ -8,8 +8,7 @@ SRCS		= \
 			Fixed.cpp \
 			FixedConvert.cpp \
 			FixedOps.cpp \
-			FixedMinMax.cpp \
-			bitUtils.cpp
+			FixedMinMax.cpp
 OBJS		= $(SRCS:.cpp=.o)
 
 all: $(NAME)

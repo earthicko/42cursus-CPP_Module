@@ -1,7 +1,6 @@
 #include <iostream>
 #include <limits.h>
 #include "Fixed.hpp"
-#include "bitUtils.hpp"
 
 int	main(void)
 {
