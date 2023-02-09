@@ -28,10 +28,13 @@ PhoneBook::PhoneBook(const PhoneBook &phonebook)
 
 PhoneBook	&PhoneBook::operator= (const PhoneBook &phonebook)
 {
-	head = phonebook.head;
-	nContacts = phonebook.nContacts;
-	for (int i = 0; i < QUEUE_SIZE; i++)
-		contacts[i] = phonebook.contacts[i];
+	if (this != &phonebook)
+	{
+		head = phonebook.head;
+		nContacts = phonebook.nContacts;
+		for (int i = 0; i < QUEUE_SIZE; i++)
+			contacts[i] = phonebook.contacts[i];
+	}
 	return (*this);
 }
 

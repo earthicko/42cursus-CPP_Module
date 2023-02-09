@@ -21,7 +21,10 @@ Fixed::~Fixed(void)
 Fixed	&Fixed::operator=(const Fixed &orig)
 {
 	std::cout << "Copy assignment operator called" << std::endl;
-	_bits = orig._bits;
+	if (this != &orig)
+	{
+		_bits = orig._bits;
+	}
 	return (*this);
 }
 

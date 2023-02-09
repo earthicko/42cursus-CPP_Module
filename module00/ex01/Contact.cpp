@@ -32,11 +32,14 @@ Contact::Contact(const Contact &contact):
 
 Contact	&Contact::operator= (const Contact &contact)
 {
-	firstname = contact.firstname;
-	lastname = contact.lastname;
-	nickname = contact.nickname;
-	phonenumber = contact.phonenumber;
-	darkestsecret = contact.darkestsecret;
+	if (this != &contact)
+	{
+		firstname = contact.firstname;
+		lastname = contact.lastname;
+		nickname = contact.nickname;
+		phonenumber = contact.phonenumber;
+		darkestsecret = contact.darkestsecret;
+	}
 	return (*this);
 }
 
@@ -63,3 +66,4 @@ void	Contact::print(void) const
 	std::cout << "Phone Number  : " << phonenumber << std::endl;
 	std::cout << "Darkest Secret: " << darkestsecret << std::endl;
 }
+
