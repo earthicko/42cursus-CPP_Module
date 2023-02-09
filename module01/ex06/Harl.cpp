@@ -26,7 +26,7 @@ Harl::~Harl(void)
 {
 }
 
-void	Harl::complain(std::string level)
+void	Harl::complain(const std::string &level)
 {
 	int	idx;
 

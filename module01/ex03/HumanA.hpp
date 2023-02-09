@@ -7,14 +7,14 @@
 class HumanA
 {
 	public:
-					HumanA(std::string name, Weapon &weapon);
-					~HumanA(void);
+						HumanA(const std::string &name, const Weapon &weapon);
+						~HumanA(void);
 
-		void		attack(void) const;
+		void			attack(void) const;
 
 	private:
-		Weapon		&_weapon;
-		std::string	_name;
+		const Weapon	&_weapon;
+		std::string		_name;
 };
 
 #endif

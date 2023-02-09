@@ -9,7 +9,7 @@ class Harl
 							Harl(void);
 							~Harl(void);
 
-		void				complain(std::string level);
+		void				complain(const std::string &level);
 		static int			getLevelIndex(const std::string &level);
 	
 	private:

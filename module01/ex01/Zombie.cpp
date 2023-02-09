@@ -2,7 +2,7 @@
 #include <string>
 #include "Zombie.hpp"
 
-Zombie::Zombie(std::string new_name):
+Zombie::Zombie(const std::string &new_name):
 	name(new_name)
 {
 }
