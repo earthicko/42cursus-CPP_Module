@@ -6,6 +6,9 @@ CXXFLAGS	= -Wall -Wextra -Werror -std=c++98
 SRCS		= \
 			main.cpp \
 			Fixed.cpp \
+			FixedConvert.cpp \
+			FixedOps.cpp \
+			FixedMinMax.cpp \
 			bitUtils.cpp
 OBJS		= $(SRCS:.cpp=.o)
 
