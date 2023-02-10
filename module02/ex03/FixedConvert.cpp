@@ -16,6 +16,14 @@ int	Fixed::getNFracts(void)
 	return (_nfracts);
 }
 
+Fixed	Fixed::getE(void)
+{
+	Fixed	e;
+
+	e.setRawBits(1);
+	return (e);
+}
+
 static void	toFloatSetSign(int *val, int *bitrepr)
 {
 	if (*val < 0)

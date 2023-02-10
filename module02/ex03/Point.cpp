@@ -32,6 +32,12 @@ Point::Point(const float xcoord, const float ycoord):
 {
 }
 
+Point::Point(const Fixed &xcoord, const Fixed &ycoord):
+	x(xcoord),
+	y(ycoord)
+{
+}
+
 Fixed	Point::getX(void) const
 {
 	return (x);
@@ -40,4 +46,10 @@ Fixed	Point::getX(void) const
 Fixed	Point::getY(void) const
 {
 	return (y);
+}
+
+std::ostream	&operator<<(std::ostream &os, const Point& point)
+{
+	os << "(" << point.getX() << ", " << point.getY() << ")";
+	return (os);
 }

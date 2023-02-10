@@ -10,7 +10,8 @@ SRCS		= \
 			FixedOps.cpp \
 			FixedMinMax.cpp \
 			Point.cpp \
-			isIntersecting.cpp
+			isIntersecting.cpp \
+			bsp.cpp
 OBJS		= $(SRCS:.cpp=.o)
 
 all: $(NAME)

@@ -1,8 +1,10 @@
+#include <iostream>
 #include "Point.hpp"
 
 //                              (x1, y1)        (x2, y2)         (x3, y3)          (x4, y4)
 bool	isIntersecting(const Point &s1, const Point &e1, const Point &s2, const Point &e2)
 {
+	std::cout << "line " << s1 << " - " << e1 << " vs line " << s2 << " - " << e2 << std::endl;
 	Fixed A((e1.getY() - s1.getY()) * (e2.getX() - s2.getX()) - (e1.getX() - s1.getX()) * (e2.getY() - s2.getY()));
 	if (A == 0)
 		return (false);
