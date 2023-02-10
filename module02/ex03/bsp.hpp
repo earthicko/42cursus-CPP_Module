@@ -3,7 +3,7 @@
 
 # include "Point.hpp"
 
-bool	isIntersecting(const Point &s1, const Point &e1, const Point &s2, const Point &e2);
+bool	isIntersecting(Point s1, Point e1, Point s2, Point e2);
 bool	bsp(Point const a, Point const b, Point const c, Point const point);
 
 #endif

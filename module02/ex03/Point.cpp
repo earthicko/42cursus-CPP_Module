@@ -48,6 +48,48 @@ Fixed	Point::getY(void) const
 	return (y);
 }
 
+bool	Point::operator>(const Point &other) const
+{
+	if (x == other.x)
+		return (y > other.y);
+	else
+		return (x > other.x);
+}
+
+bool	Point::operator<(const Point &other) const
+{
+	if (x == other.x)
+		return (y < other.y);
+	else
+		return (x < other.x);
+}
+
+bool	Point::operator>=(const Point &other) const
+{
+	if (x == other.x)
+		return (y >= other.y);
+	else
+		return (x >= other.x);
+}
+
+bool	Point::operator<=(const Point &other) const
+{
+	if (x == other.x)
+		return (y <= other.y);
+	else
+		return (x <= other.x);
+}
+
+bool	Point::operator==(const Point &other) const
+{
+	return (x == other.x && y == other.y);
+}
+
+bool	Point::operator!=(const Point &other) const
+{
+	return (!((*this) == other));
+}
+
 std::ostream	&operator<<(std::ostream &os, const Point& point)
 {
 	os << "(" << point.getX() << ", " << point.getY() << ")";

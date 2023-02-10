@@ -1,6 +1,4 @@
 #include <iostream>
-#include <limits.h>
-#include "Fixed.hpp"
 #include "Point.hpp"
 #include "bsp.hpp"
 

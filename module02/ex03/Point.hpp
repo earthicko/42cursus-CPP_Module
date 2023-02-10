@@ -18,6 +18,13 @@ class Point
 		Fixed		getX(void) const;
 		Fixed		getY(void) const;
 
+		bool		operator>(const Point &other) const;
+		bool		operator<(const Point &other) const;
+		bool		operator>=(const Point &other) const;
+		bool		operator<=(const Point &other) const;
+		bool		operator==(const Point &other) const;
+		bool		operator!=(const Point &other) const;
+
 	private:
 		const Fixed	x;
 		const Fixed	y;

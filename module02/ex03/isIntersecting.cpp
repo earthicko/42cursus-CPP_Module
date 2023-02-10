@@ -1,19 +1,43 @@
 #include <iostream>
 #include "Point.hpp"
 
-//                              (x1, y1)        (x2, y2)         (x3, y3)          (x4, y4)
-bool	isIntersecting(const Point &s1, const Point &e1, const Point &s2, const Point &e2)
+// ccw -> 1, collinear -> 0, cw -> -1
+int	ccw(const Point &p1, const Point &p2, const Point &p3)
 {
-	std::cout << "line " << s1 << " - " << e1 << " vs line " << s2 << " - " << e2 << std::endl;
-	Fixed A((e1.getY() - s1.getY()) * (e2.getX() - s2.getX()) - (e1.getX() - s1.getX()) * (e2.getY() - s2.getY()));
-	if (A == 0)
-		return (false);
-	// If A = 0, then the line segments are either parallel or coincident and do not intersect.
-	// Otherwise, the intersection point (x, y) can be calculated as follows:
-	Fixed B((e2.getY() - s2.getY()) * (s1.getX() - s2.getX()) - (e2.getX() - s2.getX()) * (s1.getY() - s2.getY()));
-	Fixed C((e1.getY() - s1.getY()) * (s1.getX() - s2.getX()) - (e1.getX() - s1.getX()) * (s1.getY() - s2.getY()));
-	if (B >= 0 && B <= 1 && C >= 0 && C <= 1)
-		return (true);
+	Fixed cross_product = (p2.getX() - p1.getX()) * (p3.getY() - p1.getY()) - (p3.getX() - p1.getX()) * (p2.getY() - p1.getY());
+
+	if (cross_product > 0)
+		return (1);
+	else if (cross_product < 0)
+		return (-1);
 	else
-		return (false);
+		return (0);
+}
+
+// https://gaussian37.github.io/math-algorithm-line_intersection/
+bool	isIntersecting(Point s1, Point e1, Point s2, Point e2)
+{
+	int		l1_l2;
+	int		l2_l1;
+
+	l1_l2 = ccw(s1, e1, s2) * ccw(s1, e1, e2);
+	l2_l1 = ccw(s2, e2, s1) * ccw(s2, e2, e1);
+	if (l1_l2 == 0 && l2_l1 == 0)
+	{
+		if (e1 <= s1)
+		{
+			Point temp(s1);
+			s1 = e1;
+			e1 = temp;
+		}
+		if (e2 <= s2)
+		{
+			Point temp(s2);
+			s2 = e2;
+			e2 = temp;
+		}
+		return ((s2 <= e1) && (s1 <= e2));
+	}
+	else
+		return ((l1_l2 <= 0) && (l2_l1 <= 0));
 }
