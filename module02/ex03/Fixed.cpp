@@ -74,7 +74,7 @@ Fixed::Fixed(const float val)
 	}
 	if (isInfOrNan(val))
 	{
-		std::cout << "Input float is either inf or NaN." << std::endl;
+		std::cerr << "Input float is either inf or NaN." << std::endl;
 		_bits = 0;
 		return ;
 	}
