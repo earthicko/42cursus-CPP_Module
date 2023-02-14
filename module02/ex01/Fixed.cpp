@@ -22,9 +22,7 @@ Fixed::~Fixed(void)
 Fixed	&Fixed::operator=(const Fixed &orig)
 {
 	if (this != &orig)
-	{
 		_bits = orig._bits;
-	}
 	return (*this);
 }
 

@@ -1,7 +1,5 @@
 #include <iostream>
-#include <limits.h>
 #include "Fixed.hpp"
-#include "bitUtils.hpp"
 
 void	testVal(int val)
 {
@@ -39,5 +37,6 @@ int	main(void)
 	testVal((float)-4.5);
 	testVal((float)-8.25);
 	testVal((float)12.58);
-	return 0;
+	testVal((float)8000000.5898);
+	return (0);
 }
