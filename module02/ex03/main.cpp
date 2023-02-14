@@ -2,13 +2,18 @@
 #include "Point.hpp"
 #include "bsp.hpp"
 
+void	testBsp(const Point &a, const Point &b, const Point &c, const Point &s)
+{
+	std::cout << s << " in Tri " << a << ", " << b << ", " << c << ": ";
+	std::cout << bsp(a, b, c, s) << std::endl;
+}
+
 int	main(void)
 {
-	Point a(0.0, 0.0);
-	Point b(3.0, 0.0);
-	Point c(0.0, 3.0);
-	Point s(1.0, 1.0);
-
-	std::cout << bsp(a, b, c, s) << std::endl;
-	return 0;
+	for (int x = 0; x <= 3; x++)
+	{
+		for (int y = 0; y <= 3; y++)
+			testBsp(Point(0, 0), Point(3, 0), Point(0, 3), Point(x, y));
+	}
+	return (0);
 }
