@@ -61,6 +61,26 @@ static bool	isInfOrNan(const float val)
 	return (false);
 }
 
+int	Fixed::fromFloatGetMantissa(const float val, int leadingBit, int exp)
+{
+	int	mantissa;
+	int	expOffset;
+
+	mantissa = *((int *)&val) & FLOAT_MANTISSA_MASK;
+	mantissa |= (leadingBit << FLOAT_BITPOS_EXP);
+	expOffset = FLOAT_BITPOS_EXP - _nfracts - exp;
+	if (expOffset > 0)
+		mantissa = mantissa >> (FLOAT_BITPOS_EXP - _nfracts - exp);
+	else
+	{
+		for (int i = 0; i < -expOffset; i++)
+			mantissa *= 2;
+	}
+	if (*((int *)&val) & (1 << FLOAT_BITPOS_SIGN))
+		mantissa = -mantissa;
+	return (mantissa);
+}
+
 Fixed::Fixed(const float val)
 {
 	int	exp;
@@ -85,10 +105,6 @@ Fixed::Fixed(const float val)
 		leadingBit = 0;
 		exp = 1 - FLOAT_EXP_SHIFT;
 	}
-	mantissa = *((int *)&val) & FLOAT_MANTISSA_MASK;
-	mantissa |= (leadingBit << FLOAT_BITPOS_EXP);
-	mantissa = mantissa >> (FLOAT_BITPOS_EXP - _nfracts - exp);
-	if (*((int *)&val) & (1 << FLOAT_BITPOS_SIGN))
-		mantissa = -mantissa;
+	mantissa = Fixed::fromFloatGetMantissa(val, leadingBit, exp);
 	_bits = mantissa;
 }

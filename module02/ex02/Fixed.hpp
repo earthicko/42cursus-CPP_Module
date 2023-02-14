@@ -44,6 +44,7 @@ class Fixed
 		const static int	_nfracts;
 		const static int	_subnormalOffset;
 
+		int					fromFloatGetMantissa(const float val, int leadingBit, int exp);
 		int					toFloatSetExp(int idxFirstBit, int *bitrepr) const;
 		void				toFloatSetNormalMantissa(int val, int shift, int *bitrepr) const;
 		void				toFloatSetSubnormalMantissa(int val, int *bitrepr) const;
