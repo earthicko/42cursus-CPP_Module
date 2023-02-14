@@ -3,22 +3,22 @@
 
 int	main(void)
 {
-	Fixed	a;
-	Fixed	b(a);
-	Fixed	c;
+	Fixed	mosCode;
+	Fixed	serviceNum(mosCode);
+	Fixed	firearmSerial;
 
-	c = b;
-	std::cout << a.getRawBits() << std::endl;
-	std::cout << b.getRawBits() << std::endl;
-	std::cout << c.getRawBits() << std::endl;
+	firearmSerial = serviceNum;
+	std::cout << mosCode.getRawBits() << std::endl;
+	std::cout << serviceNum.getRawBits() << std::endl;
+	std::cout << firearmSerial.getRawBits() << std::endl;
 
-	a.setRawBits(17110);
-	b.setRawBits(-70002666);
-	c.setRawBits(1332909);
+	mosCode.setRawBits(17110);
+	serviceNum.setRawBits(18 - 70002666);
+	firearmSerial.setRawBits(1331909);
 
-	std::cout << a.getRawBits() << std::endl;
-	std::cout << b.getRawBits() << std::endl;
-	std::cout << c.getRawBits() << std::endl;
+	std::cout << mosCode.getRawBits() << std::endl;
+	std::cout << serviceNum.getRawBits() << std::endl;
+	std::cout << firearmSerial.getRawBits() << std::endl;
 
 	return 0;
 }
