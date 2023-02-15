@@ -5,9 +5,9 @@ ScavTrap::ScavTrap(void):
 	ClapTrap()
 {
 	std::cout << "ScavTrap default constructor" << std::endl;
-	setHitPoint(_defaultHitPoint);
-	setEnergyPoint(_defaultEnergyPoint);
-	setAttackDamage(_defaultAttackDamage);
+	_hitPoint = _defaultHitPoint;
+	_energyPoint = _defaultEnergyPoint;
+	_attackDamage = _defaultAttackDamage;
 	printStatus();
 }
 
@@ -15,9 +15,9 @@ ScavTrap::ScavTrap(const ScavTrap &orig):
 	ClapTrap(orig)
 {
 	std::cout << "ScavTrap copy constructor" << std::endl;
-	setHitPoint(_defaultHitPoint);
-	setEnergyPoint(_defaultEnergyPoint);
-	setAttackDamage(_defaultAttackDamage);
+	_hitPoint = orig._hitPoint;
+	_energyPoint = orig._hitPoint;
+	_attackDamage = orig._hitPoint;
 	printStatus();
 }
 
@@ -30,9 +30,9 @@ ScavTrap &ScavTrap::operator=(const ScavTrap &orig)
 {
 	ClapTrap::operator=(orig);
 	std::cout << "ScavTrap copy assignment operator" << std::endl;
-	setHitPoint(_defaultHitPoint);
-	setEnergyPoint(_defaultEnergyPoint);
-	setAttackDamage(_defaultAttackDamage);
+	_hitPoint = orig._hitPoint;
+	_energyPoint = orig._hitPoint;
+	_attackDamage = orig._hitPoint;
 	printStatus();
 	return (*this);
 }
@@ -41,9 +41,9 @@ ScavTrap::ScavTrap(const std::string &name):
 	ClapTrap(name)
 {
 	std::cout << "ScavTrap constructor with name" << std::endl;
-	setHitPoint(_defaultHitPoint);
-	setEnergyPoint(_defaultEnergyPoint);
-	setAttackDamage(_defaultAttackDamage);
+	_hitPoint = _defaultHitPoint;
+	_energyPoint = _defaultEnergyPoint;
+	_attackDamage = _defaultAttackDamage;
 	printStatus();
 }
 
@@ -55,5 +55,5 @@ void	ScavTrap::guardGate(void)
 
 void	ScavTrap::printIdentifier(void)
 {
-	std::cout << "ScavTrap " << getName() << ": ";
+	std::cout << "ScavTrap " << _name << ": ";
 }
