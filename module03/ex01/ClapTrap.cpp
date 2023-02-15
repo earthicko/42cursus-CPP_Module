@@ -89,26 +89,6 @@ void	ClapTrap::beRepaired(t_uint amount)
 	}
 }
 
-const std::string	&ClapTrap::getName(void) const
-{
-	return (_name);
-}
-
-void	ClapTrap::setHitPoint(t_uint hitPoint)
-{
-	_hitPoint = hitPoint;
-}
-
-void	ClapTrap::setEnergyPoint(t_uint energyPoint)
-{
-	_energyPoint = energyPoint;
-}
-
-void	ClapTrap::setAttackDamage(t_uint attackDamage)
-{
-	_attackDamage = attackDamage;
-}
-
 void	ClapTrap::printIdentifier(void)
 {
 	std::cout << "ClapTrap " << _name << ": ";
