@@ -4,7 +4,11 @@
 // ccw -> 1, collinear -> 0, cw -> -1
 int	ccw(const Point &p1, const Point &p2, const Point &p3)
 {
-	Fixed cross_product = (p2.getX() - p1.getX()) * (p3.getY() - p1.getY()) - (p3.getX() - p1.getX()) * (p2.getY() - p1.getY());
+	Fixed dx12 = p2.getX() - p1.getX();
+	Fixed dy13 = p3.getY() - p1.getY();
+	Fixed dx13 = p3.getX() - p1.getX();
+	Fixed dy12 = p2.getY() - p1.getY();
+	Fixed cross_product = dx12 * dy13 - dx13 * dy12;
 
 	if (cross_product > 0)
 		return (1);

@@ -14,7 +14,7 @@ float	getDistanceLineToPoint(const Point &s, const Point &e, const Point &p)
 	xp = p.getX().toFloat();
 	yp = p.getY().toFloat();
 	segLenSq = pow(x2 - x1, 2) + pow(y2 - y1, 2);
-	if (segLenSq < Fixed::getE().toFloat())
+	if (Fixed::getE() > segLenSq)
 		return (sqrt(pow(xp - x1, 2) + pow(yp - y1, 2)));
 	t = ((xp - x1) * (x2 - x1) + (yp - y1) * (y2 - y1)) / segLenSq;
 	t = fmax(0, fmin(1, t));
