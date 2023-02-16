@@ -10,9 +10,9 @@ void	testBsp(const Point &a, const Point &b, const Point &c, const Point &s)
 
 int	main(void)
 {
-	for (int x = 0; x <= 3; x++)
+	for (int x = -1; x <= 4; x++)
 	{
-		for (int y = 0; y <= 3; y++)
+		for (int y = -1; y <= 4; y++)
 			testBsp(Point(0, 0), Point(3, 0), Point(0, 3), Point(x, y));
 	}
 	return (0);
