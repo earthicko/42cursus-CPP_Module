@@ -23,21 +23,7 @@ bool	isIntersecting(Point s1, Point e1, Point s2, Point e2)
 	l1_l2 = ccw(s1, e1, s2) * ccw(s1, e1, e2);
 	l2_l1 = ccw(s2, e2, s1) * ccw(s2, e2, e1);
 	if (l1_l2 == 0 && l2_l1 == 0)
-	{
-		if (e1 <= s1)
-		{
-			Point temp(s1);
-			s1 = e1;
-			e1 = temp;
-		}
-		if (e2 <= s2)
-		{
-			Point temp(s2);
-			s2 = e2;
-			e2 = temp;
-		}
-		return ((s2 <= e1) && (s1 <= e2));
-	}
+		return (false);
 	else
 		return ((l1_l2 <= 0) && (l2_l1 <= 0));
 }
