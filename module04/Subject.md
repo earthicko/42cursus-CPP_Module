@@ -98,10 +98,9 @@ If you want to, you can update the class name by adding a A prefix to Animal.
 |-------------|---------|-----------|
 |`ex00/`|`Makefile`, `main.cpp`, `*.cpp`, `*.{h, hpp}`|None|
 
-Interfaces don’t exist in C++98 (not even in C++20). However, pure abstract classes
-are commonly called interfaces. Thus, in this last exercise, let’s try to implement interfaces in order to make sure you got this module.
-Complete the definition of the following `AMateria` class and implement the necessary
-member functions.
+Interfaces don’t exist in C++98 (not even in C++20). However, pure abstract classes are commonly called interfaces.
+Thus, in this last exercise, let’s try to implement interfaces in order to make sure you got this module.
+Complete the definition of the following `AMateria` class and implement the necessary member functions.
 
 ```cpp
 class AMateria
@@ -149,8 +148,7 @@ The `Character` possesses an inventory of 4 slots, which means 4 Materias at mos
 
 > Handle the Materias your character left on the floor as you like. Save the addresses before calling `unequip()`, or anything else, but don’t forget that you have to avoid memory leaks.
 
-The `use(int, ICharacter&)` member function will have to use the Materia at the
-slot[`idx`], and pass the target parameter to the `AMateria::use` function.
+The `use(int, ICharacter&)` member function will have to use the Materia at the slot[`idx`], and pass the target parameter to the `AMateria::use` function.
 
 > Your character’s inventory will be able to support any type of AMateria.
 
@@ -170,19 +168,13 @@ class IMateriaSource
 
 - `learnMateria(AMateria*)`
 
-Copies the Materia passed as a parameter and store it in memory so it can be cloned
-later. Like the Character, the `MateriaSource` can know at most 4 Materias. They
-are not necessarily unique.
+Copies the Materia passed as a parameter and store it in memory so it can be cloned later. Like the Character, the `MateriaSource` can know at most 4 Materias. They are not necessarily unique.
 
 - `createMateria(std::string const &)`
 
-Returns a new Materia. The latter is a copy of the Materia previously learned by
-the `MateriaSource` whose type equals the one passed as parameter. Returns 0 if
-the type is unknown.
+Returns a new Materia. The latter is a copy of the Materia previously learned by the `MateriaSource` whose type equals the one passed as parameter. Returns 0 if the type is unknown.
 
-In a nutshell, your `MateriaSource` must be able to learn "templates" of Materias to
-create them when needed. Then, you will be able to generate a new Materia using just
-a string that identifies its type.
+In a nutshell, your `MateriaSource` must be able to learn "templates" of Materias to create them when needed. Then, you will be able to generate a new Materia using just a string that identifies its type.
 
 Running this code:
 
