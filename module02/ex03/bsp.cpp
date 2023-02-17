@@ -1,26 +1,25 @@
-#include <cmath>
 #include "Fixed.hpp"
 #include "Point.hpp"
 #include "bsp.hpp"
 
-float	getDistanceLineToPoint(const Point &s, const Point &e, const Point &p)
+Fixed	getDistanceSqLineToPoint(const Point &s, const Point &e, const Point &p)
 {
-	float	x1, y1, x2, y2, xp, yp, t, projX, projY, segLenSq;
+	Fixed	x1, y1, x2, y2, xp, yp, t, projX, projY, segLenSq;
 
-	x1 = s.getX().toFloat();
-	y1 = s.getY().toFloat();
-	x2 = e.getX().toFloat();
-	y2 = e.getY().toFloat();
-	xp = p.getX().toFloat();
-	yp = p.getY().toFloat();
-	segLenSq = pow(x2 - x1, 2) + pow(y2 - y1, 2);
+	x1 = s.getX();
+	y1 = s.getY();
+	x2 = e.getX();
+	y2 = e.getY();
+	xp = p.getX();
+	yp = p.getY();
+	segLenSq = (x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1);
 	if (Fixed::getE() > segLenSq)
-		return (sqrt(pow(xp - x1, 2) + pow(yp - y1, 2)));
+		return ((xp - x1) * (xp - x1) + (yp - y1) * (yp - y1));
 	t = ((xp - x1) * (x2 - x1) + (yp - y1) * (y2 - y1)) / segLenSq;
-	t = fmax(0, fmin(1, t));
+	t = Fixed::max(0, Fixed::min(1, t));
 	projX = x1 + t * (x2 - x1);
 	projY = y1 + t * (y2 - y1);
-	return (sqrt(pow(xp - projX, 2) + pow(yp - projY, 2)));
+	return ((xp - projX) * (xp - projX) + (yp - projY) * (yp - projY));
 }
 
 Fixed	getMaxXCoord(const Point &a, const Point &b, const Point &c)
@@ -41,7 +40,7 @@ bool	bsp(Point const a, Point const b, Point const c, Point const point)
 
 	for (int i = 0; i < 3; i++)
 	{
-		if (Fixed::getE() > getDistanceLineToPoint(*(l[i][0]), *(l[i][1]), point))
+		if (Fixed::getE() > getDistanceSqLineToPoint(*(l[i][0]), *(l[i][1]), point))
 			return (true);
 	}
 	xmax = getMaxXCoord(a, b, c) + Fixed::getE() * 2;
