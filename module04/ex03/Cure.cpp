@@ -13,6 +13,7 @@ Cure::Cure(void):
 Cure::Cure(const Cure &orig):
 	AMateria(Cure::_typename)
 {
+	(void)orig;
 	std::cout << "Cure: Copy constructor\n";
 }
 
@@ -23,8 +24,10 @@ Cure::~Cure(void)
 
 Cure	&Cure::operator=(const Cure &orig)
 {
+	(void)orig;
 	std::cout << "Cure: operator=\n";
 	_type = Cure::_typename;
+	return (*this);
 }
 
 AMateria	*Cure::clone(void) const

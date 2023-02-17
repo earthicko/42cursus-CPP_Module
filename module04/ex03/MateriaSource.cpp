@@ -40,6 +40,7 @@ MateriaSource	&MateriaSource::operator=(const MateriaSource &orig)
 		else
 			_slot[i] = NULL;
 	}
+	return (*this);
 }
 
 void	MateriaSource::learnMateria(AMateria *m)
@@ -65,4 +66,5 @@ AMateria	*MateriaSource::createMateria(const std::string &type)
 			return (_slot[i]->clone());
 	}
 	std::cerr << "MateriaSource: no matching materia of type " << type << "\n";
+	return (NULL);
 }

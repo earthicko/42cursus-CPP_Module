@@ -13,6 +13,7 @@ Ice::Ice(void):
 Ice::Ice(const Ice &orig):
 	AMateria(Ice::_typename)
 {
+	(void)orig;
 	std::cout << "Ice: Copy constructor\n";
 }
 
@@ -23,8 +24,10 @@ Ice::~Ice(void)
 
 Ice	&Ice::operator=(const Ice &orig)
 {
+	(void)orig;
 	std::cout << "Ice: operator=\n";
 	_type = Ice::_typename;
+	return (*this);
 }
 
 AMateria	*Ice::clone(void) const

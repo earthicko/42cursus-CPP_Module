@@ -10,7 +10,7 @@ class Ice: public AMateria
 	public:
 									Ice(void);
 									Ice(const Ice &orig);
-									~Ice(void);
+		virtual						~Ice(void);
 		Ice							&operator=(const Ice &orig);
 
 		virtual AMateria			*clone(void) const;

@@ -43,6 +43,7 @@ Character	&Character::operator=(const Character &orig)
 		else
 			_slot[i] = NULL;
 	}
+	return (*this);
 }
 
 Character::Character(const std::string &name):

@@ -4,10 +4,13 @@
 # include <string>
 # include "ICharacter.hpp"
 
+class ICharacter;
+
 class AMateria
 {
 	public:
 							AMateria(const std::string &type);
+		virtual				~AMateria(void);
 
 		const std::string	&getType(void) const;
 		virtual AMateria	*clone(void) const = 0;

@@ -8,9 +8,15 @@ AMateria::AMateria(const std::string &type):
 	std::cout << "AMateria: Default constructor\n";
 }
 
+AMateria::~AMateria(void)
+{
+	std::cout << "AMateria: Destructor\n";
+}
+
 const std::string	&AMateria::getType(void) const
 {
 	std::cout << "AMateria: getType\n";
+	return (_type);
 }
 
 void	AMateria::use(ICharacter &target)
