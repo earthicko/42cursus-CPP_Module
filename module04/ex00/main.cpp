@@ -23,5 +23,10 @@ int main()
 	std::cout << wrongcat->getType() << std::endl;
 	wronganimal->makeSound();
 	wrongcat->makeSound();
+	delete animal;
+	delete dog;
+	delete cat;
+	delete wronganimal;
+	delete wrongcat;
 	return (0);
 }

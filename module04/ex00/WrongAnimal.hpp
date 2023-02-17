@@ -8,7 +8,7 @@ class WrongAnimal
 	public:
 							WrongAnimal(void);
 							WrongAnimal(const WrongAnimal &orig);
-							~WrongAnimal(void);
+		virtual				~WrongAnimal(void);
 		WrongAnimal			&operator=(const WrongAnimal &orig);
 
 		void				makeSound(void) const;
