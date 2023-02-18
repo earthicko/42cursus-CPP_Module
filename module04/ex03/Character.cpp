@@ -76,6 +76,12 @@ void	Character::equip(AMateria *m)
 void	Character::unequip(int idx)
 {
 	std::cout << "Character: unequip\n";
+	if (idx < 0 || idx >= Character::_nSlots)
+	{
+		std::cerr << "Character: idx " << idx << " is out of bound ";
+		std::cerr << "[0:" << Character::_nSlots << ")\n";
+		return ;
+	}
 	if (_slot[idx])
 	{
 		delete _slot[idx];
@@ -88,6 +94,12 @@ void	Character::unequip(int idx)
 void	Character::use(int idx, ICharacter& target)
 {
 	std::cout << "Character: use\n";
+	if (idx < 0 || idx >= Character::_nSlots)
+	{
+		std::cerr << "Character: idx " << idx << " is out of bound ";
+		std::cerr << "[0:" << Character::_nSlots << ")\n";
+		return ;
+	}
 	if (_slot[idx])
 		_slot[idx]->use(target);
 	else
