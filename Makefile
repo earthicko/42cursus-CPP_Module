@@ -16,7 +16,11 @@ EXS	= \
 	module03/ex00 \
 	module03/ex01 \
 	module03/ex02 \
-	module03/ex03
+	module03/ex03 \
+	module04/ex00 \
+	module04/ex01 \
+	module04/ex02 \
+	module04/ex03
 
 all:
 	for ex in $(EXS); \
