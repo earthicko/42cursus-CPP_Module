@@ -9,7 +9,8 @@ Cat::Cat(void)
 	brain = new Brain();
 }
 
-Cat::Cat(const Cat &orig)
+Cat::Cat(const Cat &orig):
+	Animal(orig)
 {
 	std::cout << "Cat: Copy constructor\n";
 	type = orig.type;

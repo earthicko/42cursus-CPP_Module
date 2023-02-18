@@ -1,7 +1,7 @@
 NAME		= harlFilter
 
 CXX			= c++
-CXXFLAGS	= -Wall -Wextra -Werror -std=c++98
+CXXFLAGS	= -Wall -Wextra -Werror -Wno-implicit-fallthrough -std=c++98
 
 SRCS		= \
 			Harl.cpp \

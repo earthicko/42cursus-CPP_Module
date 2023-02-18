@@ -7,7 +7,8 @@ WrongCat::WrongCat(void)
 	type = "WrongCat";
 }
 
-WrongCat::WrongCat(const WrongCat &orig)
+WrongCat::WrongCat(const WrongCat &orig):
+	WrongAnimal(orig)
 {
 	std::cout << "WrongCat: Copy constructor\n";
 	type = orig.type;

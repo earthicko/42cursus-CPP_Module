@@ -8,7 +8,8 @@ Dog::Dog(void)
 	brain = new Brain();
 }
 
-Dog::Dog(const Dog &orig)
+Dog::Dog(const Dog &orig):
+	Animal(orig)
 {
 	std::cout << "Dog: Copy constructor\n";
 	type = orig.type;
