@@ -15,7 +15,6 @@ AMateria::~AMateria(void)
 
 const std::string	&AMateria::getType(void) const
 {
-	std::cout << "AMateria: getType\n";
 	return (_type);
 }
 

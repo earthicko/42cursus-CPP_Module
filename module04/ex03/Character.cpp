@@ -56,7 +56,6 @@ Character::Character(const std::string &name):
 
 std::string const	&Character::getName(void) const
 {
-	std::cout << "Character: getName\n";
 	return (_name);
 }
 
