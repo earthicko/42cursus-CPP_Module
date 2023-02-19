@@ -30,7 +30,7 @@ Bureaucrat	&Bureaucrat::operator=(const Bureaucrat &orig)
 {
 	if (this == &orig)
 		return (*this);
-	std::cerr << "Warning: Bureaucrat name will not initialized using operator=\n";
+	std::cerr << "Warning: Bureaucrat name will not be initialized using operator=\n";
 	_grade = orig._grade;
 	return (*this);
 }
@@ -66,16 +66,12 @@ void	Bureaucrat::setGrade(int grade)
 
 void	Bureaucrat::incrementGrade(void)
 {
-	if (_grade == GRADE_MIN)
-		throw (GradeTooHighException(_grade - 1));
-	_grade--;
+	setGrade(_grade - 1);
 }
 
 void	Bureaucrat::decrementGrade(void)
 {
-	if (_grade == GRADE_MAX)
-		throw (GradeTooLowException(_grade + 1));
-	_grade++;
+	setGrade(_grade + 1);
 }
 
 std::ostream	&operator<<(std::ostream &os, const Bureaucrat& bureaucrat)

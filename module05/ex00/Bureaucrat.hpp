@@ -18,12 +18,13 @@ class	Bureaucrat
 
 		const std::string	&getName(void) const;
 		int					getGrade(void) const;
-		void				setGrade(int grade);
 		void				incrementGrade(void);
 		void				decrementGrade(void);
 
 	private:
 							Bureaucrat(void);
+
+		void				setGrade(int grade);
 
 		const std::string	_name;
 		int					_grade;
