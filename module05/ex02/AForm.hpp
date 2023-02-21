@@ -10,38 +10,40 @@ class	Bureaucrat;
 class	AForm
 {
 	public:
-							AForm(const AForm &orig);
-		virtual				~AForm(void);
-		AForm				&operator=(const AForm &orig);
+									AForm(const AForm &orig);
+		virtual						~AForm(void);
+		AForm						&operator=(const AForm &orig);
 
-							AForm
-							(
-								const std::string &name,
-								const std::string &formType,
-								int reqGradeToSign,
-								int reqGradeToExec
-							);
+									AForm
+									(
+										const std::string &name,
+										int reqGradeToSign,
+										int reqGradeToExec
+									);
 
-		const std::string	&getName(void) const;
-		const std::string	&getFormType(void) const;
-		bool				isSigned(void) const;
-		int					getReqGradeToSign(void) const;
-		int					getReqGradeToExec(void) const;
-		void				beSigned(const Bureaucrat &signer);
-		virtual void		execute(const Bureaucrat &executor) const = 0;
+		const std::string			&getName(void) const;
+		bool						isSigned(void) const;
+		int							getReqGradeToSign(void) const;
+		int							getReqGradeToExec(void) const;
+		void						beSigned(const Bureaucrat &signer);
+		virtual void				execute(const Bureaucrat &executor) const = 0;
+
+	protected:
+		void						setSigned(bool isSigned);
 
 	private:
-							AForm(void);
+									AForm(void);
 
-		const std::string	_formType;
-		const std::string	_name;
-		bool				_isSigned;
-		const int			_reqGradeToSign;
-		const int			_reqGradeToExec;
+		const static std::string	_defaultName;
+		const std::string			_name;
+		const std::string			_formType;
+		bool						_isSigned;
+		const int					_reqGradeToSign;
+		const int					_reqGradeToExec;
 
 	public:
-		class				GradeTooHighException;
-		class				GradeTooLowException;
+		class						GradeTooHighException;
+		class						GradeTooLowException;
 };
 
 std::ostream	&operator<<(std::ostream &os, const AForm& form);

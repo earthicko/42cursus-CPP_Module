@@ -7,7 +7,6 @@
 class	RobotomyRequestForm: public AForm
 {
 	public:
-									RobotomyRequestForm(void);
 									RobotomyRequestForm(const RobotomyRequestForm &orig);
 									~RobotomyRequestForm(void);
 		RobotomyRequestForm			&operator=(const RobotomyRequestForm &orig);
@@ -15,7 +14,9 @@ class	RobotomyRequestForm: public AForm
 		virtual void				execute(const Bureaucrat &executor) const;
 
 	private:
-		const static std::string	_defaultFormType;
+									RobotomyRequestForm(void);
+
+		const static std::string	_defaultName;
 		const static int			_defaultReqGradeToSign = 72;
 		const static int			_defaultReqGradeToExec = 45;
 };

@@ -7,7 +7,6 @@
 class	PresidentialPardonForm: public AForm
 {
 	public:
-									PresidentialPardonForm(void);
 									PresidentialPardonForm(const PresidentialPardonForm &orig);
 									~PresidentialPardonForm(void);
 		PresidentialPardonForm		&operator=(const PresidentialPardonForm &orig);
@@ -15,7 +14,9 @@ class	PresidentialPardonForm: public AForm
 		virtual void				execute(const Bureaucrat &executor) const;
 
 	private:
-		const static std::string	_defaultFormType;
+									PresidentialPardonForm(void);
+
+		const static std::string	_defaultName;
 		const static int			_defaultReqGradeToSign = 25;
 		const static int			_defaultReqGradeToExec = 5;
 };

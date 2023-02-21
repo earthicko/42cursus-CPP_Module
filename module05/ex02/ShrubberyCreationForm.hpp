@@ -7,7 +7,6 @@
 class	ShrubberyCreationForm: public AForm
 {
 	public:
-									ShrubberyCreationForm(void);
 									ShrubberyCreationForm(const ShrubberyCreationForm &orig);
 									~ShrubberyCreationForm(void);
 		ShrubberyCreationForm		&operator=(const ShrubberyCreationForm &orig);
@@ -15,7 +14,9 @@ class	ShrubberyCreationForm: public AForm
 		virtual void				execute(const Bureaucrat &executor) const;
 
 	private:
-		const static std::string	_defaultFormType;
+									ShrubberyCreationForm(void);
+
+		const static std::string	_defaultName;
 		const static int			_defaultReqGradeToSign = 145;
 		const static int			_defaultReqGradeToExec = 137;
 };

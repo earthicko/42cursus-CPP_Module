@@ -2,6 +2,8 @@
 #include <sstream>
 #include "AForm.hpp"
 
+const std::string	AForm::_defaultName = "Form";
+
 static std::string	intToString(int val)
 {
 	std::ostringstream	strm;
@@ -24,7 +26,6 @@ static void	throwGradeTooLowException(int grade)
 
 AForm::AForm(const AForm &orig):
 	_name(orig._name),
-	_formType(orig._formType),
 	_isSigned(orig._isSigned),
 	_reqGradeToSign(orig._reqGradeToSign),
 	_reqGradeToExec(orig._reqGradeToExec)
@@ -44,9 +45,8 @@ AForm	&AForm::operator=(const AForm &orig)
 	return (*this);
 }
 
-AForm::AForm(const std::string &name, const std::string &formType, int reqGradeToSign, int reqGradeToExec):
+AForm::AForm(const std::string &name, int reqGradeToSign, int reqGradeToExec):
 	_name(name),
-	_formType(formType),
 	_isSigned(false),
 	_reqGradeToSign(reqGradeToSign),
 	_reqGradeToExec(reqGradeToExec)
@@ -62,14 +62,14 @@ const std::string	&AForm::getName(void) const
 	return (_name);
 }
 
-const std::string	&AForm::getFormType(void) const
-{
-	return (_formType);
-}
-
 bool	AForm::isSigned(void) const
 {
 	return (_isSigned);
+}
+
+void	AForm::setSigned(bool isSigned)
+{
+	_isSigned = isSigned;
 }
 
 int	AForm::getReqGradeToSign(void) const
@@ -92,8 +92,7 @@ void	AForm::beSigned(const Bureaucrat &signer)
 }
 
 AForm::AForm(void):
-	_name(""),
-	_formType("Form"),
+	_name(AForm::_defaultName),
 	_isSigned(false),
 	_reqGradeToSign(GRADE_MIN),
 	_reqGradeToExec(GRADE_MIN)
@@ -102,7 +101,7 @@ AForm::AForm(void):
 
 std::ostream	&operator<<(std::ostream &os, const AForm& form)
 {
-	os << form.getFormType() << " " << form.getName() << ": ";
+	os << form.getName() << ": ";
 	os << "sign grade " << form.getReqGradeToSign() << ", ";
 	os << "exec grade " << form.getReqGradeToExec() << ", ";
 	if (form.isSigned())
