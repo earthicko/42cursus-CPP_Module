@@ -11,6 +11,8 @@ class	ShrubberyCreationForm: public AForm
 									~ShrubberyCreationForm(void);
 		ShrubberyCreationForm		&operator=(const ShrubberyCreationForm &orig);
 
+									ShrubberyCreationForm(const std::string &target);
+
 		virtual void				execute(const Bureaucrat &executor) const;
 
 	private:
@@ -19,6 +21,7 @@ class	ShrubberyCreationForm: public AForm
 		const static std::string	_defaultName;
 		const static int			_defaultReqGradeToSign = 145;
 		const static int			_defaultReqGradeToExec = 137;
+		const std::string			_target;
 };
 
 #endif

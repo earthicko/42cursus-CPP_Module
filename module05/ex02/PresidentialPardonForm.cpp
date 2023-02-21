@@ -30,6 +30,15 @@ PresidentialPardonForm	&PresidentialPardonForm::operator=(const PresidentialPard
 	return (*this);
 }
 
+PresidentialPardonForm::PresidentialPardonForm(const std::string &target):
+	AForm(
+		PresidentialPardonForm::_defaultName,
+		PresidentialPardonForm::_defaultReqGradeToSign,
+		PresidentialPardonForm::_defaultReqGradeToExec),
+	_target(target)
+{
+}
+
 void	PresidentialPardonForm::execute(const Bureaucrat &executor) const
 {
 	(void)executor;

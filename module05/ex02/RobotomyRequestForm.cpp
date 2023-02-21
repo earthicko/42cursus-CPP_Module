@@ -30,6 +30,15 @@ RobotomyRequestForm	&RobotomyRequestForm::operator=(const RobotomyRequestForm &o
 	return (*this);
 }
 
+RobotomyRequestForm::RobotomyRequestForm(const std::string &target):
+	AForm(
+		RobotomyRequestForm::_defaultName,
+		RobotomyRequestForm::_defaultReqGradeToSign,
+		RobotomyRequestForm::_defaultReqGradeToExec),
+	_target(target)
+{
+}
+
 void	RobotomyRequestForm::execute(const Bureaucrat &executor) const
 {
 	(void)executor;

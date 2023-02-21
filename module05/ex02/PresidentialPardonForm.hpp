@@ -11,6 +11,8 @@ class	PresidentialPardonForm: public AForm
 									~PresidentialPardonForm(void);
 		PresidentialPardonForm		&operator=(const PresidentialPardonForm &orig);
 
+									PresidentialPardonForm(const std::string &target);
+
 		virtual void				execute(const Bureaucrat &executor) const;
 
 	private:
@@ -19,6 +21,7 @@ class	PresidentialPardonForm: public AForm
 		const static std::string	_defaultName;
 		const static int			_defaultReqGradeToSign = 25;
 		const static int			_defaultReqGradeToExec = 5;
+		const std::string			_target;
 };
 
 #endif

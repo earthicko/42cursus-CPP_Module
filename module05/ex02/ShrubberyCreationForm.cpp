@@ -30,6 +30,15 @@ ShrubberyCreationForm	&ShrubberyCreationForm::operator=(const ShrubberyCreationF
 	return (*this);
 }
 
+ShrubberyCreationForm::ShrubberyCreationForm(const std::string &target):
+	AForm(
+		ShrubberyCreationForm::_defaultName,
+		ShrubberyCreationForm::_defaultReqGradeToSign,
+		ShrubberyCreationForm::_defaultReqGradeToExec),
+	_target(target)
+{
+}
+
 void	ShrubberyCreationForm::execute(const Bureaucrat &executor) const
 {
 	(void)executor;
