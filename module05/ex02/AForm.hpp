@@ -26,6 +26,7 @@ class	AForm
 		int							getReqGradeToSign(void) const;
 		int							getReqGradeToExec(void) const;
 		void						beSigned(const Bureaucrat &signer);
+		void						checkExecGrade(const Bureaucrat &executor) const;
 		virtual void				execute(const Bureaucrat &executor) const = 0;
 
 	protected:
@@ -44,6 +45,7 @@ class	AForm
 	public:
 		class						GradeTooHighException;
 		class						GradeTooLowException;
+		class						FormNotSignedException;
 };
 
 std::ostream	&operator<<(std::ostream &os, const AForm& form);
@@ -58,6 +60,12 @@ class	AForm::GradeTooLowException: public std::runtime_error
 {
 	public:
 		GradeTooLowException(int grade);
+};
+
+class	AForm::FormNotSignedException: public std::runtime_error
+{
+	public:
+		FormNotSignedException(void);
 };
 
 #endif

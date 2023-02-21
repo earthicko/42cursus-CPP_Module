@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include "ShrubberyCreationForm.hpp"
 
 const std::string	ShrubberyCreationForm::_defaultName = "ShrubberyCreationForm";
@@ -41,5 +42,26 @@ ShrubberyCreationForm::ShrubberyCreationForm(const std::string &target):
 
 void	ShrubberyCreationForm::execute(const Bureaucrat &executor) const
 {
-	(void)executor;
+	std::ofstream	file;
+
+	if (!isSigned())
+		throw (AForm::FormNotSignedException());
+	checkExecGrade(executor);
+	file.open(_target + "_shrubbery", std::ios::out | std::ios::trunc);
+	if (file.is_open())
+	{
+		file << "       v\n"
+			<< "      >X<\n"
+			<< "       A\n"
+			<< "      d$b\n"
+			<< "    .d$$$b.\n"
+			<< "  .d$i$$$$$b.\n"
+			<< "     d$$$@b\n"
+			<< "    d$$$$ib\n"
+			<< "  .d$$$$$$$b\n"
+			<< "      ###\n";
+		file.close();
+	}
+	else
+		std::cerr << "I/O Error: Unable to open file." << std::endl;
 }

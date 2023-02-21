@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstdlib>
 #include "RobotomyRequestForm.hpp"
 
 const std::string	RobotomyRequestForm::_defaultName = "RobotomyRequestForm";
@@ -41,5 +42,12 @@ RobotomyRequestForm::RobotomyRequestForm(const std::string &target):
 
 void	RobotomyRequestForm::execute(const Bureaucrat &executor) const
 {
-	(void)executor;
+	if (!isSigned())
+		throw (AForm::FormNotSignedException());
+	checkExecGrade(executor);
+	std::cout << getName() << ": making some drilling noises\n";
+	if (rand() % 2)
+		std::cout << getName() << ": " << _target << " has been robotomised sucessfully.\n";
+	else
+		std::cout << getName() << ": " << _target << " has not been robotomised sucessfully.\n";
 }

@@ -91,6 +91,12 @@ void	AForm::beSigned(const Bureaucrat &signer)
 	_isSigned = true;
 }
 
+void	AForm::checkExecGrade(const Bureaucrat &executor) const
+{
+	if (executor.getGrade() > _reqGradeToExec)
+		throw (GradeTooLowException(executor.getGrade()));
+}
+
 AForm::AForm(void):
 	_name(AForm::_defaultName),
 	_isSigned(false),
@@ -118,5 +124,10 @@ AForm::GradeTooHighException::GradeTooHighException(int grade):
 
 AForm::GradeTooLowException::GradeTooLowException(int grade):
 	std::runtime_error("Grade " + intToString(grade) + " is too low")
+{
+}
+
+AForm::FormNotSignedException::FormNotSignedException(void):
+	std::runtime_error("Form has not been signed")
 {
 }
