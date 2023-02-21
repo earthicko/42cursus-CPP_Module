@@ -12,7 +12,8 @@ PresidentialPardonForm::PresidentialPardonForm(void):
 }
 
 PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm &orig):
-	AForm(orig.getName(), orig.getReqGradeToSign(), orig.getReqGradeToExec())
+	AForm(orig.getName(), orig.getReqGradeToSign(), orig.getReqGradeToExec()),
+	_target(orig._target)
 {
 	setSigned(orig.isSigned());
 }

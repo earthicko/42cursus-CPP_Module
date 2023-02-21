@@ -13,7 +13,8 @@ ShrubberyCreationForm::ShrubberyCreationForm(void):
 }
 
 ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &orig):
-	AForm(orig.getName(), orig.getReqGradeToSign(), orig.getReqGradeToExec())
+	AForm(orig.getName(), orig.getReqGradeToSign(), orig.getReqGradeToExec()),
+	_target(orig._target)
 {
 	setSigned(orig.isSigned());
 }
