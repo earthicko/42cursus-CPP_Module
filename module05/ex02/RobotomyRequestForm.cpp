@@ -47,6 +47,7 @@ void	RobotomyRequestForm::execute(const Bureaucrat &executor) const
 		throw (AForm::FormNotSignedException());
 	checkExecGrade(executor);
 	std::cout << getName() << ": making some drilling noises\n";
+	srand(time(NULL));
 	if (rand() % 2)
 		std::cout << getName() << ": " << _target << " has been robotomised sucessfully.\n";
 	else
