@@ -21,5 +21,8 @@ int	main(void)
 	a.takeDamage(10);
 	a.beRepaired(1);
 	b.takeDamage(10);
+	b = a;
+	b.beRepaired(10);
+	b.takeDamage(10);
 	return (0);
 }
