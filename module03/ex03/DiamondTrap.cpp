@@ -3,6 +3,8 @@
 
 DiamondTrap::DiamondTrap(void):
 	ClapTrap("_clap_trap"),
+	ScavTrap("_scav_trap"),
+	FragTrap("_frag_trap"),
 	_name("")
 {
 	std::cout << "DiamondTrap default constructor" << std::endl;
@@ -33,6 +35,8 @@ DiamondTrap::~DiamondTrap(void)
 DiamondTrap &DiamondTrap::operator=(const DiamondTrap &orig)
 {
 	ClapTrap::operator=(orig);
+	ScavTrap::operator=(orig);
+	FragTrap::operator=(orig);
 	std::cout << "DiamondTrap copy assignment operator" << std::endl;
 	_name = orig._name;
 	_hitPoint = orig._hitPoint;
@@ -44,6 +48,8 @@ DiamondTrap &DiamondTrap::operator=(const DiamondTrap &orig)
 
 DiamondTrap::DiamondTrap(const std::string &name):
 	ClapTrap(name + "_clap_trap"),
+	ScavTrap(name + "_scav_trap"),
+	FragTrap(name + "_frag_trap"),
 	_name(name)
 {
 	std::cout << "DiamondTrap constructor with name" << std::endl;
