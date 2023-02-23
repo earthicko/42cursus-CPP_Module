@@ -1,17 +1,21 @@
 #include <iostream>
 #include "Dog.hpp"
 
-Dog::Dog(void)
+const std::string	Dog::_defaultType = "Dog";
+
+Dog::Dog(void):
+	Animal()
 {
 	std::cout << "Dog: Default constructor\n";
-	type = "Dog";
+	type = Dog::_defaultType;
 }
 
 Dog::Dog(const Dog &orig):
 	Animal(orig)
 {
+	(void)orig;
 	std::cout << "Dog: Copy constructor\n";
-	type = orig.type;
+	type = Dog::_defaultType;
 }
 
 Dog::~Dog(void)
@@ -21,8 +25,10 @@ Dog::~Dog(void)
 
 Dog	&Dog::operator=(const Dog &orig)
 {
+	(void)orig;
+	Animal::operator=(orig);
 	std::cout << "Dog: operator= w/ another Dog\n";
-	type = orig.type;
+	type = Dog::_defaultType;
 	return (*this);
 }
 

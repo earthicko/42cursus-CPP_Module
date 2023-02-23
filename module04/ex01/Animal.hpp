@@ -6,16 +6,19 @@
 class Animal
 {
 	public:
-							Animal(void);
-							Animal(const Animal &orig);
-		virtual				~Animal(void);
-		Animal				&operator=(const Animal &orig);
+									Animal(void);
+									Animal(const Animal &orig);
+		virtual						~Animal(void);
+		Animal						&operator=(const Animal &orig);
 
-		virtual void		makeSound(void) const;
-		const std::string	&getType(void) const;
+		virtual void				makeSound(void) const;
+		const std::string			&getType(void) const;
 
 	protected:
-		std::string			type;
+		std::string					type;
+
+	private:
+		const static std::string	_defaultType;
 };
 
 #endif

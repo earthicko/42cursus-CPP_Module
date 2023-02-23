@@ -1,15 +1,18 @@
 #include <iostream>
 #include "WrongAnimal.hpp"
 
+const std::string	WrongAnimal::_defaultType = "";
+
 WrongAnimal::WrongAnimal(void):
-	type("")
+	type(WrongAnimal::_defaultType)
 {
 	std::cout << "WrongAnimal: Default constructor\n";
 }
 
 WrongAnimal::WrongAnimal(const WrongAnimal &orig):
-	type(orig.type)
+	type(WrongAnimal::_defaultType)
 {
+	(void)orig;
 	std::cout << "WrongAnimal: Copy constructor\n";
 }
 
@@ -20,8 +23,9 @@ WrongAnimal::~WrongAnimal(void)
 
 WrongAnimal	&WrongAnimal::operator=(const WrongAnimal &orig)
 {
+	(void)orig;
 	std::cout << "WrongAnimal: operator= w/ another WrongAnimal\n";
-	type = orig.type;
+	type = WrongAnimal::_defaultType;
 	return (*this);
 }
 

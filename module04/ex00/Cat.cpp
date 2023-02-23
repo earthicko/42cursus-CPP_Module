@@ -1,17 +1,21 @@
 #include <iostream>
 #include "Cat.hpp"
 
-Cat::Cat(void)
+const std::string	Cat::_defaultType = "Cat";
+
+Cat::Cat(void):
+	Animal()
 {
 	std::cout << "Cat: Default constructor\n";
-	type = "Cat";
+	type = Cat::_defaultType;
 }
 
 Cat::Cat(const Cat &orig):
 	Animal(orig)
 {
+	(void)orig;
 	std::cout << "Cat: Copy constructor\n";
-	type = orig.type;
+	type = Cat::_defaultType;
 }
 
 Cat::~Cat(void)
@@ -21,8 +25,10 @@ Cat::~Cat(void)
 
 Cat	&Cat::operator=(const Cat &orig)
 {
+	(void)orig;
+	Animal::operator=(orig);
 	std::cout << "Cat: operator= w/ another Cat\n";
-	type = orig.type;
+	type = Cat::_defaultType;
 	return (*this);
 }
 

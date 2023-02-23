@@ -1,15 +1,18 @@
 #include <iostream>
 #include "Animal.hpp"
 
+const std::string	Animal::_defaultType = "";
+
 Animal::Animal(void):
-	type("")
+	type(Animal::_defaultType)
 {
 	std::cout << "Animal: Default constructor\n";
 }
 
 Animal::Animal(const Animal &orig):
-	type(orig.type)
+	type(Animal::_defaultType)
 {
+	(void)orig;
 	std::cout << "Animal: Copy constructor\n";
 }
 
@@ -20,8 +23,9 @@ Animal::~Animal(void)
 
 Animal	&Animal::operator=(const Animal &orig)
 {
+	(void)orig;
 	std::cout << "Animal: operator= w/ another Animal\n";
-	type = orig.type;
+	type = Animal::_defaultType;
 	return (*this);
 }
 

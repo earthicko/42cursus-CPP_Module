@@ -1,17 +1,20 @@
 #include <iostream>
 #include "Dog.hpp"
+#include "Brain.hpp"
+
+const std::string	Dog::_defaultType = "Dog";
 
 Dog::Dog(void)
 {
 	std::cout << "Dog: Default constructor\n";
-	type = "Dog";
+	type = Dog::_defaultType;
 	brain = new Brain();
 }
 
 Dog::Dog(const Dog &orig)
 {
 	std::cout << "Dog: Copy constructor\n";
-	type = orig.type;
+	type = Dog::_defaultType;
 	brain = new Brain(*orig.brain);
 }
 
@@ -24,7 +27,7 @@ Dog::~Dog(void)
 Dog	&Dog::operator=(const Dog &orig)
 {
 	std::cout << "Dog: operator= w/ another Dog\n";
-	type = orig.type;
+	type = Dog::_defaultType;
 	brain = new Brain(*orig.brain);
 	return (*this);
 }
@@ -32,7 +35,7 @@ Dog	&Dog::operator=(const Dog &orig)
 void	Dog::makeSound(void) const
 {
 	std::cout << "Dog: makeSound\n";
-	std::cout << "Dog: makes dog sound\n";
+	std::cout << "Dog: makes Dog sound\n";
 }
 
 void	Dog::setIdea(const std::string &idea, int i)
