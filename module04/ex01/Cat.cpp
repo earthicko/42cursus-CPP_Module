@@ -2,10 +2,13 @@
 #include "Cat.hpp"
 #include "Brain.hpp"
 
-Cat::Cat(void)
+const std::string	Cat::_defaultType = "Cat";
+
+Cat::Cat(void):
+	Animal()
 {
 	std::cout << "Cat: Default constructor\n";
-	type = "Cat";
+	type = Cat::_defaultType;
 	brain = new Brain();
 }
 
@@ -13,7 +16,7 @@ Cat::Cat(const Cat &orig):
 	Animal(orig)
 {
 	std::cout << "Cat: Copy constructor\n";
-	type = orig.type;
+	type = Cat::_defaultType;
 	brain = new Brain(*orig.brain);
 }
 
@@ -25,8 +28,9 @@ Cat::~Cat(void)
 
 Cat	&Cat::operator=(const Cat &orig)
 {
+	Animal::operator=(orig);
 	std::cout << "Cat: operator= w/ another Cat\n";
-	type = orig.type;
+	type = Cat::_defaultType;
 	brain = new Brain(*orig.brain);
 	return (*this);
 }

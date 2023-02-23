@@ -7,12 +7,15 @@
 class Cat: public Animal
 {
 	public:
-						Cat(void);
-						Cat(const Cat &orig);
-		virtual			~Cat(void);
-		Cat				&operator=(const Cat &orig);
+									Cat(void);
+									Cat(const Cat &orig);
+		virtual						~Cat(void);
+		Cat							&operator=(const Cat &orig);
 
-		virtual void	makeSound(void) const;
+		virtual void				makeSound(void) const;
+
+	private:
+		const static std::string	_defaultType;
 };
 
 #endif

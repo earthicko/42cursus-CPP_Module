@@ -1,17 +1,20 @@
 #include <iostream>
 #include "WrongCat.hpp"
 
+const std::string	WrongCat::_defaultType = "WrongCat";
+
 WrongCat::WrongCat(void)
 {
 	std::cout << "WrongCat: Default constructor\n";
-	type = "WrongCat";
+	type = WrongCat::_defaultType;
 }
 
 WrongCat::WrongCat(const WrongCat &orig):
 	WrongAnimal(orig)
 {
+	(void)orig;
 	std::cout << "WrongCat: Copy constructor\n";
-	type = orig.type;
+	type = WrongCat::_defaultType;
 }
 
 WrongCat::~WrongCat(void)
@@ -21,8 +24,9 @@ WrongCat::~WrongCat(void)
 
 WrongCat	&WrongCat::operator=(const WrongCat &orig)
 {
+	(void)orig;
 	std::cout << "WrongCat: operator= w/ another WrongCat\n";
-	type = orig.type;
+	type = WrongCat::_defaultType;
 	return (*this);
 }
 

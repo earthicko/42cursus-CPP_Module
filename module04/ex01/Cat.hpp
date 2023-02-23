@@ -8,17 +8,18 @@
 class Cat: public Animal
 {
 	public:
-							Cat(void);
-							Cat(const Cat &orig);
-		virtual				~Cat(void);
-		Cat					&operator=(const Cat &orig);
+									Cat(void);
+									Cat(const Cat &orig);
+		virtual						~Cat(void);
+		Cat							&operator=(const Cat &orig);
 
-		virtual void		makeSound(void) const;
-		void				setIdea(const std::string &idea, int i);
-		const std::string	&getIdea(int i) const;
+		virtual void				makeSound(void) const;
+		void						setIdea(const std::string &idea, int i);
+		const std::string			&getIdea(int i) const;
 
 	private:
-		Brain				*brain;
+		const static std::string	_defaultType;
+		Brain						*brain;
 };
 
 #endif
