@@ -27,7 +27,10 @@ Dog::~Dog(void)
 Dog	&Dog::operator=(const Dog &orig)
 {
 	std::cout << "Dog: operator= w/ another Dog\n";
+	if (&orig == this)
+		return (*this);
 	type = Dog::_defaultType;
+	delete brain;
 	brain = new Brain(*orig.brain);
 	return (*this);
 }

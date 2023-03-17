@@ -25,6 +25,8 @@ WrongAnimal	&WrongAnimal::operator=(const WrongAnimal &orig)
 {
 	(void)orig;
 	std::cout << "WrongAnimal: operator= w/ another WrongAnimal\n";
+	if (&orig == this)
+		return (*this);
 	type = WrongAnimal::_defaultType;
 	return (*this);
 }

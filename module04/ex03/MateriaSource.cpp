@@ -33,6 +33,8 @@ MateriaSource::~MateriaSource(void)
 MateriaSource	&MateriaSource::operator=(const MateriaSource &orig)
 {
 	std::cout << "MateriaSource: operator=\n";
+	if (&orig == this)
+		return (*this);
 	for (int i = 0; i < MateriaSource::_nSlots; i++)
 	{
 		if (_slot[i])

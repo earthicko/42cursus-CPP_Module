@@ -30,7 +30,10 @@ Dog	&Dog::operator=(const Dog &orig)
 {
 	Animal::operator=(orig);
 	std::cout << "Dog: operator= w/ another Dog\n";
+	if (&orig == this)
+		return (*this);
 	type = Dog::_defaultType;
+	delete brain;
 	brain = new Brain(*orig.brain);
 	return (*this);
 }

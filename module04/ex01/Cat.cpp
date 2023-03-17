@@ -30,7 +30,10 @@ Cat	&Cat::operator=(const Cat &orig)
 {
 	Animal::operator=(orig);
 	std::cout << "Cat: operator= w/ another Cat\n";
+	if (&orig == this)
+		return (*this);
 	type = Cat::_defaultType;
+	delete brain;
 	brain = new Brain(*orig.brain);
 	return (*this);
 }

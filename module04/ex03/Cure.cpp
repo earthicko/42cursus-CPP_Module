@@ -24,8 +24,9 @@ Cure::~Cure(void)
 
 Cure	&Cure::operator=(const Cure &orig)
 {
-	(void)orig;
 	std::cout << "Cure: operator=\n";
+	if (&orig == this)
+		return (*this);
 	_type = Cure::_typename;
 	return (*this);
 }

@@ -25,9 +25,10 @@ Dog::~Dog(void)
 
 Dog	&Dog::operator=(const Dog &orig)
 {
-	(void)orig;
 	Animal::operator=(orig);
 	std::cout << "Dog: operator= w/ another Dog\n";
+	if (&orig == this)
+		return (*this);
 	type = Dog::_defaultType;
 	return (*this);
 }

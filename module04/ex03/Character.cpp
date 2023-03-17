@@ -35,6 +35,8 @@ Character::~Character(void)
 Character	&Character::operator=(const Character &orig)
 {
 	std::cout << "Character: operator=\n";
+	if (&orig == this)
+		return (*this);
 	_name = orig._name;
 	for (int i = 0; i < Character::_nSlots; i++)
 	{

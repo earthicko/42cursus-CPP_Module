@@ -21,6 +21,8 @@ Brain::~Brain(void)
 Brain	&Brain::operator=(const Brain &orig)
 {
 	std::cout << "Brain: operator= w/ another Brain\n";
+	if (&orig == this)
+		return (*this);
 	for (int i = 0; i < Brain::nIdeas; i++)
 		ideas[i] = orig.ideas[i];
 	return (*this);

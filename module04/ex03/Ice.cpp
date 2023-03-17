@@ -24,8 +24,9 @@ Ice::~Ice(void)
 
 Ice	&Ice::operator=(const Ice &orig)
 {
-	(void)orig;
 	std::cout << "Ice: operator=\n";
+	if (&orig == this)
+		return (*this);
 	_type = Ice::_typename;
 	return (*this);
 }

@@ -25,9 +25,10 @@ Cat::~Cat(void)
 
 Cat	&Cat::operator=(const Cat &orig)
 {
-	(void)orig;
 	Animal::operator=(orig);
 	std::cout << "Cat: operator= w/ another Cat\n";
+	if (&orig == this)
+		return (*this);
 	type = Cat::_defaultType;
 	return (*this);
 }
