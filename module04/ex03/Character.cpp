@@ -14,22 +14,12 @@ Character::Character(const Character &orig):
 {
 	std::cout << "Character: Copy constructor\n";
 	for (int i = 0; i < Character::_nSlots; i++)
-	{
-		if (_slot[i])
-			_slot[i] = orig._slot[i]->clone();
-		else
-			_slot[i] = NULL;
-	}
+		_slot[i] = orig._slot[i];
 }
 
 Character::~Character(void)
 {
 	std::cout << "Character: Destructor\n";
-	for (int i = 0; i < Character::_nSlots; i++)
-	{
-		if (_slot[i])
-			delete _slot[i];
-	}
 }
 
 Character	&Character::operator=(const Character &orig)
@@ -39,12 +29,7 @@ Character	&Character::operator=(const Character &orig)
 		return (*this);
 	_name = orig._name;
 	for (int i = 0; i < Character::_nSlots; i++)
-	{
-		if (_slot[i])
-			_slot[i] = orig._slot[i]->clone();
-		else
-			_slot[i] = NULL;
-	}
+		_slot[i] = orig._slot[i];
 	return (*this);
 }
 
@@ -68,7 +53,7 @@ void	Character::equip(AMateria *m)
 	{
 		if (!_slot[i])
 		{
-			_slot[i] = m->clone();
+			_slot[i] = m;
 			return ;
 		}
 	}
@@ -85,10 +70,7 @@ void	Character::unequip(int idx)
 		return ;
 	}
 	if (_slot[idx])
-	{
-		delete _slot[idx];
 		_slot[idx] = NULL;
-	}
 	else
 		std::cerr << "Character: slot " << idx << " is empty\n";
 }
