@@ -2,12 +2,18 @@
 
 C++ casts
 
+## Aditional Rules
+
+The following rule applies to the entire module and is not optional.
+
+For each exercise, the type conversion must be solved using one specific type of casting.
+Your choice will be checked during defense.
+
 ## ex00
 
 |Files to turn in|Allowed functions|
 |----------------|-------------------|
-|`Makefile`, `*.cpp`, `*.{h, hpp}`|Any function to convert from a string to an int, a
-float or a double. This will help, but won’t do the whole job.|
+|`Makefile`, `*.cpp`, `*.{h, hpp}`|Any function to convert from a string to an int, a float or a double. This will help, but won’t do the whole job.|
 
 Write a `static` class ScalarConverter that will contain a method "convert" takes as parameter a string representation of a C++ literal in its most common form. This literal must belong to one of the following a scalar types:
 
