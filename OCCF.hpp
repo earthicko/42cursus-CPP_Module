@@ -3,11 +3,11 @@
 
 class	OCCF
 {
-	public:
-				OCCF(void);
-				OCCF(const OCCF &orig);
-				~OCCF(void);
-		OCCF	&operator=(const OCCF &orig);
+public:
+			OCCF(void);
+			OCCF(const OCCF &orig);
+			~OCCF(void);
+	OCCF	&operator=(const OCCF &orig);
 };
 
 #endif
