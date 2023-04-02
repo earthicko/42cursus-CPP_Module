@@ -3,14 +3,13 @@
 #include "B.hpp"
 #include "C.hpp"
 #include "identify.hpp"
-#include <random>
+#include <cstdlib>
+#include <ctime>
 #include <iostream>
 
 Base	*generate(void)
 {
-	std::random_device	rd;
-
-	switch (rd() % 3)
+	switch (std::rand() % 3)
 	{
 	case 0:
 		std::cout << "Generated class object A\n";
@@ -27,13 +26,14 @@ Base	*generate(void)
 	default:
 		break;
 	}
-	return (nullptr);
+	return (NULL);
 }
 
 int	main(void)
 {
 	Base	*randomObjPtr;
 
+	std::srand(std::time(0));
 	randomObjPtr = generate();
 	identify(randomObjPtr);
 	identify(*randomObjPtr);

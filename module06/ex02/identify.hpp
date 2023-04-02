@@ -9,7 +9,7 @@
 		DERIVEDT	*derivedptr;											\
 																			\
 		derivedptr = dynamic_cast<DERIVEDT *>(PTR);							\
-		if (derivedptr != nullptr)											\
+		if (derivedptr != NULL)											\
 			std::cout << "Pointer of class object " << #DERIVEDT << "\n";	\
 	}
 

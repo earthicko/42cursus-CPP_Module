@@ -12,7 +12,7 @@ template <typename T>
 Array<T>::Array(const Array<T> &orig)
 {
 	if (this == &orig)
-		return (*this);
+		return ;
 	_n = orig._n;
 	array = new T[_n];
 	for (t_uint i = 0; i < _n; i++)
