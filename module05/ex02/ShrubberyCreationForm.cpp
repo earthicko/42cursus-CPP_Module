@@ -44,11 +44,13 @@ ShrubberyCreationForm::ShrubberyCreationForm(const std::string &target):
 void	ShrubberyCreationForm::execute(const Bureaucrat &executor) const
 {
 	std::ofstream	file;
+	std::string		filename;
 
 	if (!isSigned())
 		throw (AForm::FormNotSignedException());
 	checkExecGrade(executor);
-	file.open(_target + "_shrubbery", std::ios::out | std::ios::trunc);
+	filename = _target + std::string("_shruberry");
+	file.open(filename.c_str(), std::ios::out | std::ios::trunc);
 	if (file.is_open())
 	{
 		file << "       v\n"
