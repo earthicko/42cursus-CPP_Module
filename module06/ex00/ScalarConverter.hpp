@@ -29,7 +29,7 @@
 		TYPE_TARGET casted = static_cast<TYPE_TARGET>(VALUE);				\
 		if (static_cast<TYPE_ORIGIN>(casted) != VALUE)						\
 			throw std::runtime_error("Impossible value to represent");		\
-		std::cout << #TYPE_TARGET << ": " << casted << "\n";			\
+		std::cout << #TYPE_TARGET << ": " << casted << "\n";				\
 	}																		\
 	catch(const std::exception& e)											\
 	{																		\
