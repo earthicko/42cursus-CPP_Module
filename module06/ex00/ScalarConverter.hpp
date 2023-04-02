@@ -6,13 +6,25 @@
 # include <sstream>
 # include <iostream>
 
+template <typename T, typename U>
+struct is_same
+{
+	static const bool value = false;
+};
+
+template <typename T>
+struct is_same<T, T>
+{
+	static const bool value = true;
+};
+
 # define TRY_CAST_PRINT(TYPE_TARGET, TYPE_ORIGIN, VALUE)					\
 	try																		\
 	{																		\
 		TYPE_TARGET casted = static_cast<TYPE_TARGET>(VALUE);				\
 		if (static_cast<TYPE_ORIGIN>(casted) != VALUE)						\
 			throw std::runtime_error("Impossible value to represent");		\
-		if (std::is_same<TYPE_TARGET, char>::value)							\
+		if (is_same<TYPE_TARGET, char>::value)							\
 		{																	\
 			if (isprint(VALUE))												\
 				std::cout << #TYPE_TARGET << ": '" << casted << "'\n";		\
@@ -33,19 +45,19 @@
 		TYPE				converted;										\
 		std::stringstream	buf;											\
 																			\
-		if (std::is_same<TYPE, char>::value)								\
+		if (is_same<TYPE, char>::value)								\
 		{																	\
 			converted = STR[0];												\
 		}																	\
 		else																\
 		{																	\
-			if (std::is_same<TYPE, float>::value)							\
+			if (is_same<TYPE, float>::value)							\
 				buf.str(STR.substr(0, STR.length() - 1));					\
 			else															\
 				buf.str(STR);												\
 			buf >> converted;												\
 		}																	\
-		if (!std::is_same<TYPE, char>::value && buf.fail())					\
+		if (!is_same<TYPE, char>::value && buf.fail())					\
 			ScalarConverter::convertNone();									\
 		else																\
 		{																	\
