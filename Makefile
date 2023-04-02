@@ -24,7 +24,13 @@ EXS	= \
 	module05/ex00 \
 	module05/ex01 \
 	module05/ex02 \
-	module05/ex03
+	module05/ex03 \
+	module06/ex00 \
+	module06/ex01 \
+	module06/ex02 \
+	module07/ex00 \
+	module07/ex01 \
+	module07/ex02 \
 
 all:
 	for ex in $(EXS); \
