@@ -31,19 +31,16 @@ void	ScalarConverter::convert(const std::string& str)
 		convertNone();
 		break;
 	case LITERAL_CHAR:
-		TRY_CAST_PRINT(char, char, static_cast<char>(str[0]));
-		TRY_CAST_PRINT(int, char, static_cast<char>(str[0]));
-		TRY_CAST_PRINT(float, char, static_cast<char>(str[0]));
-		TRY_CAST_PRINT(double, char, static_cast<char>(str[0]));
+		CONVERT_CHAR_TO_ALL_TYPES(char, str);
 		break;
 	case LITERAL_INT:
-		CONVERT_TO_ALL_TYPES(int, str);
+		CONVERT_INT_DOUBLE_TO_ALL_TYPES(int, str);
 		break;
 	case LITERAL_FLOAT:
-		CONVERT_TO_ALL_TYPES(float, str);
+		CONVERT_FLOAT_TO_ALL_TYPES(float, str);
 		break;
 	case LITERAL_DOUBLE:
-		CONVERT_TO_ALL_TYPES(double, str);
+		CONVERT_INT_DOUBLE_TO_ALL_TYPES(double, str);
 		break;
 	default:
 		break;
