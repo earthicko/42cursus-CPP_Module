@@ -1,25 +1,37 @@
 #include "MutantStack.hpp"
 
-template <class _Tp, class _Container>
-MutantStack<_Tp, _Container>::MutantStack(void):
-	std::stack<_Tp, _Container>()
+template <class _Tp>
+MutantStack<_Tp>::MutantStack(void):
+	std::stack<_Tp>()
 {
 }
 
-template <class _Tp, class _Container>
-MutantStack<_Tp, _Container>::MutantStack(const MutantStack<_Tp, _Container> &orig):
-	std::stack<_Tp, _Container>(orig)
+template <class _Tp>
+MutantStack<_Tp>::MutantStack(const MutantStack<_Tp> &orig):
+	std::stack<_Tp>(orig)
 {
 	(void)orig;
 }
 
-template <class _Tp, class _Container>
-MutantStack<_Tp, _Container>::~MutantStack(void)
+template <class _Tp>
+MutantStack<_Tp>::~MutantStack(void)
 {
 }
 
-template <class _Tp, class _Container>
-MutantStack<_Tp, _Container>	&MutantStack<_Tp, _Container>::operator=(const MutantStack<_Tp, _Container> &orig)
+template <class _Tp>
+MutantStack<_Tp>	&MutantStack<_Tp>::operator=(const MutantStack<_Tp> &orig)
 {
-	std::stack<_Tp, _Container>::operator=(orig);
+	std::stack<_Tp>::operator=(orig);
+}
+
+template <class _Tp>
+typename MutantStack<_Tp>::iterator	MutantStack<_Tp>::begin(void)
+{
+	return (std::stack<_Tp>::c.begin());
+}
+
+template <class _Tp>
+typename MutantStack<_Tp>::iterator	MutantStack<_Tp>::end(void)
+{
+	return (std::stack<_Tp>::c.end());
 }
