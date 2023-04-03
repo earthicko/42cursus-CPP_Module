@@ -41,7 +41,7 @@ void	Span::clone(const Span &orig)
 	_vector = orig._vector;
 }
 
-int	Span::shortestSpan(void)
+int	Span::shortestSpan(void) const
 {
 	int	minimum;
 	int	candidate;
@@ -58,11 +58,11 @@ int	Span::shortestSpan(void)
 	return (minimum);
 }
 
-int	Span::longestSpan(void)
+int	Span::longestSpan(void) const
 {
 	if (_vector.size() <= 1)
 		throw (Span::NotEnoughElementsException());
-	return (*(_vector.end()) - *(_vector.begin()));
+	return (_vector.back() - _vector.front());
 }
 
 Span::SpanFullException::SpanFullException(void):
