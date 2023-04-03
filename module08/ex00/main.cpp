@@ -2,8 +2,8 @@
 #include <iostream>
 #include "easyfind.hpp"
 
-template <typename contT, typename elemT>
-void	tryFindElemFrom(contT cont, elemT elem)
+template <typename contT>
+void	tryFindElemFrom(contT cont, int elem)
 {
 	bool	found;
 
@@ -31,11 +31,8 @@ void	testContainer(T cont)
 int	main(void)
 {
 	const int	intArr[] = {1, 2, 4, 8};
-	const long	longArr[] = {2, 4, 8, 16};
 	std::vector<int> intV(intArr, intArr + sizeof(intArr) / sizeof(int));
-	std::vector<long> longV(longArr, longArr + sizeof(longArr) / sizeof(long));
 
 	testContainer(intV);
-	testContainer(longV);
 	return (0);
 }
