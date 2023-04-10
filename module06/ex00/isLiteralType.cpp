@@ -1,3 +1,4 @@
+#include "ScalarConverter.hpp"
 #include <string>
 
 bool	isLiteralChar(const std::string& str)
@@ -29,7 +30,7 @@ bool	isLiteralFloat(const std::string& str)
 	int	digitCount;
 	int	floatIndicatorCount;
 
-	if (str == "-inff" || str == "+inff" || str == "nanf")
+	if (isExtremeFloat(str))
 		return (true);
 	decimalCount = 0;
 	digitCount = 0;
@@ -61,7 +62,7 @@ bool	isLiteralDouble(const std::string& str)
 	int	decimalCount;
 	int	digitCount;
 
-	if (str == "-inf" || str == "+inf" || str == "nan")
+	if (isExtremeDouble(str))
 		return (true);
 	decimalCount = 0;
 	digitCount = 0;

@@ -6,6 +6,8 @@
 # include <sstream>
 # include <iostream>
 
+#define _DEBUG
+
 # define TRY_CAST_PRINT_CHAR(TYPE_TARGET, TYPE_ORIGIN, VALUE)				\
 	try																		\
 	{																		\
@@ -37,54 +39,6 @@
 		std::cout << #TYPE_TARGET << ": impossible\n";						\
 	}
 
-# define CONVERT_CHAR_TO_ALL_TYPES(TYPE, STR)								\
-	{																		\
-		TYPE				converted;										\
-		std::stringstream	buf;											\
-																			\
-		converted = STR[0];													\
-		TRY_CAST_PRINT_CHAR(char, TYPE, converted);							\
-		TRY_CAST_PRINT_INT_FLOAT_DOUBLE(int, TYPE, converted);				\
-		TRY_CAST_PRINT_INT_FLOAT_DOUBLE(float, TYPE, converted);			\
-		TRY_CAST_PRINT_INT_FLOAT_DOUBLE(double, TYPE, converted);			\
-	}
-
-# define CONVERT_FLOAT_TO_ALL_TYPES(TYPE, STR)								\
-	{																		\
-		TYPE				converted;										\
-		std::stringstream	buf;											\
-																			\
-		buf.str(STR.substr(0, STR.length() - 1));							\
-		buf >> converted;													\
-		if (buf.fail())														\
-			ScalarConverter::convertNone();									\
-		else																\
-		{																	\
-			TRY_CAST_PRINT_CHAR(char, TYPE, converted);						\
-			TRY_CAST_PRINT_INT_FLOAT_DOUBLE(int, TYPE, converted);			\
-			TRY_CAST_PRINT_INT_FLOAT_DOUBLE(float, TYPE, converted);		\
-			TRY_CAST_PRINT_INT_FLOAT_DOUBLE(double, TYPE, converted);		\
-		}																	\
-	}
-
-# define CONVERT_INT_DOUBLE_TO_ALL_TYPES(TYPE, STR)							\
-	{																		\
-		TYPE				converted;										\
-		std::stringstream	buf;											\
-																			\
-		buf.str(STR);														\
-		buf >> converted;													\
-		if (buf.fail())														\
-			ScalarConverter::convertNone();									\
-		else																\
-		{																	\
-			TRY_CAST_PRINT_CHAR(char, TYPE, converted);						\
-			TRY_CAST_PRINT_INT_FLOAT_DOUBLE(int, TYPE, converted);			\
-			TRY_CAST_PRINT_INT_FLOAT_DOUBLE(float, TYPE, converted);		\
-			TRY_CAST_PRINT_INT_FLOAT_DOUBLE(double, TYPE, converted);		\
-		}																	\
-	}
-
 class	ScalarConverter
 {
 	public:
@@ -108,6 +62,11 @@ class	ScalarConverter
 			LITERAL_DOUBLE,
 		};
 };
+
+bool	isExtremeFloat(const std::string &str);
+bool	isExtremeDouble(const std::string &str);
+float	convertExtremeFloat(const std::string &str);
+double	convertExtremeDouble(const std::string &str);
 
 bool	isLiteralChar(const std::string& str);
 bool	isLiteralInt(const std::string& str);
