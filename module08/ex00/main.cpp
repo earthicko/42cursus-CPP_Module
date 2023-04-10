@@ -26,8 +26,8 @@ void	testContainer(T &cont)
 
 int	main(void)
 {
-	const int	intArr[] = {1, 2, 4, 8};
-	std::vector<int> intV(intArr, intArr + sizeof(intArr) / sizeof(int));
+	const int			intArr[] = {1, 2, 4, 8};
+	std::vector<int>	intV(intArr, intArr + sizeof(intArr) / sizeof(int));
 
 	testContainer(intV);
 	return (0);
