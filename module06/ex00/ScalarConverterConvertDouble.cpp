@@ -35,6 +35,11 @@ static void	convertDoubleToFloat(double val)
 	float	casted;
 
 	casted = static_cast<float>(val);
+	if (isExtremeVal(casted))
+	{
+		std::cout << "float: " << extremeValToString(casted) << "\n";
+		return ;
+	}
 	if (static_cast<double>(casted) != val)
 		std::cout << "float: impossible\n";
 	else
@@ -46,17 +51,23 @@ void	ScalarConverter::convertDouble(const std::string& str)
 	double				val;
 	std::stringstream	buf;
 
-	// if (isExtremeDouble(str))
-	// 	valDouble = convertExtremeDouble(str);
-	buf.str(str);
-	buf >> val;
-	if (buf.fail())
+	if (isExtremeDouble(str))
+		val = convertExtremeDouble(str);
+	else
 	{
-		ScalarConverter::convertNone();
-		return ;
+		buf.str(str);
+		buf >> val;
+		if (buf.fail())
+		{
+			ScalarConverter::convertNone();
+			return ;
+		}
 	}
 	convertDoubleToChar(val);
 	convertDoubleToInt(val);
 	convertDoubleToFloat(val);
-	std::cout << "double: " << val << "\n";
+	if (isExtremeVal(val))
+		std::cout << "double: " << extremeValToString(val) << "\n";
+	else
+		std::cout << "double: " << val << "\n";
 }

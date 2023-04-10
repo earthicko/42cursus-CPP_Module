@@ -25,9 +25,6 @@ void	ScalarConverter::convertNone(void)
 
 void	ScalarConverter::convert(const std::string& str)
 {
-	#ifdef _DEBUG
-	std::cout << "Literal type is #" << detectLiteralType(str) << "\n";
-	#endif
 	switch (detectLiteralType(str))
 	{
 	case LITERAL_NONE:

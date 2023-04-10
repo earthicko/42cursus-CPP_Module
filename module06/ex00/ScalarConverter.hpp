@@ -6,8 +6,6 @@
 # include <sstream>
 # include <iostream>
 
-#define _DEBUG
-
 class	ScalarConverter
 {
 	public:
@@ -36,14 +34,18 @@ class	ScalarConverter
 		};
 };
 
-bool	isExtremeFloat(const std::string &str);
-bool	isExtremeDouble(const std::string &str);
-float	convertExtremeFloat(const std::string &str);
-double	convertExtremeDouble(const std::string &str);
+bool		isExtremeFloat(const std::string &str);
+bool		isExtremeDouble(const std::string &str);
+bool		isExtremeVal(const float &val);
+bool		isExtremeVal(const double &val);
+float		convertExtremeFloat(const std::string &str);
+double		convertExtremeDouble(const std::string &str);
+std::string	extremeValToString(const float &val);
+std::string	extremeValToString(const double &val);
 
-bool	isLiteralChar(const std::string& str);
-bool	isLiteralInt(const std::string& str);
-bool	isLiteralFloat(const std::string& str);
-bool	isLiteralDouble(const std::string& str);
+bool		isLiteralChar(const std::string& str);
+bool		isLiteralInt(const std::string& str);
+bool		isLiteralFloat(const std::string& str);
+bool		isLiteralDouble(const std::string& str);
 
 #endif
