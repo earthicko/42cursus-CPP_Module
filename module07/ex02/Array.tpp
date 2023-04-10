@@ -1,5 +1,6 @@
 #include "Array.hpp"
 #include <stdexcept>
+#include <sstream>
 
 template <typename T>
 Array<T>::Array(void)
@@ -50,7 +51,14 @@ template <typename T>
 T	&Array<T>::operator[](t_uint idx)
 {
 	if (_n <= idx)
-		throw (std::exception());
+	{
+		std::ostringstream	buf;
+		std::string			what;
+
+		buf << idx;
+		what = "Index " + buf.str() + " is out of bound.";
+		throw (std::runtime_error(what));
+	}
 	return (array[idx]);
 }
 
