@@ -25,12 +25,6 @@ void	ScalarConverter::convertNone(void)
 
 void	ScalarConverter::convert(const std::string& str)
 {
-	char				valChar;
-	int					valInt;
-	float				valFloat;
-	double				valDouble;
-	std::stringstream	buf;
-
 	#ifdef _DEBUG
 	std::cout << "Literal type is #" << detectLiteralType(str) << "\n";
 	#endif
@@ -40,60 +34,16 @@ void	ScalarConverter::convert(const std::string& str)
 		convertNone();
 		break;
 	case LITERAL_CHAR:
-		valChar = str[0];
-		std::cout << "char: " << valChar << "\n";
-		TRY_CAST_PRINT_INT_FLOAT_DOUBLE(int, char, valChar);
-		TRY_CAST_PRINT_INT_FLOAT_DOUBLE(float, char, valChar);
-		TRY_CAST_PRINT_INT_FLOAT_DOUBLE(double, char, valChar);
+		convertChar(str);
 		break;
 	case LITERAL_INT:
-		buf.str(str);
-		buf >> valInt;
-		if (buf.fail())
-		{
-			ScalarConverter::convertNone();
-			return ;
-		}
-		TRY_CAST_PRINT_CHAR(char, int, valInt);
-		std::cout << "int: " << valInt << "\n";
-		TRY_CAST_PRINT_INT_FLOAT_DOUBLE(float, int, valInt);
-		TRY_CAST_PRINT_INT_FLOAT_DOUBLE(double, int, valInt);
+		convertInt(str);
 		break;
 	case LITERAL_FLOAT:
-		if (isExtremeFloat(str))
-			valFloat = convertExtremeFloat(str);
-		else
-		{
-			buf.str(str.substr(0, str.length() - 1));
-			buf >> valFloat;
-			if (buf.fail())
-			{
-				ScalarConverter::convertNone();
-				return ;
-			}
-		}
-		TRY_CAST_PRINT_CHAR(char, float, valFloat);
-		TRY_CAST_PRINT_INT_FLOAT_DOUBLE(int, float, valFloat);
-		std::cout << "float: " << valFloat << "\n";
-		TRY_CAST_PRINT_INT_FLOAT_DOUBLE(double, float, valFloat);
+		convertFloat(str);
 		break;
 	case LITERAL_DOUBLE:
-		if (isExtremeDouble(str))
-			valDouble = convertExtremeDouble(str);
-		else
-		{
-			buf.str(str);
-			buf >> valDouble;
-			if (buf.fail())
-			{
-				ScalarConverter::convertNone();
-				return ;
-			}
-		}
-		TRY_CAST_PRINT_CHAR(char, double, valDouble);
-		TRY_CAST_PRINT_INT_FLOAT_DOUBLE(int, double, valDouble);
-		TRY_CAST_PRINT_INT_FLOAT_DOUBLE(float, double, valDouble);
-		std::cout << "double: " << valDouble << "\n";
+		convertDouble(str);
 		break;
 	default:
 		break;

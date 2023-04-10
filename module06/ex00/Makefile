@@ -6,6 +6,10 @@ CXXFLAGS	= -Wall -Wextra -Werror -std=c++98
 SRCS		= \
 			main.cpp \
 			ScalarConverter.cpp \
+			ScalarConverterConvertChar.cpp \
+			ScalarConverterConvertInt.cpp \
+			ScalarConverterConvertFloat.cpp \
+			ScalarConverterConvertDouble.cpp \
 			extremeValHandler.cpp \
 			isLiteralType.cpp \
 

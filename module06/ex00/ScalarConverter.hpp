@@ -8,37 +8,6 @@
 
 #define _DEBUG
 
-# define TRY_CAST_PRINT_CHAR(TYPE_TARGET, TYPE_ORIGIN, VALUE)				\
-	try																		\
-	{																		\
-		TYPE_TARGET casted = static_cast<TYPE_TARGET>(VALUE);				\
-		if (static_cast<TYPE_ORIGIN>(casted) != VALUE)						\
-			throw std::runtime_error("Impossible value to represent");		\
-		if (isprint(VALUE))													\
-			std::cout << #TYPE_TARGET << ": '" << casted << "'\n";			\
-		else																\
-			std::cout << #TYPE_TARGET << ": Non displayable\n";				\
-	}																		\
-	catch(const std::exception& e)											\
-	{																		\
-		(void)e;															\
-		std::cout << #TYPE_TARGET << ": impossible\n";						\
-	}
-
-# define TRY_CAST_PRINT_INT_FLOAT_DOUBLE(TYPE_TARGET, TYPE_ORIGIN, VALUE)	\
-	try																		\
-	{																		\
-		TYPE_TARGET casted = static_cast<TYPE_TARGET>(VALUE);				\
-		if (static_cast<TYPE_ORIGIN>(casted) != VALUE)						\
-			throw std::runtime_error("Impossible value to represent");		\
-		std::cout << #TYPE_TARGET << ": " << casted << "\n";				\
-	}																		\
-	catch(const std::exception& e)											\
-	{																		\
-		(void)e;															\
-		std::cout << #TYPE_TARGET << ": impossible\n";						\
-	}
-
 class	ScalarConverter
 {
 	public:
@@ -52,6 +21,10 @@ class	ScalarConverter
 
 		static int		detectLiteralType(const std::string& str);
 		static void		convertNone(void);
+		static void		convertChar(const std::string& str);
+		static void		convertInt(const std::string& str);
+		static void		convertFloat(const std::string& str);
+		static void		convertDouble(const std::string& str);
 
 		enum literal_e
 		{
