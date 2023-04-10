@@ -1,12 +1,14 @@
 #include "Span.hpp"
 #include <vector>
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
 
 void	getShortestSpan(const Span &span)
 {
 	try
 	{
-		int	shortestSpan;
+		unsigned int	shortestSpan;
 
 		shortestSpan = span.shortestSpan();
 		std::cout << "Shortest span: " << shortestSpan << "\n";
@@ -21,7 +23,7 @@ void	getLongestSpan(const Span &span)
 {
 	try
 	{
-		int	longestSpan;
+		unsigned int	longestSpan;
 
 		longestSpan = span.longestSpan();
 		std::cout << "longest span: " << longestSpan << "\n";
@@ -32,39 +34,71 @@ void	getLongestSpan(const Span &span)
 	}
 }
 
-int	main(void)
+void	testExceptions(void)
 {
-	Span				span(10);
-	std::vector<int>	twoPowered;
-	std::vector<int>	fourPowered;
+	Span	span(1);
 
-	for(int i = 4; i > 0; i--)
-	{
-		twoPowered.push_back((1 << i));
-		fourPowered.push_back((1 << (i * 2)));
-	}
+	std::cout << __func__ << "() ===========================================\n";
+	getShortestSpan(span);
+	getLongestSpan(span);
 	span.addNumber(3);
-	getShortestSpan(span);
-	getLongestSpan(span);
-	span.addNumber(7);
-	getShortestSpan(span);
-	getLongestSpan(span);
-	span.addNumber(1);
-	getShortestSpan(span);
-	getLongestSpan(span);
-	span.insert(twoPowered.begin(), twoPowered.end());
-	getShortestSpan(span);
-	getLongestSpan(span);
-	span.addNumber(2);
 	getShortestSpan(span);
 	getLongestSpan(span);
 	try
 	{
-		span.insert(fourPowered.begin(), fourPowered.end());
+		span.addNumber(7);
 	}
-	catch(const std::exception& e)
+	catch (const std::exception &e)
 	{
-		std::cerr << e.what() << '\n';
+		std::cout << e.what() << "\n";
 	}
+}
+
+void	testModerateSpansize(void)
+{
+	Span		span(10);
+	const int	intArr[] = {
+		std::numeric_limits<int>::max(),
+		std::numeric_limits<int>::min(),
+		4,
+		8
+	};
+
+	std::cout << __func__ << "() ===========================================\n";
+	for (size_t i = 0; i < sizeof(intArr) / sizeof(int); i++)
+		span.addNumber(intArr[i]);
+	getShortestSpan(span);
+	getLongestSpan(span);
+}
+
+void	testBigSpansize(void)
+{
+	const int			spansize = 100000;
+	std::vector<int>	v;
+	Span				span(spansize);
+
+	std::cout << __func__ << "() ===========================================\n";
+	std::srand(std::time(0));
+	for (int i = 0; i < spansize; i++)
+	{
+		int	randInt;
+		int	randSign;
+
+		randInt = std::rand();
+		randSign = std::rand() % 2;
+		if (randSign)
+			randInt *= -1;
+		v.push_back(randInt);
+	}
+	span.insert(v.begin(), v.end());
+	getShortestSpan(span);
+	getLongestSpan(span);
+}
+
+int	main(void)
+{
+	testExceptions();
+	testModerateSpansize();
+	testBigSpansize();
 	return (0);
 }

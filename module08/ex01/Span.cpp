@@ -1,5 +1,5 @@
 #include "Span.hpp"
-#include <limits.h>
+#include <limits>
 
 Span::Span(const Span &orig)
 {
@@ -41,28 +41,35 @@ void	Span::clone(const Span &orig)
 	_vector = orig._vector;
 }
 
-int	Span::shortestSpan(void) const
+unsigned int	Span::shortestSpan(void) const
 {
-	int	minimum;
-	int	candidate;
+	long long	minimum;
+	long long	candidate;
 
 	if (_vector.size() <= 1)
 		throw (Span::NotEnoughElementsException());
-	minimum = INT_MAX;
+	minimum = std::numeric_limits<unsigned int>::max();
 	for (t_uint i = 1; i < _vector.size(); i++)
 	{
-		candidate = _vector[i] - _vector[i - 1];
+		candidate = (long long)_vector[i] - (long long)_vector[i - 1];
 		if (candidate < minimum)
 			minimum = candidate;
 	}
 	return (minimum);
 }
 
-int	Span::longestSpan(void) const
+unsigned int	Span::longestSpan(void) const
 {
+	long long	front;
+	long long	back;
+
+	if (sizeof(long long) != sizeof(int) * 2)
+		throw (std::runtime_error("size of (long long) is not the double of size of (int)."));
 	if (_vector.size() <= 1)
 		throw (Span::NotEnoughElementsException());
-	return (_vector.back() - _vector.front());
+	front = _vector.front();
+	back = _vector.back();
+	return (back - front);
 }
 
 Span::SpanFullException::SpanFullException(void):

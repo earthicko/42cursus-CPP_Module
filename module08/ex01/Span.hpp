@@ -18,8 +18,8 @@ public:
 	void				addNumber(int number);
 	template <class InputIterator>
 	void				insert(InputIterator first, InputIterator last);
-	int					shortestSpan(void) const;
-	int					longestSpan(void) const;
+	unsigned int		shortestSpan(void) const;
+	unsigned int		longestSpan(void) const;
 
 	class				SpanFullException;
 	class				NotEnoughElementsException;
