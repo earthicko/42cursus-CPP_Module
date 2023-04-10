@@ -1,5 +1,7 @@
 #include "BitcoinExchange.hpp"
+#include <stdexcept>
 #include <iostream>
+#include <fstream>
 
 BitcoinExchange::BitcoinExchange(const std::string &filepath)
 {
@@ -30,6 +32,17 @@ float	BitcoinExchange::getPrice(time_t at)
 
 void	BitcoinExchange::load(const std::string &filepath)
 {
-	std::cout << "Unimplemented stub of " << __func__ << "\n";
-	std::cout << "filepath " << filepath << "\n";
+	std::ifstream	file;
+	int				lineidx;
+
+	file.open(filepath, std::ios_base::in);
+	if (!file.is_open())
+		throw (std::ifstream::failure(std::string("Failed to open ") + filepath));
+	lineidx = 0;
+	while (!file.eof())
+	{
+		std::string	buf;
+
+		std::getline(file, buf);
+	}
 }
