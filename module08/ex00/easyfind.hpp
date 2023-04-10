@@ -4,18 +4,9 @@
 #include <algorithm>
 
 template <typename T>
-int	easyfind(T container, int target)
+typename T::iterator	easyfind(T &container, int target)
 {
-	typename T::iterator	iter;
-
-	iter = container.begin();
-	while (iter != container.end())
-	{
-		if (*iter == target)
-			return (*iter);
-		iter++;
-	}
-	throw (std::runtime_error("target not found\n"));
+	return (std::find(container.begin(), container.end(), target));
 }
 
 #endif

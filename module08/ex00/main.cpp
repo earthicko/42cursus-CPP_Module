@@ -2,27 +2,23 @@
 #include <iostream>
 #include "easyfind.hpp"
 
-template <typename contT>
-void	tryFindElemFrom(contT cont, int elem)
+template <typename T>
+void	tryFindElemFrom(T &cont, int elem)
 {
-	bool	found;
+	typename T::iterator	iter;
+	int						idx;
 
-	found = false;
-	try
-	{
-		easyfind(cont, elem);
-		found = true;
-	}
-	catch (const std::exception &e)
-	{
-		std::cout << "Target " << elem << " not found.\n";
-	}
-	if (found)
-		std::cout << "Found " << elem << "\n";
+	iter = easyfind(cont, elem);
+	idx = std::distance(cont.begin(), iter);
+	idx = iter - cont.begin();
+	if (iter != cont.end())
+		std::cout << "Target " << *iter << " found at idx [" << idx << "]\n";
+	else
+		std::cout << "Target " << elem << " not found\n";
 }
 
 template <typename T>
-void	testContainer(T cont)
+void	testContainer(T &cont)
 {
 	for (int i = 0; i < 10; i++)
 		tryFindElemFrom(cont, i);
