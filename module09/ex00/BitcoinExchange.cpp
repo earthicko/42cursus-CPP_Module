@@ -67,29 +67,29 @@ void	BitcoinExchange::load(const std::string &filepath)
 	}
 }
 
-static time_t	parseDate(const std::string &date, const std::string &format)
+time_t	BitcoinExchange::parseDate(const std::string &date)
 {
 	tm		dateVal;
 	time_t	epoch;
 	char	*result;
 
 	memset(&dateVal, 0, sizeof(tm));
-	result = strptime(date.c_str(), format.c_str(), &dateVal);
+	result = strptime(date.c_str(), _dateFormat.c_str(), &dateVal);
 	epoch = mktime(&dateVal);
 	if (!result || epoch < 0)
 		throw (std::runtime_error(std::string("Invalid date ") + date));
 	return (epoch);
 }
 
-static float	parsePrice(const std::string &price)
+float	BitcoinExchange::parseNumber(const std::string &number)
 {
 	std::stringstream	buf;
 	float				priceVal;
 
-	buf.str(price);
+	buf.str(number);
 	buf >> priceVal;
 	if (buf.fail())
-		throw (std::runtime_error(std::string("Invalid price ") + price));
+		throw (std::runtime_error(std::string("Invalid number ") + number));
 	return (priceVal);
 }
 
@@ -98,8 +98,8 @@ void	BitcoinExchange::loadLine(const std::string &date, const std::string &price
 	time_t	dateVal;
 	float	priceVal;
 
-	dateVal = parseDate(date, _dateFormat);
-	priceVal = parsePrice(price);
+	dateVal = parseDate(date);
+	priceVal = parseNumber(price);
 	if (_prices.find(dateVal) != _prices.end())
 		std::cerr << "Warning: multiple price values at date " << date << "\n";
 	_prices[dateVal] = priceVal;

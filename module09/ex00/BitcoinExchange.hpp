@@ -13,6 +13,9 @@ public:
 								~BitcoinExchange(void);
 	BitcoinExchange				&operator=(const BitcoinExchange &orig);
 
+	static time_t				parseDate(const std::string &date);
+	static float				parseNumber(const std::string &number);
+
 	float						getPrice(time_t at) const;
 
 private:
