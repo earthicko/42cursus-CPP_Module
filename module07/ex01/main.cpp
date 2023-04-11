@@ -3,6 +3,19 @@
 
 #define LEN_ARR 10
 
+template <typename arrayElemT>
+void	printArr(arrayElemT *arr, size_t len)
+{
+	std::cout << "{";
+	for (size_t i = 0; i < len; i++)
+	{
+		std::cout << arr[i];
+		if (i < len - 1)
+			std::cout << ", ";
+	}
+	std::cout << "}";
+}
+
 void	doubleElemInt(int &elem)
 {
 	elem = 2 * elem;
