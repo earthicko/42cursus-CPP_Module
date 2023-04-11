@@ -3,24 +3,24 @@
 
 #define LEN_ARR 10
 
-void	doubleElemInt(int *elem)
+void	doubleElemInt(int &elem)
 {
-	*elem = 2 * *elem;
+	elem = 2 * elem;
 }
 
-void	doubleElemLong(long *elem)
+void	doubleElemLong(long &elem)
 {
-	*elem = 2 * *elem;
+	elem = 2 * elem;
 }
 
-void	expElemInt(int *elem)
+void	expElemInt(int &elem)
 {
-	*elem = 1 << *elem;
+	elem = 1 << elem;
 }
 
-void	expElemLong(long *elem)
+void	expElemLong(long &elem)
 {
-	*elem = 1 << *elem;
+	elem = 1 << elem;
 }
 
 int	main(void)
