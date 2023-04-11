@@ -16,22 +16,14 @@ void	printArr(arrayElemT *arr, size_t len)
 	std::cout << "}";
 }
 
-void	doubleElemInt(int &elem)
+template <typename T>
+void	doubleElem(T &elem)
 {
 	elem = 2 * elem;
 }
 
-void	doubleElemLong(long &elem)
-{
-	elem = 2 * elem;
-}
-
-void	expElemInt(int &elem)
-{
-	elem = 1 << elem;
-}
-
-void	expElemLong(long &elem)
+template <typename T>
+void	expElem(T &elem)
 {
 	elem = 1 << elem;
 }
@@ -48,14 +40,14 @@ int	main(void)
 	}
 	std::cout << "Before doubleElemInt: ";
 	printArr(ints, LEN_ARR);
-	iter(ints, LEN_ARR, doubleElemInt);
+	iter(ints, LEN_ARR, doubleElem<int>);
 	std::cout << "\n";
 	std::cout << "After doubleElemInt: ";
 	printArr(ints, LEN_ARR);
 	std::cout << "\n";
 	std::cout << "Before doubleElemLong: ";
 	printArr(longs, LEN_ARR);
-	iter(longs, LEN_ARR, doubleElemLong);
+	iter(longs, LEN_ARR, doubleElem<long>);
 	std::cout << "\n";
 	std::cout << "After doubleElemLong: ";
 	printArr(longs, LEN_ARR);
@@ -67,14 +59,14 @@ int	main(void)
 	}
 	std::cout << "Before expElemInt: ";
 	printArr(ints, LEN_ARR);
-	iter(ints, LEN_ARR, expElemInt);
+	iter(ints, LEN_ARR, expElem<int>);
 	std::cout << "\n";
 	std::cout << "After expElemInt: ";
 	printArr(ints, LEN_ARR);
 	std::cout << "\n";
 	std::cout << "Before expElemLong: ";
 	printArr(longs, LEN_ARR);
-	iter(longs, LEN_ARR, expElemLong);
+	iter(longs, LEN_ARR, expElem<long>);
 	std::cout << "\n";
 	std::cout << "After expElemLong: ";
 	printArr(longs, LEN_ARR);
