@@ -57,7 +57,7 @@ void	process(const BitcoinExchange &bx, const std::string &filepath)
 		}
 		catch (const std::runtime_error &e)
 		{
-			std::cerr << e.what() << std::endl;
+			std::cerr << "Error: " << e.what() << std::endl;
 		}
 	}
 }
@@ -68,6 +68,13 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 		return (1);
-	process(bx, argv[1]);
+	try
+	{
+		process(bx, argv[1]);
+	}
+	catch (const std::ifstream::failure &e)
+	{
+		std::cerr << "Error: " << e.what() << std::endl;
+	}
 	return (0);
 }
