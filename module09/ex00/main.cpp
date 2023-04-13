@@ -8,10 +8,20 @@ void	printPriceAt(const BitcoinExchange &bx, const std::string &date, const std:
 	time_t	dateVal;
 	float	amountVal;
 	float	price;
+	float	totalPrice;
 
 	dateVal = bx.parseDate(date);
 	amountVal = bx.parseNumber(amount);
+	if (amountVal < 0)
+	{
+		std::stringstream	buf;
+
+		buf << "value " << amountVal << " is negative.";
+		throw (std::runtime_error(buf.str()));
+	}
 	price = bx.getPrice(dateVal);
+	totalPrice = amountVal * price;
+	std::cout << date << " => " << amount << " = " << " " << totalPrice << "\n";
 }
 
 void	processLine(const BitcoinExchange &bx, std::ifstream &file)
