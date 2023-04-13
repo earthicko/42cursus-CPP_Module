@@ -63,7 +63,22 @@ T	&Array<T>::operator[](t_uint idx)
 }
 
 template <typename T>
-t_uint	Array<T>::size(void)
+const T	&Array<T>::operator[](t_uint idx) const
+{
+	if (_n <= idx)
+	{
+		std::ostringstream	buf;
+		std::string			what;
+
+		buf << idx;
+		what = "Index " + buf.str() + " is out of bound.";
+		throw (std::runtime_error(what));
+	}
+	return (array[idx]);
+}
+
+template <typename T>
+t_uint	Array<T>::size(void) const
 {
 	return (_n);
 }
