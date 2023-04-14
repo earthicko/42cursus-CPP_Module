@@ -72,27 +72,3 @@ typename MutantStack<_Tp, _Container>::const_reverse_iterator	MutantStack<_Tp, _
 {
 	return (std::stack<_Tp, _Container>::c.rend());
 }
-
-template <class _Tp, class _Container>
-typename MutantStack<_Tp, _Container>::const_iterator	MutantStack<_Tp, _Container>::cbegin(void) const
-{
-	return (std::stack<_Tp, _Container>::c.cbegin());
-}
-
-template <class _Tp, class _Container>
-typename MutantStack<_Tp, _Container>::const_iterator	MutantStack<_Tp, _Container>::cend(void) const
-{
-	return (std::stack<_Tp, _Container>::c.cend());
-}
-
-template <class _Tp, class _Container>
-typename MutantStack<_Tp, _Container>::const_reverse_iterator	MutantStack<_Tp, _Container>::crbegin(void) const
-{
-	return (std::stack<_Tp, _Container>::c.crbegin());
-}
-
-template <class _Tp, class _Container>
-typename MutantStack<_Tp, _Container>::const_reverse_iterator	MutantStack<_Tp, _Container>::crend(void) const
-{
-	return (std::stack<_Tp, _Container>::c.crend());
-}
