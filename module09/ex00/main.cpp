@@ -3,6 +3,9 @@
 #include <fstream>
 #include <sstream>
 
+const std::string	firstColumn = "date";
+const std::string	secondColumn = "value";
+
 void	printPriceAt(const BitcoinExchange &bx, const std::string &date, const std::string &amount)
 {
 	time_t	dateVal;
@@ -39,6 +42,8 @@ void	processLine(const BitcoinExchange &bx, std::ifstream &file)
 	buf >> second;
 	if (delim != "|" || first.length() == 0 || second.length() == 0)
 		throw (std::runtime_error(std::string("Invalid line ") + line));
+	if (first == firstColumn && second == secondColumn)
+		return ;
 	printPriceAt(bx, first, second);
 }
 
