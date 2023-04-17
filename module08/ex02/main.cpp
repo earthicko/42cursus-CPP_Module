@@ -18,12 +18,8 @@ void	testMutantStack(void)
 	}
 	for (iter = mstack.begin(); iter != mstack.end(); iter++)
 		std::cout << "Iter              : " << *iter << "\n";
-	for (citer = mstack.cbegin(); citer != mstack.cend(); citer++)
-		std::cout << "Const Iter        : " << *citer << "\n";
 	for (riter = mstack.rbegin(); riter != mstack.rend(); riter++)
 		std::cout << "Reverse Iter      : " << *riter << "\n";
-	for (criter = mstack.crbegin(); criter != mstack.crend(); criter++)
-		std::cout << "Const Reverse Iter: " << *criter << "\n";
 	for (int i = 0; i < 4; i++)
 	{
 		std::cout << "Will pop " << mstack.top() << "\n";
@@ -47,12 +43,8 @@ void	testList(void)
 	}
 	for (iter = mstack.begin(); iter != mstack.end(); iter++)
 		std::cout << "Iter              : " << *iter << "\n";
-	for (citer = mstack.cbegin(); citer != mstack.cend(); citer++)
-		std::cout << "Const Iter        : " << *citer << "\n";
 	for (riter = mstack.rbegin(); riter != mstack.rend(); riter++)
 		std::cout << "Reverse Iter      : " << *riter << "\n";
-	for (criter = mstack.crbegin(); criter != mstack.crend(); criter++)
-		std::cout << "Const Reverse Iter: " << *criter << "\n";
 	for (int i = 0; i < 4; i++)
 	{
 		std::cout << "Will pop " << mstack.front() << "\n";

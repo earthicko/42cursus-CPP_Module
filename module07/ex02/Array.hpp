@@ -15,7 +15,8 @@ public:
 			Array(t_uint n);
 
 	T		&operator[](t_uint idx);
-	t_uint	size(void);
+	const T	&operator[](t_uint idx) const;
+	t_uint	size(void) const;
 
 private:
 	T		*array;
