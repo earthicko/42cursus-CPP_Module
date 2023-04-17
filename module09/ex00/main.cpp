@@ -24,7 +24,7 @@ void	printPriceAt(const BitcoinExchange &bx, const std::string &date, const std:
 	}
 	price = bx.getPrice(dateVal);
 	totalPrice = amountVal * price;
-	std::cout << date << " => " << amount << " = " << " " << totalPrice << "\n";
+	std::cout << date << ": " << amountVal << " * " << price << " = " << totalPrice << "\n";
 }
 
 void	processLine(const BitcoinExchange &bx, std::ifstream &file)
@@ -49,11 +49,15 @@ void	processLine(const BitcoinExchange &bx, std::ifstream &file)
 
 void	process(const BitcoinExchange &bx, const std::string &filepath)
 {
-	std::ifstream	file;
+	std::ifstream			file;
+	std::ios_base::fmtflags	saved_flags;
 
 	file.open(filepath, std::ios_base::in);
 	if (!file.is_open())
 		throw (std::ifstream::failure(std::string("Failed to open ") + filepath));
+	saved_flags = std::cout.flags();
+	std::cout.setf(std::ios::fixed, std::ios::floatfield);
+	std::cout.precision(std::numeric_limits<float>::digits10);
 	while (!file.eof())
 	{
 		try
@@ -65,6 +69,7 @@ void	process(const BitcoinExchange &bx, const std::string &filepath)
 			std::cerr << "Error: " << e.what() << std::endl;
 		}
 	}
+	std::cout.flags(saved_flags);
 }
 
 int	main(int argc, char **argv)
