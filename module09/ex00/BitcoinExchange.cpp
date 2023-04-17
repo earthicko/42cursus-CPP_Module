@@ -32,11 +32,10 @@ BitcoinExchange	&BitcoinExchange::operator=(const BitcoinExchange &orig)
 
 float	BitcoinExchange::getPrice(time_t at) const
 {
-	std::map<time_t, float>::const_iterator bound = _prices.lower_bound(at);
+	std::map<time_t, float>::const_iterator bound = _prices.upper_bound(at);
 	if (bound == _prices.begin() && at < bound->first)
 		throw (std::runtime_error("date is prior to the earliest date in data"));
-	if (bound->first > at)
-		bound--;
+	bound--;
 	return (bound->second);
 }
 
