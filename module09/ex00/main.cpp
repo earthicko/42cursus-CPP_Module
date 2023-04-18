@@ -52,7 +52,7 @@ void	process(const BitcoinExchange &bx, const std::string &filepath)
 	std::ifstream			file;
 	std::ios_base::fmtflags	saved_flags;
 
-	file.open(filepath, std::ios_base::in);
+	file.open(filepath.c_str(), std::ios_base::in);
 	if (!file.is_open())
 		throw (std::ifstream::failure(std::string("Failed to open ") + filepath));
 	saved_flags = std::cout.flags();

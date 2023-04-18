@@ -44,7 +44,7 @@ void	BitcoinExchange::load(const std::string &filepath)
 	std::ifstream	file;
 	int				lineidx;
 
-	file.open(filepath, std::ios_base::in);
+	file.open(filepath.c_str(), std::ios_base::in);
 	if (!file.is_open())
 		throw (std::ifstream::failure(std::string("Failed to open ") + filepath));
 	lineidx = 0;
