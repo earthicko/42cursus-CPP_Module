@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <limits>
 
 const std::string	firstColumn = "date";
 const std::string	secondColumn = "value";
@@ -76,13 +77,15 @@ int	main(int argc, char **argv)
 {
 	BitcoinExchange	bx;
 
+	if (!bx.isLoaded())
+		return (1);
 	if (argc != 2)
 		return (1);
 	try
 	{
 		process(bx, argv[1]);
 	}
-	catch (const std::ifstream::failure &e)
+	catch (const std::exception &e)
 	{
 		std::cerr << "Error: " << e.what() << std::endl;
 	}

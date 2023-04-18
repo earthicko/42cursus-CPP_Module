@@ -17,6 +17,7 @@ public:
 	static float				parseNumber(const std::string &number);
 
 	float						getPrice(time_t at) const;
+	bool						isLoaded(void) const;
 
 private:
 	void						load(const std::string &filepath);
@@ -26,6 +27,7 @@ private:
 	static const char			_delim;
 	static const std::string	_dateFormat;
 	std::map<time_t, float>		_prices;
+	bool						_isLoaded;
 };
 
 #endif

@@ -11,11 +11,20 @@ const char			BitcoinExchange::_delim = ',';
 const std::string	BitcoinExchange::_dateFormat = "%Y-%m-%d";
 
 BitcoinExchange::BitcoinExchange(const std::string &filepath)
+	: _isLoaded(false)
 {
-	load(filepath);
+	try
+	{
+		load(filepath);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
 }
 
 BitcoinExchange::BitcoinExchange(const BitcoinExchange &orig)
+	: _isLoaded(false)
 {
 	_prices = orig._prices;
 }
@@ -27,16 +36,24 @@ BitcoinExchange::~BitcoinExchange(void)
 BitcoinExchange	&BitcoinExchange::operator=(const BitcoinExchange &orig)
 {
 	_prices = orig._prices;
+	_isLoaded = orig._isLoaded;
 	return (*this);
 }
 
 float	BitcoinExchange::getPrice(time_t at) const
 {
+	if (!_isLoaded)
+		throw (std::runtime_error("Dataset is not loaded."));
 	std::map<time_t, float>::const_iterator bound = _prices.upper_bound(at);
 	if (bound == _prices.begin() && at < bound->first)
 		throw (std::runtime_error("date is prior to the earliest date in data"));
 	bound--;
 	return (bound->second);
+}
+
+bool	BitcoinExchange::isLoaded(void) const
+{
+	return (_isLoaded);
 }
 
 void	BitcoinExchange::load(const std::string &filepath)
@@ -67,6 +84,7 @@ void	BitcoinExchange::load(const std::string &filepath)
 			loadLine(date, price);
 		lineidx++;
 	}
+	_isLoaded = true;
 }
 
 time_t	BitcoinExchange::parseDate(const std::string &date)
