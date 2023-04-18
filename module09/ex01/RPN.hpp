@@ -17,7 +17,7 @@ private:
 		MULTIPLY = '*'
 	};
 	static const char	ops[];
-	static double		(* const (opfunc[]))(const double &, const double &);
+	static double		(* const opfunc[])(const double &, const double &);
 	std::stack<double>	_buffer;
 
 	int					parseOperator(const std::string &input);

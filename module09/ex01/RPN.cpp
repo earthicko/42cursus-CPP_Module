@@ -1,7 +1,7 @@
 #include "RPN.hpp"
 
 const char	RPN::ops[] = {PLUS, MINUS, DIVIDE, MULTIPLY};
-double		(* const (RPN::opfunc[]))(const double &, const double &) = {plusfunc, minusfunc, dividefunc, multiplyfunc};
+double		(* const RPN::opfunc[])(const double &, const double &) = {plusfunc, minusfunc, dividefunc, multiplyfunc};
 
 RPN::RPN(void)
 	: _buffer()
