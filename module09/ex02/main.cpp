@@ -3,20 +3,17 @@
 #include <iostream>
 #include <string>
 #include <sstream>
-#include <chrono>
-
-typedef std::chrono::steady_clock::time_point	time_point;
-typedef std::chrono::microseconds				t_us;
+#include <ctime>
 
 template <typename _Container>
 void	testPmergeMe(int argc, char **argv)
 {
 	PmergeMe<_Container>	pmergeMe;
-	time_point				time_start;
-	time_point				time_done;
-	t_us					duration;
+	clock_t					time_start;
+	clock_t					time_done;
+	int						duration;
 
-	time_start = std::chrono::high_resolution_clock::now();
+	time_start = clock();
 	argv++;
 	while (*argv)
 	{
@@ -36,13 +33,13 @@ void	testPmergeMe(int argc, char **argv)
 	std::cout << "Before: " << pmergeMe << "\n";
 	pmergeMe.sort();
 	std::cout << "After : " << pmergeMe << "\n";
-	time_done = std::chrono::high_resolution_clock::now();
-	duration = std::chrono::duration_cast<t_us>(time_done - time_start);
+	time_done = clock();
+	duration = ((time_done - time_start) * 1000000) / CLOCKS_PER_SEC;
 	if (isSame<_Container, std::vector<int> >::value)
 		std::cout << "std::vector: ";
 	if (isSame<_Container, std::list<int> >::value)
 		std::cout << "std::list  : ";
-	std::cout << "Took " << duration.count() << "us to process " << argc - 1 << " items" << std::endl;
+	std::cout << "Took " << duration << "us to process " << argc - 1 << " items" << std::endl;
 }
 
 int	main(int argc, char **argv)
