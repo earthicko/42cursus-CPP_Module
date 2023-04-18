@@ -137,23 +137,33 @@ private:
 
 	void	insertionSort(const int begin, const int end)
 	{
-		iterator	key;
-		int			keyIdx;
 		int			keyVal;
+		iterator	key;
 		iterator	insertionPoint;
+		iterator	insertedPoint;
+		iterator	beginIter;
+		iterator	endIter;
+		iterator	nextKey;
 
-		keyIdx = begin + 1;
-		while (keyIdx != end)
+		beginIter = getIter(begin);
+		key = beginIter;
+		endIter = beginIter;
+		std::advance(key, 1);
+		std::advance(endIter, end - begin);
+		while (key != endIter)
 		{
-			key = getIter(keyIdx);
+			nextKey = key;
+			nextKey++;
 			keyVal = *key;
-			insertionPoint = std::upper_bound(getIter(begin), key, keyVal);
+			insertionPoint = std::upper_bound(beginIter, key, keyVal);
 			if (key != insertionPoint)
 			{
 				_data.erase(key);
-				_data.insert(insertionPoint, keyVal);
+				insertedPoint = _data.insert(insertionPoint, keyVal);
+				if (insertionPoint == beginIter)
+					beginIter = insertedPoint;
 			}
-			keyIdx++;
+			key = nextKey;
 		}
 	}
 
