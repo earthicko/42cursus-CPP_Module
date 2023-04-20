@@ -6,12 +6,11 @@
 #include <ctime>
 
 template <typename _Container>
-void	testPmergeMe(int argc, char **argv)
+int	testPmergeMe(char **argv)
 {
 	PmergeMe<_Container>	pmergeMe;
 	clock_t					time_start;
 	clock_t					time_done;
-	int						duration;
 
 	time_start = clock();
 	argv++;
@@ -24,8 +23,10 @@ void	testPmergeMe(int argc, char **argv)
 		buf >> val;
 		if (val <= 0)
 		{
-			std::cerr << "Error: non-positive number " << val << std::endl;
-			return ;
+			std::stringstream	whatbuf;
+
+			whatbuf << "non-positive number " << val << " found.";
+			throw (std::runtime_error(whatbuf.str()));
 		}
 		pmergeMe.append(val);
 		argv++;
@@ -34,19 +35,27 @@ void	testPmergeMe(int argc, char **argv)
 	pmergeMe.sort();
 	std::cout << "After : " << pmergeMe << "\n";
 	time_done = clock();
-	duration = ((time_done - time_start) * 1000000) / CLOCKS_PER_SEC;
-	if (isSame<_Container, std::vector<int> >::value)
-		std::cout << "std::vector: ";
-	if (isSame<_Container, std::list<int> >::value)
-		std::cout << "std::list  : ";
-	std::cout << "Took " << duration << "us to process " << argc - 1 << " items" << std::endl;
+	return (((time_done - time_start) * 1000000) / CLOCKS_PER_SEC);
 }
 
 int	main(int argc, char **argv)
 {
+	int	vectorDuration;
+	int	listDuration;
+
 	if (argc < 2)
 		return (1);
-	testPmergeMe<std::vector<int> >(argc, argv);
-	testPmergeMe<std::list<int> >(argc, argv);
+	try
+	{
+		vectorDuration = testPmergeMe<std::vector<int> >(argv);
+		listDuration = testPmergeMe<std::list<int> >(argv);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+		return (1);
+	}
+	std::cout << "std::vector: " << "Took " << vectorDuration << "us to process " << argc - 1 << " items" << std::endl;
+	std::cout << "std::list  : " << "Took " << listDuration << "us to process " << argc - 1 << " items" << std::endl;
 	return (0);
 }
