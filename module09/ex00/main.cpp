@@ -16,11 +16,11 @@ void	printPriceAt(const BitcoinExchange &bx, const std::string &date, const std:
 
 	dateVal = bx.parseDate(date);
 	amountVal = bx.parseNumber(amount);
-	if (amountVal < 0)
+	if (amountVal < 0 || amountVal > 1000)
 	{
 		std::stringstream	buf;
 
-		buf << "value " << amountVal << " is negative.";
+		buf << "value " << amountVal << " is out of bound.";
 		throw (std::runtime_error(buf.str()));
 	}
 	price = bx.getPrice(dateVal);
@@ -37,6 +37,8 @@ void	processLine(const BitcoinExchange &bx, std::ifstream &file)
 	std::string			second;
 
 	std::getline(file, line);
+	if (line == "\n")
+		return ;
 	buf.str(line);
 	buf >> first;
 	buf >> delim;
