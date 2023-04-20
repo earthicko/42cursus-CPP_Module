@@ -25,7 +25,6 @@ private:
 	static const std::string	_firstColumn;
 	static const std::string	_secondColumn;
 	static const char			_delim;
-	static const std::string	_dateFormat;
 	std::map<time_t, float>		_prices;
 	bool						_isLoaded;
 };

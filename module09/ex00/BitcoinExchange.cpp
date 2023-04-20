@@ -8,7 +8,6 @@
 const std::string	BitcoinExchange::_firstColumn = "date";
 const std::string	BitcoinExchange::_secondColumn = "exchange_rate";
 const char			BitcoinExchange::_delim = ',';
-const std::string	BitcoinExchange::_dateFormat = "%Y-%m-%d";
 
 BitcoinExchange::BitcoinExchange(const std::string &filepath)
 	: _isLoaded(false)
@@ -87,16 +86,34 @@ void	BitcoinExchange::load(const std::string &filepath)
 	_isLoaded = true;
 }
 
+int	parseString(const std::string &str)
+{
+	std::stringstream	buf;
+	int					val;
+
+	buf.str(str);
+	buf >> val;
+	if (buf.fail())
+		throw (std::runtime_error(std::string("Invalid token ") + str));
+	return (val);
+}
+
 time_t	BitcoinExchange::parseDate(const std::string &date)
 {
 	tm		dateVal;
+	tm		normalizedDateVal;
 	time_t	epoch;
-	char	*result;
 
 	memset(&dateVal, 0, sizeof(tm));
-	result = strptime(date.c_str(), _dateFormat.c_str(), &dateVal);
-	epoch = mktime(&dateVal);
-	if (!result || epoch < 0)
+	dateVal.tm_year = parseString(date.substr(0, 4)) - 1900;
+	dateVal.tm_mon = parseString(date.substr(5, 7)) - 1;
+	dateVal.tm_mday = parseString(date.substr(8, 10));
+	normalizedDateVal = dateVal;
+	epoch = mktime(&normalizedDateVal);
+	if (epoch < 0
+		|| dateVal.tm_year != normalizedDateVal.tm_year
+		|| dateVal.tm_mon != normalizedDateVal.tm_mon
+		|| dateVal.tm_mday != normalizedDateVal.tm_mday)
 		throw (std::runtime_error(std::string("Invalid date ") + date));
 	return (epoch);
 }
