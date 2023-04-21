@@ -35,6 +35,8 @@ int	testPmergeMe(char **argv)
 	pmergeMe.sort();
 	std::cout << "After : " << pmergeMe << "\n";
 	time_done = clock();
+	if (!pmergeMe.isSorted())
+		throw (std::logic_error("Container is not sorted."));
 	return (((time_done - time_start) * 1000000) / CLOCKS_PER_SEC);
 }
 

@@ -116,6 +116,11 @@ public:
 	{
 		mergeInsertionSort(0, _data.size());
 	}
+
+	bool	isSorted(void)
+	{
+		return (std::is_sorted(_data.begin(), _data.end()));
+	}
 };
 
 template <>
@@ -241,6 +246,11 @@ public:
 	void	sort(void)
 	{
 		mergeInsertionSort(0, _data.size());
+	}
+
+	bool	isSorted(void)
+	{
+		return (std::is_sorted(_data.begin(), _data.end()));
 	}
 };
 
