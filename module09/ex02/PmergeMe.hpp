@@ -23,18 +23,19 @@ private:
 	void	insertionSort(const int begin, const int end)
 	{
 		int	keyIdx;
-		int	keyVal;
-		int	insertionIdx;
 
 		keyIdx = begin + 1;
 		while (keyIdx < end)
 		{
+			int	keyVal;
+			int	insertionIdx;
+
 			keyVal = _data[keyIdx];
 			insertionIdx = std::upper_bound(&_data[begin], &_data[keyIdx], keyVal) - &_data[0];
 			if (keyIdx != insertionIdx)
 			{
-				for (int i = keyIdx - 1; i >= insertionIdx; i--)
-					_data[i + 1] = _data[i];
+				for (int i = keyIdx; i > insertionIdx; i--)
+					_data[i] = _data[i - 1];
 				_data[insertionIdx] = keyVal;
 			}
 			keyIdx++;
@@ -131,44 +132,32 @@ private:
 	typedef std::list<int>::iterator	iterator;
 	std::list<int>						_data;
 
-	iterator	getIter(int idx)
+	void	insertionSort(iterator begin, iterator end)
 	{
-		iterator	iter;
-
-		iter = _data.begin();
-		std::advance(iter, idx);
-		return (iter);
-	}
-
-	void	insertionSort(const int begin, const int end)
-	{
-		int			keyVal;
 		iterator	key;
-		iterator	insertionPoint;
-		iterator	insertedPoint;
-		iterator	beginIter;
-		iterator	endIter;
-		iterator	nextKey;
 
-		beginIter = getIter(begin);
-		key = beginIter;
-		endIter = beginIter;
-		std::advance(key, 1);
-		std::advance(endIter, end - begin);
-		while (key != endIter)
+		key = begin;
+		key++;
+		while (key != end)
 		{
-			nextKey = key;
-			nextKey++;
+			iterator	insertionPoint;
+			int			keyVal;
+
 			keyVal = *key;
-			insertionPoint = std::upper_bound(beginIter, key, keyVal);
+			insertionPoint = std::upper_bound(begin, key, keyVal);
 			if (key != insertionPoint)
 			{
-				_data.erase(key);
-				insertedPoint = _data.insert(insertionPoint, keyVal);
-				if (insertionPoint == beginIter)
-					beginIter = insertedPoint;
+				for (iterator after = key; after != insertionPoint; after--)
+				{
+					iterator	before;
+
+					before = after;
+					before--;
+					*after = *before;
+				}
+				*insertionPoint = keyVal;
 			}
-			key = nextKey;
+			key++;
 		}
 	}
 
@@ -209,18 +198,22 @@ private:
 		}
 	}
 
-	void	mergeInsertionSort(const int begin, const int end)
+	void	mergeInsertionSort(iterator begin, iterator end)
 	{
-		const int	middle = begin + (end - begin) / 2;
+		iterator	middle;
+		int			d;
 
-		if (end - begin <= _threshold)
+		d = std::distance(begin, end);
+		if (d <= _threshold)
 		{
 			insertionSort(begin, end);
 			return ;
 		}
+		middle = begin;
+		std::advance(middle, d / 2);
 		mergeInsertionSort(begin, middle);
 		mergeInsertionSort(middle, end);
-		merge(getIter(begin), getIter(middle), getIter(end));
+		merge(begin, middle, end);
 	}
 
 public:
@@ -245,7 +238,7 @@ public:
 
 	void	sort(void)
 	{
-		mergeInsertionSort(0, _data.size());
+		mergeInsertionSort(_data.begin(), _data.end());
 	}
 
 	bool	isSorted(void)
