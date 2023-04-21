@@ -1,5 +1,6 @@
 #include "RPN.hpp"
 #include <iostream>
+#include <string>
 #include <sstream>
 
 int	main(int argc, char **argv)
@@ -18,7 +19,9 @@ int	main(int argc, char **argv)
 		{
 			while (!buf.eof())
 			{
-				buf >> word;
+				std::getline(buf, word, ' ');
+				if (word.length() < 1)
+					continue ;
 				rpn.process(word);
 			}
 			std::cout << rpn.result() << "\n";
