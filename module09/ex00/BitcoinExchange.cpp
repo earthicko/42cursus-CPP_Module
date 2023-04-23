@@ -105,6 +105,8 @@ time_t	BitcoinExchange::parseDate(const std::string &date)
 	time_t	epoch;
 
 	memset(&dateVal, 0, sizeof(tm));
+	if (date.length() != 10 || date[4] != '-' || date[7] != '-')
+		throw (std::runtime_error(std::string("Invalid date ") + date));
 	dateVal.tm_year = parseString(date.substr(0, 4)) - 1900;
 	dateVal.tm_mon = parseString(date.substr(5, 7)) - 1;
 	dateVal.tm_mday = parseString(date.substr(8, 10));
