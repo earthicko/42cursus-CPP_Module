@@ -21,6 +21,13 @@ int	testPmergeMe(char **argv)
 
 		buf.str(*argv);
 		buf >> val;
+		if (buf.fail())
+		{
+			std::stringstream	whatbuf;
+
+			whatbuf << *argv << " is not a integer.";
+			throw (std::runtime_error(whatbuf.str()));
+		}
 		if (val <= 0)
 		{
 			std::stringstream	whatbuf;
