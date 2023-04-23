@@ -1,6 +1,6 @@
 #include <limits>
 #include <string>
-#include <exception>
+#include <stdexcept>
 
 bool	isExtremeFloat(const std::string &str)
 {
