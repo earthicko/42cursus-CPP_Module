@@ -13,6 +13,27 @@ class	PmergeMe;
 std::ostream	&operator<<(std::ostream &os, PmergeMe<std::vector<int> > lp);
 std::ostream	&operator<<(std::ostream &os, PmergeMe<std::list<int> > lp);
 
+template <typename T>
+bool	isContainerSorted(T &container)
+{
+	typename T::iterator	first;
+	typename T::iterator	second;
+
+	if (container.size() <= 1)
+		return (true);
+	first = container.begin();
+	second = container.begin();
+	second++;
+	while (second != container.end())
+	{
+		if (*first > *second)
+			return (false);
+		first++;
+		second++;
+	}
+	return (true);
+}
+
 template <>
 class	PmergeMe<std::vector<int> >
 {
@@ -120,7 +141,7 @@ public:
 
 	bool	isSorted(void)
 	{
-		return (std::is_sorted(_data.begin(), _data.end()));
+		return (isContainerSorted(_data));
 	}
 };
 
@@ -243,7 +264,7 @@ public:
 
 	bool	isSorted(void)
 	{
-		return (std::is_sorted(_data.begin(), _data.end()));
+		return (isContainerSorted(_data));
 	}
 };
 
