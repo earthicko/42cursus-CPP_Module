@@ -1,63 +1,67 @@
 #include "BitcoinExchange.hpp"
-#include <iostream>
 #include <fstream>
-#include <sstream>
+#include <iostream>
 #include <limits>
+#include <sstream>
 
-const std::string	firstColumn = "date";
-const std::string	secondColumn = "value";
+const std::string firstColumn = "date";
+const std::string secondColumn = "value";
 
-void	printPriceAt(const BitcoinExchange &bx, const std::string &date, const std::string &amount)
+void printPriceAt(const BitcoinExchange &bx,
+				  const std::string &date,
+				  const std::string &amount)
 {
-	time_t	dateVal;
-	float	amountVal;
-	float	price;
-	float	totalPrice;
+	time_t dateVal;
+	float amountVal;
+	float price;
+	float totalPrice;
 
 	dateVal = bx.parseDate(date);
 	amountVal = bx.parseNumber(amount);
 	if (amountVal < 0 || amountVal > 1000)
 	{
-		std::stringstream	buf;
+		std::stringstream buf;
 
 		buf << "value " << amountVal << " is out of bound.";
-		throw (std::runtime_error(buf.str()));
+		throw(std::runtime_error(buf.str()));
 	}
 	price = bx.getPrice(dateVal);
 	totalPrice = amountVal * price;
-	std::cout << date << ": " << amountVal << " * " << price << " = " << totalPrice << "\n";
+	std::cout << date << ": " << amountVal << " * " << price << " = "
+			  << totalPrice << "\n";
 }
 
-void	processLine(const BitcoinExchange &bx, std::ifstream &file)
+void processLine(const BitcoinExchange &bx, std::ifstream &file)
 {
-	std::string			line;
-	std::stringstream	buf;
-	std::string			first;
-	std::string			delim;
-	std::string			second;
+	std::string line;
+	std::stringstream buf;
+	std::string first;
+	std::string delim;
+	std::string second;
 
 	std::getline(file, line);
 	if (line == "\n")
-		return ;
+		return;
 	buf.str(line);
 	buf >> first;
 	buf >> delim;
 	buf >> second;
 	if (delim != "|" || first.length() == 0 || second.length() == 0)
-		throw (std::runtime_error(std::string("Invalid line ") + line));
+		throw(std::runtime_error(std::string("Invalid line ") + line));
 	if (first == firstColumn && second == secondColumn)
-		return ;
+		return;
 	printPriceAt(bx, first, second);
 }
 
-void	process(const BitcoinExchange &bx, const std::string &filepath)
+void process(const BitcoinExchange &bx, const std::string &filepath)
 {
-	std::ifstream			file;
-	std::ios_base::fmtflags	saved_flags;
+	std::ifstream file;
+	std::ios_base::fmtflags saved_flags;
 
 	file.open(filepath.c_str(), std::ios_base::in);
 	if (!file.is_open())
-		throw (std::ifstream::failure(std::string("Failed to open ") + filepath));
+		throw(
+			std::ifstream::failure(std::string("Failed to open ") + filepath));
 	saved_flags = std::cout.flags();
 	std::cout.setf(std::ios::fixed, std::ios::floatfield);
 	std::cout.precision(std::numeric_limits<float>::digits10);
@@ -75,9 +79,9 @@ void	process(const BitcoinExchange &bx, const std::string &filepath)
 	std::cout.flags(saved_flags);
 }
 
-int	main(int argc, char **argv)
+int main(int argc, char **argv)
 {
-	BitcoinExchange	bx;
+	BitcoinExchange bx;
 
 	if (!bx.isLoaded())
 		return (1);

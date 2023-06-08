@@ -1,33 +1,33 @@
 #include "PmergeMe.hpp"
 #include "isSame.hpp"
-#include <iostream>
-#include <string>
-#include <sstream>
 #include <ctime>
+#include <iostream>
+#include <sstream>
+#include <string>
 
-void	parseInputValues(char **argv, std::vector<int> &inputValues)
+void parseInputValues(char **argv, std::vector<int> &inputValues)
 {
 	argv++;
 	while (*argv)
 	{
-		std::stringstream	buf;
-		int					val;
+		std::stringstream buf;
+		int val;
 
 		buf.str(*argv);
 		buf >> val;
 		if (buf.fail())
 		{
-			std::stringstream	whatbuf;
+			std::stringstream whatbuf;
 
 			whatbuf << *argv << " is not a integer.";
-			throw (std::runtime_error(whatbuf.str()));
+			throw(std::runtime_error(whatbuf.str()));
 		}
 		if (val <= 0)
 		{
-			std::stringstream	whatbuf;
+			std::stringstream whatbuf;
 
 			whatbuf << "non-positive number " << val << " found.";
-			throw (std::runtime_error(whatbuf.str()));
+			throw(std::runtime_error(whatbuf.str()));
 		}
 		inputValues.push_back(val);
 		argv++;
@@ -35,10 +35,11 @@ void	parseInputValues(char **argv, std::vector<int> &inputValues)
 }
 
 template <typename _Container>
-int	testPmergeMe(const std::vector<int> &inputValues, PmergeMe<_Container> &pmergeme)
+int testPmergeMe(const std::vector<int> &inputValues,
+				 PmergeMe<_Container> &pmergeme)
 {
-	clock_t	time_start;
-	clock_t	time_done;
+	clock_t time_start;
+	clock_t time_done;
 
 	time_start = clock();
 	for (std::vector<int>::size_type i = 0; i < inputValues.size(); i++)
@@ -46,11 +47,11 @@ int	testPmergeMe(const std::vector<int> &inputValues, PmergeMe<_Container> &pmer
 	pmergeme.sort();
 	time_done = clock();
 	if (!pmergeme.isSorted())
-		throw (std::logic_error("Container is not sorted."));
+		throw(std::logic_error("Container is not sorted."));
 	return (((time_done - time_start) * 1000000) / CLOCKS_PER_SEC);
 }
 
-std::ostream	&operator<<(std::ostream &os, const std::vector<int> &v)
+std::ostream &operator<<(std::ostream &os, const std::vector<int> &v)
 {
 	for (std::vector<int>::size_type i = 0; i < v.size(); i++)
 	{
@@ -61,13 +62,13 @@ std::ostream	&operator<<(std::ostream &os, const std::vector<int> &v)
 	return (os);
 }
 
-int	main(int argc, char **argv)
+int main(int argc, char **argv)
 {
-	std::vector<int>			inputValues;
-	PmergeMe<std::vector<int> >	vectorMergeMe;
-	PmergeMe<std::list<int> >	listMergeMe;
-	int	vectorDuration;
-	int	listDuration;
+	std::vector<int> inputValues;
+	PmergeMe<std::vector<int> > vectorMergeMe;
+	PmergeMe<std::list<int> > listMergeMe;
+	int vectorDuration;
+	int listDuration;
 
 	if (argc < 2)
 		return (1);
@@ -75,7 +76,7 @@ int	main(int argc, char **argv)
 	{
 		parseInputValues(argv, inputValues);
 	}
-	catch(const std::exception& e)
+	catch (const std::exception &e)
 	{
 		std::cerr << e.what() << '\n';
 		return (1);
@@ -84,7 +85,9 @@ int	main(int argc, char **argv)
 	listDuration = testPmergeMe(inputValues, listMergeMe);
 	std::cout << "Before: " << inputValues << std::endl;
 	std::cout << "After : " << vectorMergeMe << std::endl;
-	std::cout << "std::vector: Took " << vectorDuration << "us to process " << argc - 1 << " items" << std::endl;
-	std::cout << "std::list  : Took " << listDuration << "us to process " << argc - 1 << " items" << std::endl;
+	std::cout << "std::vector: Took " << vectorDuration << "us to process "
+			  << argc - 1 << " items" << std::endl;
+	std::cout << "std::list  : Took " << listDuration << "us to process "
+			  << argc - 1 << " items" << std::endl;
 	return (0);
 }

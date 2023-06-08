@@ -4,13 +4,13 @@
 template <typename T, typename U>
 struct isSame
 {
-	static const bool	value = false;
+	static const bool value = false;
 };
 
 template <typename T>
 struct isSame<T, T>
 {
-	static const bool	value = true;
+	static const bool value = true;
 };
 
 #endif
