@@ -36,17 +36,16 @@ void processLine(const BitcoinExchange &bx, std::ifstream &file)
 	std::string line;
 	std::stringstream buf;
 	std::string first;
-	std::string delim;
 	std::string second;
+	const char delim = '|';
 
 	std::getline(file, line);
 	if (line == "\n")
 		return;
 	buf.str(line);
-	buf >> first;
-	buf >> delim;
-	buf >> second;
-	if (delim != "|" || first.length() == 0 || second.length() == 0)
+	std::getline(buf, first, delim);
+	std::getline(buf, second, delim);
+	if (first.length() == 0 || second.length() == 0 || !buf.eof())
 		throw(std::runtime_error(std::string("Invalid line ") + line));
 	if (first == firstColumn && second == secondColumn)
 		return;
