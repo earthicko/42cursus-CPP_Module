@@ -78,8 +78,10 @@ void BitcoinExchange::load(const std::string &filepath)
 		buf.str(line);
 		std::getline(buf, date, _delim);
 		std::getline(buf, price, _delim);
+		if (!buf.eof())
+			throw(std::runtime_error("Invalid line " + line));
 		if (lineidx == 0 && !(date == _firstColumn && price == _secondColumn))
-			throw(std::runtime_error("Invalid first line"));
+			throw(std::runtime_error("Invalid first line " + line));
 		if (lineidx > 0)
 			loadLine(date, price);
 		lineidx++;
