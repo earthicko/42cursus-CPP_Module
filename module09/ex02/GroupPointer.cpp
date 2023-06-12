@@ -3,7 +3,7 @@
 GroupPointer::GroupPointer(std::vector<int> &v, size_t idx, size_t span)
 	: _v(v)
 	, _begin(&v[0] + idx)
-	, _comp(&v[0] + idx + span)
+	, _comp(&v[0] + (idx + span - 1))
 	, _span(span)
 {
 }
@@ -37,8 +37,8 @@ const int &GroupPointer::operator*(void) const
 
 void GroupPointer::advance(size_t amount)
 {
-	_begin += amount;
-	_comp += amount;
+	_begin += amount * _span;
+	_comp += amount * _span;
 }
 
 std::vector<int> &GroupPointer::getVector(void)
@@ -141,7 +141,9 @@ GroupPointer operator-(const GroupPointer &it, size_t amount)
 
 size_t distance(const GroupPointer &lhs, const GroupPointer &rhs)
 {
-	return (rhs.getPtr() - lhs.getPtr());
+	if (lhs.getSpan() != rhs.getSpan())
+		throw(std::runtime_error(""));
+	return ((rhs.getPtr() - lhs.getPtr()) / lhs.getSpan());
 }
 
 std::ostream &operator<<(std::ostream &os, const GroupPointer &it)
