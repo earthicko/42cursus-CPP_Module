@@ -1,9 +1,34 @@
 #include "PmergeMe.hpp"
+#include "debugCout.hpp"
 #include "isSame.hpp"
 #include <ctime>
 #include <iostream>
 #include <sstream>
 #include <string>
+
+std::ostream &operator<<(std::ostream &os, const std::vector<int> &cont)
+{
+	for (size_t i = 0; i < cont.size(); i++)
+	{
+		os << cont[i];
+		if (i != cont.size() - 1)
+			os << ", ";
+	}
+	return (os);
+}
+
+std::ostream &operator<<(std::ostream &os, const std::list<int> &cont)
+{
+	std::list<int>::const_iterator before_end = cont.end();
+	before_end--;
+	for (std::list<int>::const_iterator it = cont.begin(); it != cont.end(); it++)
+	{
+		os << *it;
+		if (it != before_end)
+			os << ", ";
+	}
+	return (os);
+}
 
 void parseInputValues(char **argv, std::vector<int> &inputValues)
 {
@@ -35,38 +60,42 @@ void parseInputValues(char **argv, std::vector<int> &inputValues)
 }
 
 template <typename _Container>
-int testPmergeMe(const std::vector<int> &inputValues,
-				 PmergeMe<_Container> &pmergeme)
+void assertCompleteSort(const _Container &sorted, const std::vector<int> &reference)
+{
+	DEBUGCOUT(__func__ << ": Compare ");
+	size_t i = 0;
+	for (typename _Container::const_iterator it = sorted.begin(); it != sorted.end(); it++)
+	{
+		DEBUGCOUT(*it << " ");
+		if (*it != reference[i])
+		{
+			std::stringstream buf;
+			buf << "Container is not sorted (" << *it << " != " << reference[i] << ")";
+			throw(std::logic_error(buf.str()));
+		}
+		i++;
+	}
+}
+
+template <typename _Container>
+int testPmergeMe(const std::vector<int> &inputValues, const std::vector<int> &sortedValues)
 {
 	clock_t time_start;
 	clock_t time_done;
-
 	time_start = clock();
-	for (std::vector<int>::size_type i = 0; i < inputValues.size(); i++)
-		pmergeme.append(inputValues[i]);
-	pmergeme.sort();
-	time_done = clock();
-	if (!pmergeme.isSorted())
-		throw(std::logic_error("Container is not sorted."));
-	return (((time_done - time_start) * 1000000) / CLOCKS_PER_SEC);
-}
 
-std::ostream &operator<<(std::ostream &os, const std::vector<int> &v)
-{
-	for (std::vector<int>::size_type i = 0; i < v.size(); i++)
-	{
-		os << v[i];
-		if (i != v.size() - 1)
-			os << " ";
-	}
-	return (os);
+	_Container buffer(inputValues.begin(), inputValues.end());
+	fordJohnsonSort(buffer);
+	DEBUGCOUT(buffer);
+	assertCompleteSort(buffer, sortedValues);
+	time_done = clock();
+	return (((time_done - time_start) * 1000000) / CLOCKS_PER_SEC);
 }
 
 int main(int argc, char **argv)
 {
 	std::vector<int> inputValues;
-	PmergeMe<std::vector<int> > vectorMergeMe;
-	PmergeMe<std::list<int> > listMergeMe;
+	std::vector<int> sortedValues;
 	int vectorDuration;
 	int listDuration;
 
@@ -81,13 +110,13 @@ int main(int argc, char **argv)
 		std::cerr << e.what() << '\n';
 		return (1);
 	}
-	vectorDuration = testPmergeMe(inputValues, vectorMergeMe);
-	listDuration = testPmergeMe(inputValues, listMergeMe);
+	sortedValues = inputValues;
+	std::sort(sortedValues.begin(), sortedValues.end());
 	std::cout << "Before: " << inputValues << std::endl;
-	std::cout << "After : " << vectorMergeMe << std::endl;
-	std::cout << "std::vector: Took " << vectorDuration << "us to process "
-			  << argc - 1 << " items" << std::endl;
-	std::cout << "std::list  : Took " << listDuration << "us to process "
-			  << argc - 1 << " items" << std::endl;
+	std::cout << "After : " << sortedValues << std::endl;
+	vectorDuration = testPmergeMe<std::vector<int> >(inputValues, sortedValues);
+	listDuration = testPmergeMe<std::list<int> >(inputValues, sortedValues);
+	std::cout << "std::vector: Took " << vectorDuration << "us to process " << argc - 1 << " items" << std::endl;
+	std::cout << "std::list  : Took " << listDuration << "us to process " << argc - 1 << " items" << std::endl;
 	return (0);
 }
