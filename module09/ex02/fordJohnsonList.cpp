@@ -4,7 +4,7 @@
 #include <list>
 #include <vector>
 
-void sortEachPairs(GroupIterator begin, size_t nPairs)
+void sortEachPairs(GroupIterator begin, ssize_t nPairs)
 {
 	while (nPairs)
 	{
@@ -16,13 +16,13 @@ void sortEachPairs(GroupIterator begin, size_t nPairs)
 	}
 }
 
-void groupCopy(std::list<int> &dest, std::list<GroupIterator> &from, size_t span)
+void groupCopy(std::list<int> &dest, std::list<GroupIterator> &from, ssize_t span)
 {
 	std::list<GroupIterator>::iterator fromit = from.begin();
 	while (fromit != from.end())
 	{
 		std::list<int>::iterator valit = (*fromit).getIter();
-		for (size_t i = 0; i < span; i++)
+		for (ssize_t i = 0; i < span; i++)
 		{
 			dest.push_back(*valit);
 			valit++;
@@ -31,7 +31,7 @@ void groupCopy(std::list<int> &dest, std::list<GroupIterator> &from, size_t span
 	}
 }
 
-void groupCopy(GroupIterator destbegin, GroupIterator destend, std::list<int> &from, size_t span)
+void groupCopy(GroupIterator destbegin, GroupIterator destend, std::list<int> &from, ssize_t span)
 {
 	GroupIterator fromit(from.begin(), span);
 	GroupIterator destit = destbegin;
@@ -166,8 +166,8 @@ void fordJohnsonMerge(GroupIterator begin, GroupIterator end, bool hasStraggler)
 
 void fordJohnsonSortImpl(GroupIterator begin, GroupIterator end)
 {
-	size_t len = distance(begin, end);
-	size_t nPairs = len / 2;
+	ssize_t len = distance(begin, end);
+	ssize_t nPairs = len / 2;
 
 	if (len <= 1)
 	{

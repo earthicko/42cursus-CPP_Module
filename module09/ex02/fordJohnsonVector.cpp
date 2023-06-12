@@ -4,7 +4,7 @@
 #include <list>
 #include <vector>
 
-void sortEachPairs(GroupPointer begin, size_t nPairs)
+void sortEachPairs(GroupPointer begin, ssize_t nPairs)
 {
 	while (nPairs)
 	{
@@ -149,7 +149,7 @@ void fordJohnsonMerge(GroupPointer begin, GroupPointer end, bool hasStraggler)
 	for (std::list<GroupPointer>::iterator chainit = chain.begin(); chainit != chain.end(); chainit++)
 	{
 		int *fromptr = (*chainit).getPtr();
-		for (size_t i = 0; i < begin.getSpan(); i++)
+		for (ssize_t i = 0; i < begin.getSpan(); i++)
 		{
 			cache.push_back(*fromptr);
 			fromptr++;
@@ -161,8 +161,8 @@ void fordJohnsonMerge(GroupPointer begin, GroupPointer end, bool hasStraggler)
 
 void fordJohnsonSortImpl(GroupPointer begin, GroupPointer end)
 {
-	size_t len = distance(begin, end);
-	size_t nPairs = len / 2;
+	ssize_t len = distance(begin, end);
+	ssize_t nPairs = len / 2;
 
 	if (len <= 1)
 	{

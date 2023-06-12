@@ -1,9 +1,9 @@
 #include <cstddef>
 #include <stdexcept>
 
-size_t getJacobsthalDiff(size_t idx)
+ssize_t getJacobsthalDiff(ssize_t idx)
 {
-	static const size_t cache[] = {2u,
+	static const ssize_t cache[] = {2u,
 								   2u,
 								   6u,
 								   10u,

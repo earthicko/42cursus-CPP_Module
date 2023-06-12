@@ -1,6 +1,6 @@
 #include "GroupIterator.hpp"
 
-GroupIterator::GroupIterator(_iterator it, size_t span)
+GroupIterator::GroupIterator(_iterator it, ssize_t span)
 	: _begin(it)
 	, _span(span)
 {
@@ -39,7 +39,7 @@ const std::list<int>::iterator &GroupIterator::getIter(void) const
 	return (_begin);
 }
 
-const size_t &GroupIterator::getSpan(void) const
+const ssize_t &GroupIterator::getSpan(void) const
 {
 	return (_span);
 }
@@ -51,7 +51,7 @@ void GroupIterator::swap(const GroupIterator &other) const
 
 	_iterator lhs = _begin;
 	_iterator rhs = other._begin;
-	for (size_t i = 0; i < _span; i++)
+	for (ssize_t i = 0; i < _span; i++)
 	{
 		int temp = *lhs;
 		*lhs = *rhs;
@@ -68,7 +68,7 @@ void GroupIterator::copyFrom(const GroupIterator &other) const
 
 	_iterator lhs = _begin;
 	_iterator rhs = other._begin;
-	for (size_t i = 0; i < _span; i++)
+	for (ssize_t i = 0; i < _span; i++)
 	{
 		*lhs = *rhs;
 		lhs++;
@@ -101,7 +101,7 @@ bool operator!=(const GroupIterator &lhs, const GroupIterator &rhs)
 	return (!(lhs == rhs));
 }
 
-GroupIterator &operator+=(GroupIterator &it, size_t amount)
+GroupIterator &operator+=(GroupIterator &it, ssize_t amount)
 {
 	while (amount)
 	{
@@ -111,7 +111,7 @@ GroupIterator &operator+=(GroupIterator &it, size_t amount)
 	return (it);
 }
 
-GroupIterator &operator-=(GroupIterator &it, size_t amount)
+GroupIterator &operator-=(GroupIterator &it, ssize_t amount)
 {
 	while (amount)
 	{
@@ -121,24 +121,24 @@ GroupIterator &operator-=(GroupIterator &it, size_t amount)
 	return (it);
 }
 
-GroupIterator operator+(const GroupIterator &it, size_t amount)
+GroupIterator operator+(const GroupIterator &it, ssize_t amount)
 {
 	GroupIterator result = it;
 	result += amount;
 	return (result);
 }
 
-GroupIterator operator-(const GroupIterator &it, size_t amount)
+GroupIterator operator-(const GroupIterator &it, ssize_t amount)
 {
 	GroupIterator result = it;
 	result -= amount;
 	return (result);
 }
 
-size_t distance(const GroupIterator &lhs, const GroupIterator &rhs)
+ssize_t distance(const GroupIterator &lhs, const GroupIterator &rhs)
 {
 	GroupIterator tempLhs(lhs);
-	size_t result = 0;
+	ssize_t result = 0;
 	while (tempLhs != rhs)
 	{
 		++tempLhs;

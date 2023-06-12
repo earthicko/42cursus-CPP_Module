@@ -3,6 +3,6 @@
 
 #include <cstddef>
 
-size_t getJacobsthalDiff(size_t idx);
+ssize_t getJacobsthalDiff(ssize_t idx);
 
 #endif

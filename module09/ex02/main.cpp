@@ -62,7 +62,7 @@ void parseInputValues(char **argv, std::vector<int> &inputValues)
 template <typename _Container>
 void assertCompleteSort(const _Container &sorted, const std::vector<int> &reference)
 {
-	size_t i = 0;
+	ssize_t i = 0;
 	for (typename _Container::const_iterator it = sorted.begin(); it != sorted.end(); it++)
 	{
 		if (*it != reference[i])
