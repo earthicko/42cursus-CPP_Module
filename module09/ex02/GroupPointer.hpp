@@ -19,7 +19,8 @@ class GroupPointer
 	GroupPointer &operator++(void);
 	GroupPointer &operator--(void);
 	const int &operator*(void) const;
-	void advance(size_t amount);
+	void increment(size_t amount);
+	void decrement(size_t amount);
 	std::vector<int> &getVector(void);
 	int *getPtr(void) const;
 	const size_t &getSpan(void) const;

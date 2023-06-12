@@ -62,11 +62,9 @@ void parseInputValues(char **argv, std::vector<int> &inputValues)
 template <typename _Container>
 void assertCompleteSort(const _Container &sorted, const std::vector<int> &reference)
 {
-	DEBUGCOUT(__func__ << ": Compare ");
 	size_t i = 0;
 	for (typename _Container::const_iterator it = sorted.begin(); it != sorted.end(); it++)
 	{
-		DEBUGCOUT(*it << " ");
 		if (*it != reference[i])
 		{
 			std::stringstream buf;
@@ -96,8 +94,8 @@ int main(int argc, char **argv)
 {
 	std::vector<int> inputValues;
 	std::vector<int> sortedValues;
-	int vectorDuration;
 	int listDuration;
+	int vectorDuration;
 
 	if (argc < 2)
 		return (1);
@@ -114,9 +112,9 @@ int main(int argc, char **argv)
 	std::sort(sortedValues.begin(), sortedValues.end());
 	std::cout << "Before: " << inputValues << std::endl;
 	std::cout << "After : " << sortedValues << std::endl;
-	vectorDuration = testPmergeMe<std::vector<int> >(inputValues, sortedValues);
 	listDuration = testPmergeMe<std::list<int> >(inputValues, sortedValues);
-	std::cout << "std::vector: Took " << vectorDuration << "us to process " << argc - 1 << " items" << std::endl;
+	vectorDuration = testPmergeMe<std::vector<int> >(inputValues, sortedValues);
 	std::cout << "std::list  : Took " << listDuration << "us to process " << argc - 1 << " items" << std::endl;
+	std::cout << "std::vector: Took " << vectorDuration << "us to process " << argc - 1 << " items" << std::endl;
 	return (0);
 }

@@ -35,10 +35,16 @@ const int &GroupPointer::operator*(void) const
 	return (*_comp);
 }
 
-void GroupPointer::advance(size_t amount)
+void GroupPointer::increment(size_t amount)
 {
 	_begin += amount * _span;
 	_comp += amount * _span;
+}
+
+void GroupPointer::decrement(size_t amount)
+{
+	_begin -= amount * _span;
+	_comp -= amount * _span;
 }
 
 std::vector<int> &GroupPointer::getVector(void)
@@ -48,7 +54,7 @@ std::vector<int> &GroupPointer::getVector(void)
 
 int *GroupPointer::getPtr(void) const
 {
-	return (_comp);
+	return (_begin);
 }
 
 const size_t &GroupPointer::getSpan(void) const
@@ -115,13 +121,13 @@ bool operator!=(const GroupPointer &lhs, const GroupPointer &rhs)
 
 GroupPointer &operator+=(GroupPointer &it, size_t amount)
 {
-	it.advance(amount);
+	it.increment(amount);
 	return (it);
 }
 
 GroupPointer &operator-=(GroupPointer &it, size_t amount)
 {
-	it.advance(amount);
+	it.decrement(amount);
 	return (it);
 }
 

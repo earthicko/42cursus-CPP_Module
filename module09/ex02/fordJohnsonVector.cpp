@@ -16,47 +16,26 @@ void sortEachPairs(GroupPointer begin, size_t nPairs)
 	}
 }
 
-void groupCopy(std::vector<int> &dest, std::list<GroupPointer> &from, size_t span)
-{
-	std::list<GroupPointer>::iterator fromit = from.begin();
-	while (fromit != from.end())
-	{
-		int *valit = (*fromit).getPtr();
-		for (size_t i = 0; i < span; i++)
-		{
-			dest.push_back(*valit);
-			valit++;
-		}
-		++fromit;
-	}
-}
-
-void groupCopy(GroupPointer destbegin, std::vector<int> &from)
-{
-	for (size_t i = 0; i < from.size(); i++)
-		destbegin.getVector()[i] = from[i];
-}
-
 void fordJohnsonMergeBuildChainPends(GroupPointer &begin,
 									 GroupPointer &end,
 									 bool hasStraggler,
 									 std::list<GroupPointer> &chain,
 									 std::vector<std::list<GroupPointer>::iterator> &pend)
 {
-	typedef GroupPointer giter;
+	typedef GroupPointer gptr;
 
 	chain.push_back(begin);
 	chain.push_back(begin + 1);
 
-	giter endWithoutStraggler = hasStraggler ? end - 1 : end;
-	for (giter it = begin + 2; it != endWithoutStraggler; it += 2)
+	gptr endWithoutStraggler = hasStraggler ? end - 1 : end;
+	for (gptr it = begin + 2; it != endWithoutStraggler; it += 2)
 	{
-		std::list<giter>::iterator next = chain.insert(chain.end(), it + 1);
+		std::list<gptr>::iterator next = chain.insert(chain.end(), it + 1);
 		pend.push_back(next);
 	}
 
 	DEBUGCOUT(__func__ << ": chain : ");
-	for (std::list<giter>::iterator it = chain.begin(); it != chain.end(); it++)
+	for (std::list<gptr>::iterator it = chain.begin(); it != chain.end(); it++)
 		DEBUGCOUT(*it);
 	DEBUGCOUT(std::endl);
 
@@ -75,12 +54,13 @@ void fordJohnsonMergeBuildChainPends(GroupPointer &begin,
 }
 
 void fordJohnsonInsert(GroupPointer &begin,
+					   GroupPointer &end,
 					   std::list<GroupPointer> &chain,
 					   std::vector<std::list<GroupPointer>::iterator> &pend)
 {
-	typedef GroupPointer giter;
+	typedef GroupPointer gptr;
 
-	giter current_it = begin + 2;
+	gptr current_it = begin + 2;
 	size_t curr_pend_idx = 0;
 
 	for (int k = 0;; ++k)
@@ -93,16 +73,20 @@ void fordJohnsonInsert(GroupPointer &begin,
 							   << std::endl);
 			break;
 		}
-		giter it = current_it + dist * 2;
+		gptr it = current_it + (dist * 2);
 		size_t pe = curr_pend_idx + dist;
-		DEBUGCOUT(__func__ << ": current_it " << current_it << " it " << it << " curr_pend_idx " << curr_pend_idx
-						   << " pe " << pe << std::endl);
+		if (current_it != end)
+			DEBUGCOUT(__func__ << ": current_it " << current_it << " it " << it << " curr_pend_idx " << curr_pend_idx
+							   << " pe " << pe << std::endl);
+		else
+			DEBUGCOUT(__func__ << ": current_it (end) it " << it << " curr_pend_idx " << curr_pend_idx << " pe " << pe
+							   << std::endl);
 		while (true)
 		{
 			--pe;
 			it -= 2;
 			DEBUGCOUT(__func__ << ": it " << it << " pe " << pe << std::endl);
-			std::list<giter>::iterator insertion_point
+			std::list<gptr>::iterator insertion_point
 				= std::upper_bound(chain.begin(), pend[pe], it, compareGroupPointer);
 			DEBUGCOUT(__func__ << ": insert point " << *insertion_point << " insert " << it << std::endl);
 			chain.insert(insertion_point, it);
@@ -118,7 +102,7 @@ void fordJohnsonInsert(GroupPointer &begin,
 
 	while (curr_pend_idx < pend.size())
 	{
-		std::list<giter>::iterator insertion_point
+		std::list<gptr>::iterator insertion_point
 			= std::upper_bound(chain.begin(), pend[curr_pend_idx], current_it, compareGroupPointer);
 		if (insertion_point != chain.end())
 			DEBUGCOUT(": pend not empty, insert point " << *insertion_point << " insert " << current_it << std::endl);
@@ -127,7 +111,10 @@ void fordJohnsonInsert(GroupPointer &begin,
 		chain.insert(insertion_point, current_it);
 		current_it += 2;
 		curr_pend_idx++;
-		DEBUGCOUT(__func__ << ": current_it " << current_it << " curr_pend_idx " << curr_pend_idx << std::endl);
+		if (current_it != end)
+			DEBUGCOUT(__func__ << ": current_it " << current_it << " curr_pend_idx " << curr_pend_idx << std::endl);
+		else
+			DEBUGCOUT(__func__ << ": current_it (end) curr_pend_idx " << curr_pend_idx << std::endl);
 	}
 
 	DEBUGCOUT(__func__ << ": result chain : ");
@@ -138,24 +125,38 @@ void fordJohnsonInsert(GroupPointer &begin,
 
 void fordJohnsonMerge(GroupPointer begin, GroupPointer end, bool hasStraggler)
 {
-	typedef GroupPointer giter;
+	typedef GroupPointer gptr;
 
 	DEBUGCOUT(__func__ << ": begin with span " << begin.getSpan() << " len " << distance(begin, end) << " ");
-	for (giter it = begin; it != end; ++it)
+	for (gptr it = begin; it != end; ++it)
 		DEBUGCOUT(it);
 	if (hasStraggler)
 		DEBUGCOUT(" with straggler");
 	DEBUGCOUT(std::endl);
 
-	std::list<giter> chain;
-	std::vector<std::list<giter>::iterator> pend;
+	std::list<gptr> chain;
+	std::vector<std::list<gptr>::iterator> pend;
 	fordJohnsonMergeBuildChainPends(begin, end, hasStraggler, chain, pend);
+	fordJohnsonInsert(begin, end, chain, pend);
 
-	fordJohnsonInsert(begin, chain, pend);
+	DEBUGCOUT(__func__ << ": chain : ");
+	for (std::list<GroupPointer>::iterator it = chain.begin(); it != chain.end(); it++)
+		DEBUGCOUT(*it);
+	DEBUGCOUT(std::endl);
 
+	std::vector<int> &orig = begin.getVector();
 	std::vector<int> cache;
-	groupCopy(cache, chain, begin.getSpan());
-	groupCopy(begin, cache);
+	for (std::list<GroupPointer>::iterator chainit = chain.begin(); chainit != chain.end(); chainit++)
+	{
+		int *fromptr = (*chainit).getPtr();
+		for (size_t i = 0; i < begin.getSpan(); i++)
+		{
+			cache.push_back(*fromptr);
+			fromptr++;
+		}
+	}
+	for (size_t i = 0; i < cache.size(); i++)
+		orig[i] = cache[i];
 }
 
 void fordJohnsonSortImpl(GroupPointer begin, GroupPointer end)
