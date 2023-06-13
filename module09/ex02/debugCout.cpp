@@ -24,19 +24,6 @@ std::string pendVectorToString(std::vector<std::list<GroupIterator>::iterator> &
 	return (buf.str());
 }
 
-std::string pendListToString(std::list<std::list<GroupIterator>::iterator> &pend, std::list<GroupIterator> &s)
-{
-	std::stringstream buf;
-	for (std::list<std::list<GroupIterator>::iterator>::iterator it = pend.begin(); it != pend.end(); ++it)
-	{
-		if (*it == s.end())
-			buf << "(before end)";
-		else
-			buf << "(before " << *(*it) << ")";
-	}
-	return (buf.str());
-}
-
 std::string pendToString(std::list<GroupIterator>::iterator &pend, std::list<GroupIterator> &s)
 {
 	std::stringstream buf;
@@ -67,13 +54,4 @@ std::string pendVectorToString(std::vector<std::list<GroupPointer>::iterator> &p
 	return (buf.str());
 }
 
-std::string pendToString(std::list<GroupPointer>::iterator &pend, std::list<GroupPointer> &s)
-{
-	std::stringstream buf;
-	if (pend == s.end())
-		buf << "(before end)";
-	else
-		buf << "(before " << *pend << ")";
-	return (buf.str());
-}
 #endif
