@@ -4,74 +4,6 @@
 #include <list>
 #include <vector>
 
-#ifdef DEBUG
-#include <sstream>
-
-std::ostream &operator<<(std::ostream &os, std::list<GroupIterator> &lgi)
-{
-	for (std::list<GroupIterator>::iterator it = lgi.begin(); it != lgi.end(); it++)
-		os << (*it);
-	return (os);
-}
-
-std::string pendVectorToString(std::vector<std::list<GroupIterator>::iterator> &pend, std::list<GroupIterator> &s)
-{
-	std::stringstream buf;
-	for (size_t i = 0; i < pend.size(); i++)
-	{
-		if (pend[i] == s.end())
-			buf << "(before end)";
-		else
-			buf << "(before " << *(pend[i]) << ")";
-	}
-	return (buf.str());
-}
-
-std::string pendToString(std::list<GroupIterator>::iterator &pend, std::list<GroupIterator> &s)
-{
-	std::stringstream buf;
-	if (pend == s.end())
-		buf << "(before end)";
-	else
-		buf << "(before " << *pend << ")";
-	return (buf.str());
-}
-#endif
-
-void sortEachPairs(GroupIterator begin, ssize_t nPairs)
-{
-	while (nPairs)
-	{
-		GroupIterator next = begin + 1;
-		if (*begin > *next)
-			begin.swap(next);
-		begin += 2;
-		--nPairs;
-	}
-}
-
-void groupCopy(std::list<int> &l, std::list<GroupIterator> &s)
-{
-	std::list<int> cache;
-
-	for (std::list<GroupIterator>::iterator group = s.begin(); group != s.end(); ++group)
-	{
-		std::list<int>::iterator valit = (*group).getIter();
-		for (ssize_t i = 0; i < (*group).getSpan(); i++)
-		{
-			cache.push_back(*valit);
-			valit++;
-		}
-	}
-
-	std::list<int>::iterator targetit = l.begin();
-	for (std::list<int>::iterator cacheit = cache.begin(); cacheit != cache.end(); ++cacheit)
-	{
-		*targetit = *cacheit;
-		++targetit;
-	}
-}
-
 void fordJohnsonMergeBuildChainPends(GroupIterator &begin,
 									 GroupIterator &end,
 									 bool hasStraggler,
@@ -166,6 +98,28 @@ void fordJohnsonInsert(GroupIterator &begin,
 	DEBUGCOUTLN(__func__ << ": result s: " << s);
 }
 
+void groupCopy(std::list<int> &l, std::list<GroupIterator> &s)
+{
+	std::list<int> cache;
+
+	for (std::list<GroupIterator>::iterator group = s.begin(); group != s.end(); ++group)
+	{
+		std::list<int>::iterator valit = (*group).getIter();
+		for (ssize_t i = 0; i < (*group).getSpan(); i++)
+		{
+			cache.push_back(*valit);
+			valit++;
+		}
+	}
+
+	std::list<int>::iterator targetit = l.begin();
+	for (std::list<int>::iterator cacheit = cache.begin(); cacheit != cache.end(); ++cacheit)
+	{
+		*targetit = *cacheit;
+		++targetit;
+	}
+}
+
 void fordJohnsonMerge(std::list<int> &l, GroupIterator &begin, GroupIterator &end, bool hasStraggler)
 {
 	DEBUGCOUT(__func__ << ": begin with span " << begin.getSpan() << " len " << distance(begin, end) << " ");
@@ -180,6 +134,18 @@ void fordJohnsonMerge(std::list<int> &l, GroupIterator &begin, GroupIterator &en
 	fordJohnsonMergeBuildChainPends(begin, end, hasStraggler, s, pend);
 	fordJohnsonInsert(begin, s, pend);
 	groupCopy(l, s);
+}
+
+void sortEachPairs(GroupIterator begin, ssize_t nPairs)
+{
+	while (nPairs)
+	{
+		GroupIterator next = begin + 1;
+		if (*begin > *next)
+			begin.swap(next);
+		begin += 2;
+		--nPairs;
+	}
 }
 
 void fordJohnsonSortImpl(std::list<int> &l, ssize_t len, GroupIterator &begin, GroupIterator &end)
