@@ -84,7 +84,6 @@ int testPmergeMe(const std::vector<int> &inputValues, const std::vector<int> &so
 
 	_Container buffer(inputValues.begin(), inputValues.end());
 	fordJohnsonSort(buffer);
-	DEBUGCOUT(buffer);
 	assertCompleteSort(buffer, sortedValues);
 	time_done = clock();
 	return (((time_done - time_start) * 1000000) / CLOCKS_PER_SEC);
