@@ -8,18 +8,27 @@ class GroupIterator
 {
   private:
 	typedef std::list<int>::iterator _iterator;
+	std::list<int> &_l;
+	ssize_t _idx;
+	ssize_t _len;
 	_iterator _begin;
 	_iterator _comp;
 	ssize_t _span;
 
   public:
-	GroupIterator(_iterator it, ssize_t span);
+	GroupIterator(std::list<int> &l, ssize_t len, _iterator it, ssize_t span);
 	GroupIterator(const GroupIterator &orig);
+
+	bool valid(void);
+
 	GroupIterator &operator++(void);
 	GroupIterator &operator--(void);
 	const int &operator*(void) const;
+
 	const _iterator &getIter(void) const;
+	const ssize_t &getIdx(void) const;
 	const ssize_t &getSpan(void) const;
+
 	void swap(const GroupIterator &other) const;
 	void copyFrom(const GroupIterator &other) const;
 	void insertToStream(std::ostream &os) const;

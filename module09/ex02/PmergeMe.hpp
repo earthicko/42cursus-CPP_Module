@@ -5,7 +5,7 @@
 #include <list>
 #include <vector>
 
-void fordJohnsonSort(std::list<int> &v);
+void fordJohnsonSort(std::list<int> &l);
 void fordJohnsonSort(std::vector<int> &v);
 
 #endif

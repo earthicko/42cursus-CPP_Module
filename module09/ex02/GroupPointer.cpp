@@ -83,23 +83,24 @@ void GroupPointer::copyFrom(const GroupPointer &other) const
 	for (ssize_t i = 0; i < _span; i++)
 	{
 		*lhs = *rhs;
-		lhs++;
-		rhs++;
+		++lhs;
+		++rhs;
 	}
 }
 
 void GroupPointer::insertToStream(std::ostream &os) const
 {
 	os << "[";
-	int *it = _begin;
-	while (true)
-	{
-		os << *it;
-		if (it == _comp)
-			break;
-		os << ", ";
-		it++;
-	}
+	// int *it = _begin;
+	// while (true)
+	// {
+	// 	os << *it;
+	// 	if (it == _comp)
+	// 		break;
+	// 	os << ", ";
+	// 	it++;
+	// }
+	os << "... " << *_comp;
 	os << "]";
 }
 
@@ -127,14 +128,14 @@ GroupPointer &operator-=(GroupPointer &it, ssize_t amount)
 
 GroupPointer operator+(const GroupPointer &it, ssize_t amount)
 {
-	GroupPointer result = it;
+	GroupPointer result(it);
 	result += amount;
 	return (result);
 }
 
 GroupPointer operator-(const GroupPointer &it, ssize_t amount)
 {
-	GroupPointer result = it;
+	GroupPointer result(it);
 	result -= amount;
 	return (result);
 }
@@ -154,5 +155,7 @@ std::ostream &operator<<(std::ostream &os, const GroupPointer &it)
 
 bool compareGroupPointer(const GroupPointer &lhs, const GroupPointer &rhs)
 {
+	if (lhs.getSpan() != rhs.getSpan())
+		throw(std::runtime_error(""));
 	return (*lhs < *rhs);
 }

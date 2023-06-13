@@ -4,20 +4,22 @@
 #include <list>
 #include <vector>
 
-void fordJohnsonSort(std::list<int> &v)
+void fordJohnsonSort(std::list<int> &l)
 {
-	GroupIterator begin(v.begin(), 1);
-	GroupIterator end(v.end(), 1);
+	ssize_t len = l.size();
+
+	GroupIterator begin(l, len, l.begin(), 1);
+	GroupIterator end(l, len, l.end(), 1);
 
 	DEBUGCOUT(__func__ << ": before sort: ");
-	for (std::list<int>::iterator it = v.begin(); it != v.end(); it++)
+	for (std::list<int>::iterator it = l.begin(); it != l.end(); it++)
 		DEBUGCOUT(*it << " ");
 	DEBUGCOUT(std::endl);
 
-	fordJohnsonSortImpl(begin, end);
+	fordJohnsonSortImpl(l, len, begin, end);
 
 	DEBUGCOUT(__func__ << ": after sort: ");
-	for (std::list<int>::iterator it = v.begin(); it != v.end(); it++)
+	for (std::list<int>::iterator it = l.begin(); it != l.end(); it++)
 		DEBUGCOUT(*it << " ");
 	DEBUGCOUT(std::endl);
 }
@@ -32,7 +34,7 @@ void fordJohnsonSort(std::vector<int> &v)
 		DEBUGCOUT(v[i] << " ");
 	DEBUGCOUT(std::endl);
 
-	fordJohnsonSortImpl(begin, end);
+	fordJohnsonSortImpl(v, begin, end);
 
 	DEBUGCOUT(__func__ << ": after sort: ");
 	for (size_t i = 0; i < v.size(); i++)
