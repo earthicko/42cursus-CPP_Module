@@ -19,7 +19,7 @@ class GroupIterator
 	GroupIterator(std::list<int> &l, ssize_t len, _iterator it, ssize_t span);
 	GroupIterator(const GroupIterator &orig);
 
-	bool valid(void);
+	bool valid(void) const;
 
 	GroupIterator &operator++(void);
 	GroupIterator &operator--(void);

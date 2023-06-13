@@ -21,7 +21,7 @@ GroupIterator::GroupIterator(const GroupIterator &orig)
 {
 }
 
-bool GroupIterator::valid(void)
+bool GroupIterator::valid(void) const
 {
 	return (0 <= _idx && _idx <= _len && _span > 0);
 }
@@ -99,7 +99,11 @@ void GroupIterator::insertToStream(std::ostream &os) const
 	os << "[";
 	for (ssize_t i = 0; i < _span - 1; i++)
 		os << ". ";
-	os << *_comp;
+	ssize_t compidx = _idx + _span - 1;
+	if (0 <= compidx && compidx < _len)
+		os << *_comp;
+	else
+		os << "e";
 	os << "]";
 }
 

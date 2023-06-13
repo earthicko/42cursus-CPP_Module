@@ -4,6 +4,40 @@
 #include <list>
 #include <vector>
 
+#ifdef DEBUG
+#include <sstream>
+
+std::ostream &operator<<(std::ostream &os, std::list<GroupIterator> &lgi)
+{
+	for (std::list<GroupIterator>::iterator it = lgi.begin(); it != lgi.end(); it++)
+		os << (*it);
+	return (os);
+}
+
+std::string pendVectorToString(std::vector<std::list<GroupIterator>::iterator> &pend, std::list<GroupIterator> &s)
+{
+	std::stringstream buf;
+	for (size_t i = 0; i < pend.size(); i++)
+	{
+		if (pend[i] == s.end())
+			buf << "(before end)";
+		else
+			buf << "(before " << *(pend[i]) << ")";
+	}
+	return (buf.str());
+}
+
+std::string pendToString(std::list<GroupIterator>::iterator &pend, std::list<GroupIterator> &s)
+{
+	std::stringstream buf;
+	if (pend == s.end())
+		buf << "(before end)";
+	else
+		buf << "(before " << *pend << ")";
+	return (buf.str());
+}
+#endif
+
 void sortEachPairs(GroupIterator begin, ssize_t nPairs)
 {
 	while (nPairs)
@@ -16,11 +50,11 @@ void sortEachPairs(GroupIterator begin, ssize_t nPairs)
 	}
 }
 
-void groupCopy(std::list<int> &l, std::list<GroupIterator> &chain)
+void groupCopy(std::list<int> &l, std::list<GroupIterator> &s)
 {
 	std::list<int> cache;
 
-	for (std::list<GroupIterator>::iterator group = chain.begin(); group != chain.end(); ++group)
+	for (std::list<GroupIterator>::iterator group = s.begin(); group != s.end(); ++group)
 	{
 		std::list<int>::iterator valit = (*group).getIter();
 		for (ssize_t i = 0; i < (*group).getSpan(); i++)
@@ -41,40 +75,29 @@ void groupCopy(std::list<int> &l, std::list<GroupIterator> &chain)
 void fordJohnsonMergeBuildChainPends(GroupIterator &begin,
 									 GroupIterator &end,
 									 bool hasStraggler,
-									 std::list<GroupIterator> &chain,
+									 std::list<GroupIterator> &s,
 									 std::vector<std::list<GroupIterator>::iterator> &pend)
 {
-	chain.push_back(begin);
-	chain.push_back(begin + 1);
+	s.push_back(begin);
+	s.push_back(begin + 1);
 
 	GroupIterator endWithoutStraggler = hasStraggler ? end - 1 : end;
 	for (GroupIterator it = begin + 2; it != endWithoutStraggler; it += 2)
 	{
-		std::list<GroupIterator>::iterator next = chain.insert(chain.end(), it + 1);
+		std::list<GroupIterator>::iterator next = s.insert(s.end(), it + 1);
 		pend.push_back(next);
 	}
 
-	DEBUGCOUT(__func__ << ": chain : ");
-	for (std::list<GroupIterator>::iterator it = chain.begin(); it != chain.end(); it++)
-		DEBUGCOUT(*it);
-	DEBUGCOUT(std::endl);
+	DEBUGCOUTLN(__func__ << ": s : " << s);
 
 	if (hasStraggler)
-		pend.push_back(chain.end());
+		pend.push_back(s.end());
 
-	DEBUGCOUT(__func__ << ": pend: ");
-	for (size_t i = 0; i < pend.size(); i++)
-	{
-		if (pend[i] == chain.end())
-			DEBUGCOUT("(before end)");
-		else
-			DEBUGCOUT("(before " << *(pend[i]) << ")");
-	}
-	DEBUGCOUT(std::endl);
+	DEBUGCOUTLN(__func__ << ": pend: " << pendVectorToString(pend, s));
 }
 
 void fordJohnsonInsertJacobsthalDiff(GroupIterator &b_search_start,
-									 std::list<GroupIterator> &chain,
+									 std::list<GroupIterator> &s,
 									 size_t &pend_i,
 									 std::vector<std::list<GroupIterator>::iterator> &pend)
 {
@@ -82,96 +105,65 @@ void fordJohnsonInsertJacobsthalDiff(GroupIterator &b_search_start,
 	while (true)
 	{
 		size_t dist = getJacobsthalDiff(k);
-		DEBUGCOUTLN(__func__ << ": getJacobsthalDiff " << dist);
+		DEBUGCOUTLN(__func__ << ": Jacobsthal diff " << dist);
 		if (dist > pend.size() - pend_i)
-		{
-			DEBUGCOUTLN(__func__ << ": dist > pend.size() - pend_i (" << pend.size() - pend_i << "), break");
 			break;
-		}
+
 		GroupIterator b_inserted = b_search_start + dist * 2;
 		if (!b_inserted.valid())
-		{
-			DEBUGCOUTLN(__func__ << ": b_inserted out of bound");
 			break;
-		}
+
 		size_t pend_bound = pend_i + dist;
-		DEBUGCOUTLN(__func__ << ": b_search_start " << b_search_start << " b_inserted " << b_inserted << " pend_i "
-							 << pend_i << " pend_bound " << pend_bound);
 		while (true)
 		{
-			--pend_bound;
+			pend_bound -= 1;
 			b_inserted -= 2;
 			if (!b_inserted.valid())
-			{
-				DEBUGCOUTLN(__func__ << ": b_inserted out of bound");
 				break;
-			}
-			DEBUGCOUTLN(__func__ << ": b_inserted " << b_inserted << " pend_bound " << pend_bound);
 
-			DEBUGCOUT(__func__ << ": upper_bound " << b_inserted << " from " << *(chain.begin()) << " to ");
-			if (pend[pend_bound] == chain.end())
-				DEBUGCOUTLN(" to (before end)");
-			else
-				DEBUGCOUTLN(" to (before " << *(pend[pend_bound]) << ")");
+			DEBUGCOUT(__func__ << ": find insertion point of " << b_inserted << " (idx " << b_inserted.getIdx() << ")");
 
 			std::list<GroupIterator>::iterator insertion_point
-				= std::upper_bound(chain.begin(), pend[pend_bound], b_inserted, compareGroupIterator);
-			DEBUGCOUTLN(__func__ << ": insertion_point " << *insertion_point << " b_inserted " << b_inserted);
-			chain.insert(insertion_point, b_inserted);
+				= std::upper_bound(s.begin(), pend[pend_bound], b_inserted, compareGroupIterator);
+			DEBUGCOUTLN(": insert before " << *insertion_point);
+
+			s.insert(insertion_point, b_inserted);
 			if (pend_bound == pend_i)
-			{
-				DEBUGCOUTLN(__func__ << ": pend_bound == pend_i, break");
 				break;
-			}
 		}
 		b_search_start += dist * 2;
 		if (!b_search_start.valid())
-		{
-			DEBUGCOUTLN(__func__ << ": b_search_start out of bound");
 			break;
-		}
 		pend_i += dist;
 		k++;
 	}
 }
 
 void fordJohnsonInsert(GroupIterator &begin,
-					   std::list<GroupIterator> &chain,
+					   std::list<GroupIterator> &s,
 					   std::vector<std::list<GroupIterator>::iterator> &pend)
 {
 	GroupIterator b_cursor = begin + 2;
 	size_t pend_i = 0;
 
-	fordJohnsonInsertJacobsthalDiff(b_cursor, chain, pend_i, pend);
+	fordJohnsonInsertJacobsthalDiff(b_cursor, s, pend_i, pend);
 
 	while (pend_i < pend.size())
 	{
-		DEBUGCOUT(__func__ << ": pend not empty, upper_bound " << b_cursor << " from " << *(chain.begin()) << " to ");
-		if (pend[pend_i] == chain.end())
-			DEBUGCOUTLN(" to (before end)");
-		else
-			DEBUGCOUTLN(" to (before " << *(pend[pend_i]) << ")");
+		DEBUGCOUT(__func__ << ": find insertion point of " << b_cursor << " (idx " << b_cursor.getIdx() << ")");
+
 		std::list<GroupIterator>::iterator insertion_point
-			= std::upper_bound(chain.begin(), pend[pend_i], b_cursor, compareGroupIterator);
-		if (insertion_point != chain.end())
-			DEBUGCOUTLN(__func__ << ": insertion_point " << *insertion_point << " b_cursor " << b_cursor);
-		else
-			DEBUGCOUTLN(__func__ << ": insertion_point (end) b_cursor " << b_cursor);
-		chain.insert(insertion_point, b_cursor);
+			= std::upper_bound(s.begin(), pend[pend_i], b_cursor, compareGroupIterator);
+		DEBUGCOUTLN(": insert before " << pendToString(insertion_point, s));
+
+		s.insert(insertion_point, b_cursor);
 		b_cursor += 2;
 		if (!b_cursor.valid())
-		{
-			DEBUGCOUTLN(__func__ << ": b_cursor out of bound");
 			break;
-		}
 		pend_i++;
-		DEBUGCOUTLN(__func__ << ": b_cursor " << b_cursor << " pend_i " << pend_i);
 	}
 
-	DEBUGCOUT(__func__ << ": result chain : ");
-	for (std::list<GroupIterator>::iterator it = chain.begin(); it != chain.end(); it++)
-		DEBUGCOUT(*it);
-	DEBUGCOUT(std::endl);
+	DEBUGCOUTLN(__func__ << ": result s: " << s);
 }
 
 void fordJohnsonMerge(std::list<int> &l, GroupIterator &begin, GroupIterator &end, bool hasStraggler)
@@ -183,11 +175,11 @@ void fordJohnsonMerge(std::list<int> &l, GroupIterator &begin, GroupIterator &en
 		DEBUGCOUT(" with straggler");
 	DEBUGCOUT(std::endl);
 
-	std::list<GroupIterator> chain;
+	std::list<GroupIterator> s;
 	std::vector<std::list<GroupIterator>::iterator> pend;
-	fordJohnsonMergeBuildChainPends(begin, end, hasStraggler, chain, pend);
-	fordJohnsonInsert(begin, chain, pend);
-	groupCopy(l, chain);
+	fordJohnsonMergeBuildChainPends(begin, end, hasStraggler, s, pend);
+	fordJohnsonInsert(begin, s, pend);
+	groupCopy(l, s);
 }
 
 void fordJohnsonSortImpl(std::list<int> &l, ssize_t len, GroupIterator &begin, GroupIterator &end)
@@ -196,48 +188,21 @@ void fordJohnsonSortImpl(std::list<int> &l, ssize_t len, GroupIterator &begin, G
 	ssize_t nPairs = n_groups / 2;
 
 	if (n_groups <= 1)
-	{
-		DEBUGCOUTLN(__func__ << ": return because n_groups <= 1");
 		return;
-	}
-
-	DEBUGCOUT(__func__ << ": begin with span " << begin.getSpan() << " n_groups " << n_groups << " ");
-	for (GroupIterator it = begin; it != end; ++it)
-		DEBUGCOUT(it);
-	DEBUGCOUT(std::endl);
 
 	bool hasStraggler = false;
 	if (n_groups % 2 == 1)
-	{
 		hasStraggler = true;
-		DEBUGCOUTLN(__func__ << ": has straggler");
-	}
 
 	sortEachPairs(begin, nPairs);
-	DEBUGCOUT(__func__ << ": after sortEachPairs: ");
-	for (GroupIterator it = begin; it != end; ++it)
-		DEBUGCOUT(it);
-	DEBUGCOUT(std::endl);
 
 	if (nPairs > 1)
 	{
-		DEBUGCOUTLN(__func__ << ": begin recursion");
-
 		GroupIterator nextBegin(l, len, begin.getIter(), begin.getSpan() * 2);
 		GroupIterator nextEnd = nextBegin + nPairs;
 		fordJohnsonSortImpl(l, len, nextBegin, nextEnd);
-		DEBUGCOUT(__func__ << ": after recursion: ");
-		for (GroupIterator it = begin; it != end; ++it)
-			DEBUGCOUT(it);
-		DEBUGCOUT(std::endl);
 	}
 
 	if (nPairs >= 2 || hasStraggler)
-	{
 		fordJohnsonMerge(l, begin, end, hasStraggler);
-		DEBUGCOUT(__func__ << ": after merge: ");
-		for (GroupIterator it = begin; it != end; ++it)
-			DEBUGCOUT(it);
-		DEBUGCOUT(std::endl);
-	}
 }
