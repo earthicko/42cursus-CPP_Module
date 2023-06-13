@@ -26,15 +26,17 @@ void fordJohnsonSort(std::list<int> &l)
 
 void fordJohnsonSort(std::vector<int> &v)
 {
-	GroupPointer begin(v, 0, 1);
-	GroupPointer end(v, v.size(), 1);
+	ssize_t len = v.size();
+
+	GroupPointer begin(v, len, 0, 1);
+	GroupPointer end(v, len, v.size(), 1);
 
 	DEBUGCOUT(__func__ << ": before sort: ");
 	for (size_t i = 0; i < v.size(); i++)
 		DEBUGCOUT(v[i] << " ");
 	DEBUGCOUT(std::endl);
 
-	fordJohnsonSortImpl(v, begin, end);
+	fordJohnsonSortImpl(v, len, begin, end);
 
 	DEBUGCOUT(__func__ << ": after sort: ");
 	for (size_t i = 0; i < v.size(); i++)

@@ -5,6 +5,6 @@
 #include "GroupPointer.hpp"
 
 void fordJohnsonSortImpl(std::list<int> &l, ssize_t len, GroupIterator &begin, GroupIterator &end);
-void fordJohnsonSortImpl(std::vector<int> &v, GroupPointer &begin, GroupPointer &end);
+void fordJohnsonSortImpl(std::vector<int> &v, ssize_t len, GroupPointer &begin, GroupPointer &end);
 
 #endif
