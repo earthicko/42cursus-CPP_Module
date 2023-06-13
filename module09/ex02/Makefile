@@ -3,7 +3,7 @@ NAME		= PmergeMe
 CXX			= c++
 CXXFLAGS	= -Wall -Wextra -Werror -std=c++98 -fsanitize=address -g
 
-SRCS		= main.cpp PmergeMe.cpp GroupIterator.cpp GroupPointer.cpp fordJohnsonList.cpp fordJohnsonVector.cpp getJacobsthalDiff.cpp
+SRCS		= main.cpp PmergeMe.cpp GroupIterator.cpp GroupPointer.cpp fordJohnsonList.cpp fordJohnsonVector.cpp getJacobsthalDiff.cpp debugCout.cpp
 OBJS		= $(SRCS:.cpp=.o)
 
 all: $(NAME)
