@@ -1,7 +1,7 @@
 #include <cstddef>
 #include <stdexcept>
 
-const size_t cacheSize = 64;
+const ssize_t cacheSize = 64;
 
 ssize_t getJacobsthalDiff(ssize_t idx)
 {
