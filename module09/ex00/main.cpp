@@ -55,7 +55,7 @@ void processLine(const BitcoinExchange &bx, std::ifstream &file)
 	const char delim = '|';
 
 	std::getline(file, line);
-	if (line == "\n")
+	if (line == "")
 		return;
 	buf.str(line);
 	std::getline(buf, first, delim);
