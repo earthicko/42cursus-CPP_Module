@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# Check if the right number of arguments are provided
+if [ "$#" -ne 2 ]; then
+    echo "Usage: $0 <number of tests> <range of elements>"
+    exit 1
+fi
+
+# Get the number of tests and the range from the command line arguments
+num_tests=$1
+range=$2
+
+# Iterate over the range
+for i in $(seq 1 $range); do
+    # Run the tests the specified number of times
+    for j in $(seq 1 $num_tests); do
+        # Run the PmergeMe command
+        command="./PmergeMe $(jot -r $i 1 100000 | tr '\n' ' ')"
+        # Echo the command
+        echo $command
+        # Execute the command
+        eval $command
+    done
+done
