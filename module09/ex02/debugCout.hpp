@@ -35,6 +35,7 @@
 std::ostream &operator<<(std::ostream &os, std::list<GroupIterator> &lgi);
 std::string pendVectorToString(std::vector<std::list<GroupIterator>::iterator> &pend, std::list<GroupIterator> &s);
 std::string pendToString(std::list<GroupIterator>::iterator &pend, std::list<GroupIterator> &s);
+std::string pendToString(std::list<GroupPointer>::iterator &pend, std::list<GroupPointer> &s);
 std::ostream &operator<<(std::ostream &os, std::list<GroupPointer> &lgi);
 std::string pendVectorToString(std::vector<std::list<GroupPointer>::iterator> &pend, std::list<GroupPointer> &s);
 
