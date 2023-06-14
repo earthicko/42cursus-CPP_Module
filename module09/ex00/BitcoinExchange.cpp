@@ -62,8 +62,7 @@ void BitcoinExchange::load(const std::string &filepath)
 
 	file.open(filepath.c_str(), std::ios_base::in);
 	if (!file.is_open())
-		throw(
-			std::ifstream::failure(std::string("Failed to open ") + filepath));
+		throw(std::ifstream::failure(std::string("Failed to open ") + filepath));
 	lineidx = 0;
 	while (!file.eof())
 	{
@@ -115,8 +114,7 @@ time_t BitcoinExchange::parseDate(const std::string &date)
 	dateVal.tm_mday = parseString(date.substr(8, 10));
 	normalizedDateVal = dateVal;
 	epoch = mktime(&normalizedDateVal);
-	if (epoch < 0 || dateVal.tm_year != normalizedDateVal.tm_year
-		|| dateVal.tm_mon != normalizedDateVal.tm_mon
+	if (epoch < 0 || dateVal.tm_year != normalizedDateVal.tm_year || dateVal.tm_mon != normalizedDateVal.tm_mon
 		|| dateVal.tm_mday != normalizedDateVal.tm_mday)
 		throw(std::runtime_error(std::string("Invalid date ") + date));
 	return (epoch);
@@ -134,8 +132,7 @@ float BitcoinExchange::parseNumber(const std::string &number)
 	return (priceVal);
 }
 
-void BitcoinExchange::loadLine(const std::string &date,
-							   const std::string &price)
+void BitcoinExchange::loadLine(const std::string &date, const std::string &price)
 {
 	time_t dateVal;
 	float priceVal;
