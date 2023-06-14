@@ -1,8 +1,7 @@
 #include "RPN.hpp"
 
 const char RPN::ops[] = {PLUS, MINUS, DIVIDE, MULTIPLY};
-double (*const RPN::opfunc[])(const double &, const double &)
-	= {plusfunc, minusfunc, dividefunc, multiplyfunc};
+double (*const RPN::opfunc[])(const double &, const double &) = {plusfunc, minusfunc, dividefunc, multiplyfunc};
 
 RPN::RPN(void)
 	: _buffer()
@@ -41,12 +40,21 @@ double RPN::parseOperand(const std::string &input)
 	std::stringstream buf;
 	double val;
 
+#ifdef SINGLE_DIGIT_MODE
 	if (input.length() != 1)
 		throw(RPN::ParseFailException(input));
+#else
+	if (input.find('.') != std::string::npos)
+		throw(RPN::ParseFailException(input));
+#endif
 	buf.str(input);
 	buf >> val;
 	if (buf.fail())
 		throw(RPN::ParseFailException(input));
+#ifndef SINGLE_DIGIT_MODE
+	if (val >= 10.0)
+		throw(RPN::ParseFailException(input));
+#endif
 	return (val);
 }
 

@@ -6,6 +6,8 @@
 #include <stdexcept>
 #include <string>
 
+#define SINGLE_DIGIT_MODE
+
 class RPN
 {
   private:
