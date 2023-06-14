@@ -6,8 +6,6 @@
 #include <stdexcept>
 #include <string>
 
-#define SINGLE_DIGIT_MODE
-
 class RPN
 {
   private:
@@ -21,6 +19,7 @@ class RPN
 	static const char ops[];
 	static double (*const opfunc[])(const double &, const double &);
 	std::stack<double> _buffer;
+	bool _multiDigitMode;
 
 	int parseOperator(const std::string &input);
 	double parseOperand(const std::string &input);
