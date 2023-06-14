@@ -7,9 +7,25 @@
 const std::string firstColumn = "date";
 const std::string secondColumn = "value";
 
-void printPriceAt(const BitcoinExchange &bx,
-				  const std::string &date,
-				  const std::string &amount)
+void trimSpace(std::string &s)
+{
+	size_t end = s.find_last_not_of(" ");
+	if (end == std::string::npos)
+	{
+		s = "";
+		return;
+	}
+	s = s.substr(0, end + 1);
+	size_t start = s.find_first_not_of(" ");
+	if (start == std::string::npos)
+	{
+		s = "";
+		return;
+	}
+	s = s.substr(start);
+}
+
+void printPriceAt(const BitcoinExchange &bx, const std::string &date, const std::string &amount)
 {
 	time_t dateVal;
 	float amountVal;
@@ -27,8 +43,7 @@ void printPriceAt(const BitcoinExchange &bx,
 	}
 	price = bx.getPrice(dateVal);
 	totalPrice = amountVal * price;
-	std::cout << date << ": " << amountVal << " * " << price << " = "
-			  << totalPrice << "\n";
+	std::cout << date << ": " << amountVal << " * " << price << " = " << totalPrice << "\n";
 }
 
 void processLine(const BitcoinExchange &bx, std::ifstream &file)
@@ -47,6 +62,8 @@ void processLine(const BitcoinExchange &bx, std::ifstream &file)
 	std::getline(buf, second, delim);
 	if (first.length() == 0 || second.length() == 0 || !buf.eof())
 		throw(std::runtime_error(std::string("Invalid line ") + line));
+	trimSpace(first);
+	trimSpace(second);
 	if (first == firstColumn && second == secondColumn)
 		return;
 	printPriceAt(bx, first, second);
@@ -59,8 +76,7 @@ void process(const BitcoinExchange &bx, const std::string &filepath)
 
 	file.open(filepath.c_str(), std::ios_base::in);
 	if (!file.is_open())
-		throw(
-			std::ifstream::failure(std::string("Failed to open ") + filepath));
+		throw(std::ifstream::failure(std::string("Failed to open ") + filepath));
 	saved_flags = std::cout.flags();
 	std::cout.setf(std::ios::fixed, std::ios::floatfield);
 	std::cout.precision(std::numeric_limits<float>::digits10);
